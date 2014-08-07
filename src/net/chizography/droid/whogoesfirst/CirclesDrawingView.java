@@ -91,7 +91,7 @@ public class CirclesDrawingView extends View {
         // prepare for 'touch, timer, show 'winner'
         // via:        
         this.setOnTouchListener(new OnTouchListener() {
-        	public boolean onTouch(View arg0, MotionEvent evt) {
+        	public boolean onTouch(View arg0, MotionEvent evt) {/*
         		this.countdownTimer = new CountDownTimer(100000, 1000) {
                     public void onTick(long millisUntilFinished) {
             			Log.d("CHIZBUG", "Seconds remaining: " + millisUntilFinished / 1000);
@@ -100,7 +100,7 @@ public class CirclesDrawingView extends View {
                     public void onFinish() {
                     	Toast.makeText(ct, "Finished", Toast.LENGTH_SHORT).show();
                     }
-                }.start();
+                }.start();*/
                 return false;
         	}
         });
