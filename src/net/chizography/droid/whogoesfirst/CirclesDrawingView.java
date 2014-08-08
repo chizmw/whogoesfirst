@@ -80,7 +80,7 @@ public class CirclesDrawingView extends View {
 
     private void init(final Context ct) {
         // Generate bitmap used for background
-        mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.graph_paper);
+        mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.felt_01);
 
         mCirclePaint = new Paint();
         mCirclePaint.setColor(Color.MAGENTA);
