@@ -125,13 +125,19 @@ public class CirclesDrawingView extends View {
      	    canv.drawCircle(circle.centerX, circle.centerY, circle.radius, p);
 			
 			if (circle.needs_wiping){
-				//mCircles.remove(circle);
+				// make sure we don't try to delete ourself multiple times
+				// if there is a backlog of events
+				if(mCircles.contains(circle)){
+					int idx = mCirclePointer.indexOfValue(circle);
+					//mCircles.remove(circle);
+					//mCirclePointer.delete(idx);
+				}
 			}
         }
     }
 
 	public CircleArea scanForTouchedCircle(final MotionEvent event){
-		int actionIndex;// = event.getActionIndex();
+		int actionIndex;
 		CircleArea touchedCircle=null;
 		int xTouch,yTouch,pointerId;
 		final int pointerCount = event.getPointerCount();
@@ -208,18 +214,26 @@ public class CirclesDrawingView extends View {
                 break;
 
             case MotionEvent.ACTION_UP:
+				// the finger that started the "gesture"
 				touchedCircle = scanForTouchedCircle(event);
 				touchedCircle.needs_wiping=true;
-                clearCirclePointer();
+				if(mCirclePointer.size()==1){
+					clearCirclePointer();
+				}
+				else{
+					Toast.makeText(this.getContext(),"non final Up",Toast.LENGTH_SHORT).show();
+				}
+                //clearCirclePointer();
                 invalidate();
                 handled = true;
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
+				// one of the "other" fingers
                 pointerId = event.getPointerId(actionIndex);
 				mCirclePointer.get(pointerId).needs_wiping=true;
                 mCirclePointer.remove(pointerId);
-                invalidate();
+				invalidate();
                 handled = true;
                 break;
 
@@ -296,7 +310,6 @@ public class CirclesDrawingView extends View {
 	@Override
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         mMeasuredRect = new Rect(0, 0, getMeasuredWidth(), getMeasuredHeight());
     }
 }
