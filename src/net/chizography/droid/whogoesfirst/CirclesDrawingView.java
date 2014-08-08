@@ -31,6 +31,7 @@ public class CirclesDrawingView extends View {
         int radius;
         int centerX;
         int centerY;
+		boolean needs_wiping = false;
 
         CircleArea(int centerX, int centerY, int radius) {
             this.radius = radius;
@@ -45,7 +46,7 @@ public class CirclesDrawingView extends View {
     }
 
     /** Paint to draw circles */
-    private Paint mCirclePaint;
+    private Paint mCirclePaint, mErasePaint;
     private static final int CIRCLES_LIMIT = 8;
 
     /** All available circles */
@@ -82,12 +83,14 @@ public class CirclesDrawingView extends View {
         mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.graph_paper);
 
         mCirclePaint = new Paint();
-
         mCirclePaint.setColor(Color.MAGENTA);
         mCirclePaint.setStrokeWidth(40);
         mCirclePaint.setStyle(Paint.Style.FILL);
         mCirclePaint.setMaskFilter(new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL));
         
+		mErasePaint = new Paint(mCirclePaint);
+		mErasePaint.setColor(Color.TRANSPARENT);
+		
         // prepare for 'touch, timer, show 'winner'
         // via:        
         this.setOnTouchListener(new OnTouchListener() {
@@ -112,10 +115,40 @@ public class CirclesDrawingView extends View {
         canv.drawBitmap(mBitmap, null, mMeasuredRect, null);
 
         for (CircleArea circle : mCircles) {
-            canv.drawCircle(circle.centerX, circle.centerY, circle.radius, mCirclePaint);
+			Paint p;
+			if (circle.needs_wiping) {
+				p = mErasePaint;
+			}
+			else {
+				p = mCirclePaint;
+			}
+     	    canv.drawCircle(circle.centerX, circle.centerY, circle.radius, p);
         }
     }
 
+	public CircleArea touchedCircle(final MotionEvent event){
+		int actionIndex = event.getActionIndex();
+		CircleArea touchedCircle=null;
+		int xTouch,yTouch,pointerId;
+		final int pointerCount = event.getPointerCount();
+		
+		for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
+			// Some pointer has moved, search it by pointer id
+			pointerId = event.getPointerId(actionIndex);
+
+			xTouch = (int) event.getX(actionIndex);
+			yTouch = (int) event.getY(actionIndex);
+
+			touchedCircle = mCirclePointer.get(pointerId);
+
+			if (null != touchedCircle) {
+				touchedCircle.centerX = xTouch;
+				touchedCircle.centerY = yTouch;
+			}
+		}
+		return touchedCircle;
+	}
+	
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         boolean handled = false;
@@ -166,8 +199,6 @@ public class CirclesDrawingView extends View {
             case MotionEvent.ACTION_MOVE:
                 final int pointerCount = event.getPointerCount();
 
-                Log.w(TAG, "Move");
-
                 for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
                     // Some pointer has moved, search it by pointer id
                     pointerId = event.getPointerId(actionIndex);
@@ -187,15 +218,16 @@ public class CirclesDrawingView extends View {
                 break;
 
             case MotionEvent.ACTION_UP:
+				touchedCircle = touchedCircle(event);
+				touchedCircle.needs_wiping=true;
                 clearCirclePointer();
                 invalidate();
                 handled = true;
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
-                // not general pointer was up
                 pointerId = event.getPointerId(actionIndex);
-
+				mCirclePointer.get(pointerId).needs_wiping=true;
                 mCirclePointer.remove(pointerId);
                 invalidate();
                 handled = true;
@@ -218,7 +250,6 @@ public class CirclesDrawingView extends View {
      */
     private void clearCirclePointer() {
         Log.w(TAG, "clearCirclePointer");
-
         mCirclePointer.clear();
     }
 
