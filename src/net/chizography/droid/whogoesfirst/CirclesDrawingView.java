@@ -7,8 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
@@ -33,7 +31,7 @@ public class CirclesDrawingView extends View {
 	private boolean debugEnabled = false;
 
     /** Paint to draw circles */
-    private Paint mCirclePaint, mErasePaint, mDebugPaint;
+    private CircleBrush mCirclePaint, mErasePaint, mDebugPaint;
     private static final int CIRCLES_LIMIT = 8;
 
     /** All available circles */
@@ -99,7 +97,7 @@ public class CirclesDrawingView extends View {
         canv.drawBitmap(mBitmap, null, mMeasuredRect, null);
 
         for (CircleArea circle : mCircles) {
-			Paint p;
+			CircleBrush p;
 			if (circle.needs_wiping) {
 				p = debugEnabled ? mDebugPaint : mErasePaint;
 			}
