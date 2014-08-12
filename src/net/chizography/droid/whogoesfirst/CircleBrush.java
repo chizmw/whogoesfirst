@@ -13,8 +13,9 @@ public class CircleBrush extends Paint {
 	}
 	private void init() {
 		// a default brush
-		this.setColor(Color.MAGENTA);
-        this.setStrokeWidth(40);
+		//this.setColor(Color.MAGENTA);
+		this.setColor(Color.argb(222,82,4,79));
+        this.setStrokeWidth(35);
         this.setStyle(Paint.Style.FILL);
         this.setMaskFilter(new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL));  
 	}
