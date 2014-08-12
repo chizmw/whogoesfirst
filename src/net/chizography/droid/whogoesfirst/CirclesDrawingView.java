@@ -19,6 +19,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.chizography.droid.whogoesfirst.CircleBrush;
+
 public class CirclesDrawingView extends View {
     private static final String TAG = "CirclesDrawingView";
 
@@ -84,20 +86,14 @@ public class CirclesDrawingView extends View {
         mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.felt_01);
 
 		// visible paint
-        mCirclePaint = new Paint();
-        mCirclePaint.setColor(Color.MAGENTA);
-        mCirclePaint.setStrokeWidth(40);
-        mCirclePaint.setStyle(Paint.Style.FILL);
-        mCirclePaint.setMaskFilter(new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL));
+        mCirclePaint = new CircleBrush(CircleBrush.brushType.DEFAULT);
         
 		// normal transparent paint
-		mDebugPaint = new Paint(mCirclePaint);
-		mDebugPaint.setColor(Color.GRAY);
+		mErasePaint = new CircleBrush(CircleBrush.brushType.ERASE);
 		
 		// debugging paint
-		mErasePaint = new Paint(mCirclePaint);
-		mErasePaint.setColor(Color.TRANSPARENT);
-		
+		mDebugPaint = new CircleBrush(CircleBrush.brushType.DEBUGGING);
+
         // prepare for 'touch, timer, show 'winner'
         // via:        
         this.setOnTouchListener(new OnTouchListener() {
