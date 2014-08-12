@@ -1,21 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:id="@+id/scroller">
-    <net.chizography.droid.whogoesfirst.CirclesDrawingView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:id="@+id/scroller">
 
-    <TextView
-        android:id="@+id/txtTimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="44dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/hello_world"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+	<net.chizography.droid.whogoesfirst.CirclesDrawingView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="#AB6D69"/>
+
+	<TextView
+		android:id="@+id/txtTimer"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:layout_marginLeft="44dp"
+		android:layout_marginTop="28dp"
+		android:text="@string/timerValue"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:visibility="invisible"
+		android:textStyle="normal"
+		android:typeface="normal"
+		android:textSize="60sp"/>
 
 </RelativeLayout>
+
