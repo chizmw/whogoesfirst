@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 public class CirclesDrawingView extends View {
     private static final String TAG = "CirclesDrawingView";
 
@@ -44,9 +45,12 @@ public class CirclesDrawingView extends View {
             return "Circle[" + centerX + ", " + centerY + ", " + radius + "]";
         }
     }
+	
+	// chisel's debugging
+	private boolean debugEnabled = false;
 
     /** Paint to draw circles */
-    private Paint mCirclePaint, mErasePaint;
+    private Paint mCirclePaint, mErasePaint, mDebugPaint;
     private static final int CIRCLES_LIMIT = 8;
 
     /** All available circles */
@@ -62,19 +66,16 @@ public class CirclesDrawingView extends View {
      */
     public CirclesDrawingView(final Context ct) {
         super(ct);
-
         init(ct);
     }
 
     public CirclesDrawingView(final Context ct, final AttributeSet attrs) {
         super(ct, attrs);
-
         init(ct);
     }
 
     public CirclesDrawingView(final Context ct, final AttributeSet attrs, final int defStyle) {
         super(ct, attrs, defStyle);
-
         init(ct);
     }
 
@@ -82,14 +83,20 @@ public class CirclesDrawingView extends View {
         // Generate bitmap used for background
         mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.felt_01);
 
+		// visible paint
         mCirclePaint = new Paint();
         mCirclePaint.setColor(Color.MAGENTA);
         mCirclePaint.setStrokeWidth(40);
         mCirclePaint.setStyle(Paint.Style.FILL);
         mCirclePaint.setMaskFilter(new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL));
         
+		// normal transparent paint
+		mDebugPaint = new Paint(mCirclePaint);
+		mDebugPaint.setColor(Color.GRAY);
+		
+		// debugging paint
 		mErasePaint = new Paint(mCirclePaint);
-		mErasePaint.setColor(Color.WHITE);
+		mErasePaint.setColor(Color.TRANSPARENT);
 		
         // prepare for 'touch, timer, show 'winner'
         // via:        
@@ -117,22 +124,33 @@ public class CirclesDrawingView extends View {
         for (CircleArea circle : mCircles) {
 			Paint p;
 			if (circle.needs_wiping) {
-				p = mErasePaint;
+				p = debugEnabled ? mDebugPaint : mErasePaint;
 			}
 			else {
 				p = mCirclePaint;
 			}
      	    canv.drawCircle(circle.centerX, circle.centerY, circle.radius, p);
 			
+			// this isn't working well; regardless of the order
+			// I don't seem to be able to delete the pointer and the circle
+			// without causing the app to crash (null pointer?)
+			// until I can resolve this the circles stay (invisibly)
+			// and we abuse needs_wiping to choose the paint to use
+			/*
 			if (circle.needs_wiping){
 				// make sure we don't try to delete ourself multiple times
 				// if there is a backlog of events
-				if(mCircles.contains(circle)){
+				if(mCircles.contains(circle)) {
 					int idx = mCirclePointer.indexOfValue(circle);
 					//mCircles.remove(circle);
-					//mCirclePointer.delete(idx);
+					if (idx < 0) {
+						//Toast.makeText(this.getContext(),"no idx",Toast.LENGTH_SHORT).show();
+					}
+					else {
+						//mCirclePointer.delete(idx);
+					}
 				}
-			}
+			}*/
         }
     }
 
@@ -184,6 +202,9 @@ public class CirclesDrawingView extends View {
                 touchedCircle.centerX = xTouch;
                 touchedCircle.centerY = yTouch;
                 mCirclePointer.put(event.getPointerId(0), touchedCircle);
+				
+				// if a previously touched and released circle is retouched
+				touchedCircle.needs_wiping = false;
 
                 invalidate();
                 handled = true;
@@ -203,12 +224,17 @@ public class CirclesDrawingView extends View {
                 mCirclePointer.put(pointerId, touchedCircle);
                 touchedCircle.centerX = xTouch;
                 touchedCircle.centerY = yTouch;
+				// if a previously touched and released circle is retouched
+				touchedCircle.needs_wiping = false;
                 invalidate();
                 handled = true;
                 break;
 
             case MotionEvent.ACTION_MOVE:
 				touchedCircle = scanForTouchedCircle(event);
+				if (touchedCircle != null) {
+					touchedCircle.needs_wiping = false;
+				}
                 invalidate();
                 handled = true;
                 break;
@@ -231,8 +257,14 @@ public class CirclesDrawingView extends View {
             case MotionEvent.ACTION_POINTER_UP:
 				// one of the "other" fingers
                 pointerId = event.getPointerId(actionIndex);
-				mCirclePointer.get(pointerId).needs_wiping=true;
-                mCirclePointer.remove(pointerId);
+				CircleArea c = mCirclePointer.get(pointerId);
+				if (null != c) {
+					mCirclePointer.get(pointerId).needs_wiping=true;
+                	mCirclePointer.remove(pointerId);
+				}
+				else {
+					Toast.makeText(this.getContext(),"APU c null",Toast.LENGTH_SHORT).show();
+				}
 				invalidate();
                 handled = true;
                 break;
