@@ -3,6 +3,6 @@
 
     <string name="app_name">Who Goes First</string>
     <string name="action_settings">Settings</string>
-    <string name="timerValue">Hello world!</string>
+    <string name="timerValue">#</string>
 	<string name="arse">arse</string>
 </resources>

@@ -17,25 +17,30 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
 		android:text="@string/timerValue"
-		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:visibility="visible"
 		android:textStyle="normal"
 		android:typeface="normal"
-		android:textSize="60sp"
+		android:textSize="100sp"
 		android:gravity="center"
 		android:layout_alignParentRight="true"
-		android:layout_centerInParent="true"/>
+		android:layout_centerInParent="true"
+		android:textColor="#EFF800"/>
 
 	<TextView
 		android:layout_height="wrap_content"
 		android:text="Large Text"
-		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:layout_width="wrap_content"
 		android:layout_alignBaseline="@id/activityfingerchooserCirclesDrawingView1"
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
-		android:gravity="center"/>
+		android:gravity="center"
+		android:background="#D9CE8E"
+		android:layout_marginBottom="10dp"
+		android:typeface="monospace"
+		android:alpha="0.9"/>
 
 </RelativeLayout>
 
