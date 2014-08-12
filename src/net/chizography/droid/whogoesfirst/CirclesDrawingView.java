@@ -167,7 +167,7 @@ public class CirclesDrawingView extends View {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 // it's the first pointer, so clear all existing pointers data
-                clearCirclePointer();
+                clearCirclePointers();
 
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
@@ -186,7 +186,6 @@ public class CirclesDrawingView extends View {
                 break;
 
             case MotionEvent.ACTION_POINTER_DOWN:
-                Log.w(TAG, "Pointer down");
                 // It secondary pointers, so obtain their ids and check circles
                 pointerId = event.getPointerId(actionIndex);
 
@@ -219,12 +218,12 @@ public class CirclesDrawingView extends View {
 				touchedCircle = scanForTouchedCircle(event);
 				touchedCircle.needs_wiping=true;
 				if(mCirclePointer.size()==1){
-					clearCirclePointer();
+					clearCirclePointers();
 				}
 				else{
 					Toast.makeText(this.getContext(),"non final Up",Toast.LENGTH_SHORT).show();
 				}
-                //clearCirclePointer();
+                //clearCirclePointers();
                 invalidate();
                 handled = true;
                 break;
@@ -259,8 +258,7 @@ public class CirclesDrawingView extends View {
     /**
      * Clears all CircleArea - pointer id relations
      */
-    private void clearCirclePointer() {
-        Log.w(TAG, "clearCirclePointer");
+    private void clearCirclePointers() {
         mCirclePointer.clear();
 		mCircles.clear();
     }
@@ -280,12 +278,16 @@ public class CirclesDrawingView extends View {
             touchedCircle = new CircleArea(xTouch, yTouch, 120);
 
             if (mCircles.size() == CIRCLES_LIMIT) {
-                Log.w(TAG, "Clear all circles, size is " + mCircles.size());
+				if (this.debugEnabled)
+                	Log.d(TAG, "Clear all circles, size is " + mCircles.size());
+
                 // remove first circle
+				// I'm sure this removes all circles...
                 mCircles.clear();
             }
 
-            Log.w(TAG, "Added circle " + touchedCircle);
+			if (this.debugEnabled)
+            	Log.w(TAG, "Added circle " + touchedCircle);
             mCircles.add(touchedCircle);
         }
 
