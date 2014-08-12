@@ -28,25 +28,6 @@ public class CirclesDrawingView extends View {
     private Bitmap mBitmap = null;
 
     private Rect mMeasuredRect;
-
-    /** Stores data about single circle */
-    private static class CircleArea {
-        int radius;
-        int centerX;
-        int centerY;
-		boolean needs_wiping = false;
-
-        CircleArea(int centerX, int centerY, int radius) {
-            this.radius = radius;
-            this.centerX = centerX;
-            this.centerY = centerY;
-        }
-
-        @Override
-        public String toString() {
-            return "Circle[" + centerX + ", " + centerY + ", " + radius + "]";
-        }
-    }
 	
 	// chisel's debugging
 	private boolean debugEnabled = false;
