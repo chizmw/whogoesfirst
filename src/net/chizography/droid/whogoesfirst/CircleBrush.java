@@ -3,7 +3,6 @@ package net.chizography.droid.whogoesfirst;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.*;
-//import java.io.*;
 
 public class CircleBrush extends Paint {
 	public enum brushType {
@@ -13,7 +12,6 @@ public class CircleBrush extends Paint {
 	}
 	private void init() {
 		// a default brush
-		//this.setColor(Color.MAGENTA);
 		this.setColor(Color.argb(222,82,4,79));
         this.setStrokeWidth(35);
         this.setStyle(Paint.Style.FILL);
