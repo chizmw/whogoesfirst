@@ -31,6 +31,7 @@ public class CirclesDrawingView extends View {
 	
 	// chisel's debugging
 	private boolean debugEnabled = false;
+	private boolean timerEnabled = false;
 
     /** Paint to draw circles */
     private CircleBrush mCirclePaint, mErasePaint, mDebugPaint;
@@ -100,9 +101,15 @@ public class CirclesDrawingView extends View {
         canv.drawBitmap(mBitmap, null, mMeasuredRect, null);
 		
 		// show/hide debug message area
-		TextView tv = (TextView) ((Activity)getContext()).findViewById(R.id.txtDebugMsg);
-		tv.setVisibility(
+		TextView tvDebug = (TextView) ((Activity)getContext()).findViewById(R.id.txtDebugMsg);
+		tvDebug.setVisibility(
 			debugEnabled ? VISIBLE : INVISIBLE
+		);
+		
+		// show/hide timer message area
+		TextView tvTimer = (TextView) ((Activity)getContext()).findViewById(R.id.txtTimer);
+		tvTimer.setVisibility(
+			timerEnabled ? VISIBLE : INVISIBLE
 		);
 
         for (CircleArea circle : mCircles) {
