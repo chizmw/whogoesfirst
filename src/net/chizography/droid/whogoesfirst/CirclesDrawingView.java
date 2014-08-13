@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.chizography.droid.whogoesfirst.CircleBrush;
+import android.view.*;
+import android.app.*;
 
 public class CirclesDrawingView extends View {
     private static final String TAG = "CirclesDrawingView";
@@ -96,6 +98,12 @@ public class CirclesDrawingView extends View {
     public void onDraw(final Canvas canv) {
         // background bitmap to cover all area
         canv.drawBitmap(mBitmap, null, mMeasuredRect, null);
+		
+		// show/hide debug message area
+		TextView tv = (TextView) ((Activity)getContext()).findViewById(R.id.txtDebugMsg);
+		tv.setVisibility(
+			debugEnabled ? VISIBLE : INVISIBLE
+		);
 
         for (CircleArea circle : mCircles) {
 			CircleBrush p;
