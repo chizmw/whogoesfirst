@@ -20,6 +20,7 @@ import android.widget.Toast;
 import net.chizography.droid.whogoesfirst.CircleBrush;
 import android.view.*;
 import android.app.*;
+import android.widget.*;
 
 public class CirclesDrawingView extends View {
     private static final String TAG = "CirclesDrawingView";
@@ -41,7 +42,9 @@ public class CirclesDrawingView extends View {
     private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
     
-    //private CountDownTimer countdownTimer;
+	private Context ctx;
+	private View cdv;
+	private CircleCountdown countdownTimer;
 
     /**
      * Default constructor
@@ -51,6 +54,7 @@ public class CirclesDrawingView extends View {
     public CirclesDrawingView(final Context ct) {
         super(ct);
         init(ct);
+		simpleToast("c1");
     }
 
     public CirclesDrawingView(final Context ct, final AttributeSet attrs) {
@@ -62,8 +66,22 @@ public class CirclesDrawingView extends View {
         super(ct, attrs, defStyle);
         init(ct);
     }
+	
+	private void simpleToast(String s) {
+		Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
+	}
+	
+	// still can't get this to work
+	private void createViews() {
+		LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View v = inflater.inflate(R.layout.activity_finger_chooser, null, false);
+		TextView tv = (TextView) v.findViewById(R.id.txtTimer);
+	}
 
     private void init(final Context ct) {
+		// make life easier by storing the incoming context
+		ctx = ct;
+		
         // Generate bitmap used for background
         mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.felt_01);
 
@@ -75,6 +93,20 @@ public class CirclesDrawingView extends View {
 		
 		// debugging paint
 		mDebugPaint = new CircleBrush(CircleBrush.brushType.DEBUGGING);
+		
+		this.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View arg0, MotionEvent evt) {
+				if (countdownTimer == null) {
+					/*countdownTimer = new CircleCountdown(
+						(TextView) ((Activity)getContext()).findViewById(R.id.txtTimer)
+					);*/
+					simpleToast(cdv.getClass().getCanonicalName());
+					countdownTimer = new CircleCountdown(cdv);
+				}
+				return false;
+			}
+			
+		});
 /*
         // prepare for 'touch, timer, show 'winner'
         // via:        
@@ -97,6 +129,10 @@ public class CirclesDrawingView extends View {
 
     @Override
     public void onDraw(final Canvas canv) {
+		if (cdv == null) {
+			cdv = (View) ((Activity)getContext()).findViewById(R.id.fingerChooser);
+		}
+		
         // background bitmap to cover all area
         canv.drawBitmap(mBitmap, null, mMeasuredRect, null);
 		
