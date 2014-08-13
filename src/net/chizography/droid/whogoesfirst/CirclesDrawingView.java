@@ -43,7 +43,7 @@ public class CirclesDrawingView extends View {
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
     
 	private Context ctx;
-	private View cdv;
+	private View rl;
 	private CircleCountdown countdownTimer;
 
     /**
@@ -100,8 +100,8 @@ public class CirclesDrawingView extends View {
 					/*countdownTimer = new CircleCountdown(
 						(TextView) ((Activity)getContext()).findViewById(R.id.txtTimer)
 					);*/
-					simpleToast(cdv.getClass().getCanonicalName());
-					countdownTimer = new CircleCountdown(cdv);
+					simpleToast(rl.getClass().getCanonicalName());
+					countdownTimer = new CircleCountdown(rl);
 				}
 				return false;
 			}
@@ -129,8 +129,8 @@ public class CirclesDrawingView extends View {
 
     @Override
     public void onDraw(final Canvas canv) {
-		if (cdv == null) {
-			cdv = (View) ((Activity)getContext()).findViewById(R.id.fingerChooser);
+		if (rl == null) {
+			rl = ((Activity)getContext()).findViewById(R.id.fingerChooser);
 		}
 		
         // background bitmap to cover all area
