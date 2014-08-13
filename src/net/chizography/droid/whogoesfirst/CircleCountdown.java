@@ -1,23 +1,26 @@
 package net.chizography.droid.whogoesfirst;
 import android.view.*;
 import android.widget.*;
+import android.content.*;
 
 public class CircleCountdown {
 	
-	private TextView tvTimer;
+	private View inflatedView;
 	
-	CircleCountdown() {
-		//todo
-	}
-	
-	CircleCountdown(View v) {
-		tvTimer = (TextView) v.findViewById(R.id.txtTimer);
-
-		if (null==tvTimer) {
-			Toast.makeText(v.getContext(), "dammit", Toast.LENGTH_SHORT).show();
+	CircleCountdown(CirclesDrawingView cdv) {
+		LayoutInflater inflater = (LayoutInflater) cdv.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflatedView = inflater.inflate(R.layout.activity_finger_chooser, null, false);
+		TextView tv = (TextView) inflatedView.findViewById(R.id.txtTimer);
+		
+		if (tv==null) {
+			cdv.simpleToast("dammit");
+			return;
 		}
 		else {
-			Toast.makeText(v.getContext(), "cool", Toast.LENGTH_SHORT).show();
+			cdv.setTimerTextVisible(true);
+			if (tv.getVisibility() != View.VISIBLE) {
+				cdv.setTimerTextVisible(true);
+			}
 		}
 	}
 }

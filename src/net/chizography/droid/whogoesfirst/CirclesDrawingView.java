@@ -16,13 +16,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View.OnTouchListener;
 
 import net.chizography.droid.whogoesfirst.CircleBrush;
 import android.view.*;
 import android.app.*;
 import android.widget.*;
 
-public class CirclesDrawingView extends View {
+public class CirclesDrawingView extends View implements OnTouchListener {
     private static final String TAG = "CirclesDrawingView";
 
     /** Main bitmap */
@@ -32,7 +33,7 @@ public class CirclesDrawingView extends View {
 	
 	// chisel's debugging
 	private boolean debugEnabled = false;
-	private boolean timerEnabled = false;
+	//private boolean timerEnabled = false;
 
     /** Paint to draw circles */
     private CircleBrush mCirclePaint, mErasePaint, mDebugPaint;
@@ -43,7 +44,7 @@ public class CirclesDrawingView extends View {
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
     
 	private Context ctx;
-	private View rl;
+	//private View rl;
 	private CircleCountdown countdownTimer;
 
     /**
@@ -67,17 +68,33 @@ public class CirclesDrawingView extends View {
         init(ct);
     }
 	
-	private void simpleToast(String s) {
+	public void simpleToast(String s) {
 		Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
 	}
 	
-	// still can't get this to work
-	private void createViews() {
-		LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View v = inflater.inflate(R.layout.activity_finger_chooser, null, false);
-		TextView tv = (TextView) v.findViewById(R.id.txtTimer);
+	public boolean onTouch(View arg0, MotionEvent evt) {
+		if (countdownTimer == null) {
+			countdownTimer = new CircleCountdown(this);
+		}
+		return false;
 	}
-
+	
+	public void setTimerTextVisible(boolean visible) {
+		TextView tvTimer = (TextView) ((Activity)getContext()).findViewById(R.id.txtTimer);
+		if (null == tvTimer) {
+			simpleToast("set is null");
+			return;
+		}
+				
+		visibilityToast(tvTimer.getVisibility());
+		tvTimer.setVisibility(
+			visible ? VISIBLE : INVISIBLE
+		);
+		visibilityToast(tvTimer.getVisibility());
+		
+		invalidate();
+	}
+	
     private void init(final Context ct) {
 		// make life easier by storing the incoming context
 		ctx = ct;
@@ -94,45 +111,12 @@ public class CirclesDrawingView extends View {
 		// debugging paint
 		mDebugPaint = new CircleBrush(CircleBrush.brushType.DEBUGGING);
 		
-		this.setOnTouchListener(new OnTouchListener() {
-			public boolean onTouch(View arg0, MotionEvent evt) {
-				if (countdownTimer == null) {
-					/*countdownTimer = new CircleCountdown(
-						(TextView) ((Activity)getContext()).findViewById(R.id.txtTimer)
-					);*/
-					simpleToast(rl.getClass().getCanonicalName());
-					countdownTimer = new CircleCountdown(rl);
-				}
-				return false;
-			}
-			
-		});
-/*
-        // prepare for 'touch, timer, show 'winner'
-        // via:        
-        this.setOnTouchListener(new OnTouchListener() {
-        	public boolean onTouch(View arg0, MotionEvent evt) {
-        		this.countdownTimer = new CountDownTimer(100000, 1000) {
-                    public void onTick(long millisUntilFinished) {
-            			Log.d("CHIZBUG", "Seconds remaining: " + millisUntilFinished / 1000);
-                	}
-
-                    public void onFinish() {
-                    	Toast.makeText(ct, "Finished", Toast.LENGTH_SHORT).show();
-                    }
-                }.start();
-                return false;
-        	}
-        });
-*/
+		setOnTouchListener(this);
     }
 
     @Override
     public void onDraw(final Canvas canv) {
-		if (rl == null) {
-			rl = ((Activity)getContext()).findViewById(R.id.fingerChooser);
-		}
-		
+		simpleToast("onDraw()");
         // background bitmap to cover all area
         canv.drawBitmap(mBitmap, null, mMeasuredRect, null);
 		
@@ -144,9 +128,16 @@ public class CirclesDrawingView extends View {
 		
 		// show/hide timer message area
 		TextView tvTimer = (TextView) ((Activity)getContext()).findViewById(R.id.txtTimer);
-		tvTimer.setVisibility(
-			timerEnabled ? VISIBLE : INVISIBLE
-		);
+		if (null == countdownTimer) {
+			//if (tvTimer.getVisibility() != INVISIBLE) {
+				tvTimer.setVisibility(INVISIBLE);
+				//simpleToast("invisible");
+			//}
+		}
+		else {
+			//tvTimer.setVisibility(View.VISIBLE);
+			//simpleToast("visible?");
+		}
 
         for (CircleArea circle : mCircles) {
 			CircleBrush p;
@@ -306,6 +297,25 @@ public class CirclesDrawingView extends View {
 
         return super.onTouchEvent(event) || handled;
     }
+	
+	private void visibilityToast(int visibility) {
+		switch (visibility) {
+			case View.INVISIBLE:
+				simpleToast("=INVISIBLE");
+				break;
+
+			case View.GONE:
+				simpleToast("=GONE");
+				break;
+
+			case View.VISIBLE:
+				simpleToast("=VISIBLE");
+				break;
+
+			default:
+				simpleToast("=WTAF!");
+		}
+	}
 
     /**
      * Clears all CircleArea - pointer id relations
