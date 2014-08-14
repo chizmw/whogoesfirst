@@ -22,6 +22,7 @@ import net.chizography.droid.whogoesfirst.CircleBrush;
 import android.view.*;
 import android.app.*;
 import android.widget.*;
+import android.webkit.*;
 
 public class CirclesDrawingView extends View implements OnTouchListener {
     private static final String TAG = "CirclesDrawingView";
@@ -79,12 +80,18 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		return false;
 	}
 	
-	public void setTimerTextVisible(boolean visible) {
+	private TextView getTimerView() {
 		TextView tvTimer = (TextView) ((Activity)getContext()).findViewById(R.id.txtTimer);
 		if (null == tvTimer) {
 			simpleToast("set is null");
-			return;
+			return null;
 		}
+		
+		return tvTimer;
+	}
+	
+	public void setTimerTextVisible(boolean visible) {
+		TextView tvTimer = getTimerView();
 				
 		visibilityToast(tvTimer.getVisibility());
 		tvTimer.setVisibility(
@@ -93,6 +100,21 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		visibilityToast(tvTimer.getVisibility());
 		
 		invalidate();
+	}
+	
+	public void setTimerText(int value) {
+		TextView tv = getTimerView();
+		
+		// negative values are just stupid, and less than zero
+		if (value < 0) {
+			value = 9;
+		}
+		// don't allow double digit values
+		else if (value > 9) {
+			value = 9;
+		}
+		
+		tv.setText(Integer.toString(value));
 	}
 	
     private void init(final Context ct) {

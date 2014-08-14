@@ -17,6 +17,7 @@ public class CircleCountdown {
 			return;
 		}
 		else {
+			cdv.setTimerText(3);
 			cdv.setTimerTextVisible(true);
 			if (tv.getVisibility() != View.VISIBLE) {
 				cdv.setTimerTextVisible(true);
