@@ -138,7 +138,6 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
     @Override
     public void onDraw(final Canvas canv) {
-		simpleToast("onDraw()");
         // background bitmap to cover all area
         canv.drawBitmap(mBitmap, null, mMeasuredRect, null);
 		
