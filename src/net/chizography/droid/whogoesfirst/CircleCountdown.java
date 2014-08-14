@@ -25,10 +25,12 @@ public class CircleCountdown {
 				cdv.setTimerTextVisible(true);
 			}
 			
-			new CountDownTimer(countdownSeconds * 1000, 1000) {
+			// granularity needs to be less than a second
+			// otherwise it "jumps"
+			new CountDownTimer(countdownSeconds * 1000, 250) {
 
 				public void onTick(long millisUntilFinished) {
-					int i = (int) millisUntilFinished / 1000;
+					int i = (int) Math.ceil( (millisUntilFinished+500) / 1000 );
 					cdv.setTimerText(i);
 				}
 
