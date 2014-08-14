@@ -74,7 +74,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	}
 	
 	public boolean onTouch(View arg0, MotionEvent evt) {
-		if (countdownTimer == null) {
+		if (countdownTimer == null && getTouchedCircleCount() > 1) {
 			countdownTimer = new CircleCountdown(this);
 		}
 		return false;
@@ -115,6 +115,10 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		}
 		
 		tv.setText(Integer.toString(value));
+	}
+	
+	public int getTouchedCircleCount() {
+		return mCirclePointer.size();
 	}
 	
     private void init(final Context ct) {

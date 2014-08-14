@@ -10,6 +10,12 @@ public class CircleCountdown {
 	private int countdownSeconds = 5;
 	
 	CircleCountdown(final CirclesDrawingView cdv) {
+		// don't bother doing anything until we have
+		// more than one finger/circle
+		if (cdv.getTouchedCircleCount() < 2) {
+			return;
+		}
+		
 		LayoutInflater inflater = (LayoutInflater) cdv.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflatedView = inflater.inflate(R.layout.activity_finger_chooser, null, false);
 		TextView tv = (TextView) inflatedView.findViewById(R.id.txtTimer);
@@ -28,7 +34,6 @@ public class CircleCountdown {
 			// granularity needs to be less than a second
 			// otherwise it "jumps"
 			new CountDownTimer(countdownSeconds * 1000, 250) {
-
 				public void onTick(long millisUntilFinished) {
 					int i = (int) Math.ceil( (millisUntilFinished+500) / 1000 );
 					cdv.setTimerText(i);
