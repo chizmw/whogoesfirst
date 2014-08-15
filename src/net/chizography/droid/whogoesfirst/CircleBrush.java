@@ -3,6 +3,7 @@ package net.chizography.droid.whogoesfirst;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.*;
+import android.util.*;
 
 public class CircleBrush extends Paint {
 	public enum brushType {

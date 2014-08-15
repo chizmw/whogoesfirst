@@ -65,9 +65,23 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	
 	public boolean onTouch(View arg0, MotionEvent evt) {
 		if (countdownTimer == null && getTouchedCircleCount() > 1) {
+			//setStartHintVisible(false);
 			countdownTimer = new CircleCountdown(this, 3);
 		}
 		return false;
+	}
+	
+	private TextView getTextView(int id) {
+		TextView tv = (TextView) ((Activity)getContext()).findViewById(id);
+		if (null == tv) {
+			return null;
+		}
+
+		return tv;
+	}
+	
+	private TextView getStartHintView() {
+		return getTextView(R.id.txtToStart);
 	}
 	
 	private TextView getTimerView() {
@@ -78,6 +92,16 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		}
 		
 		return tvTimer;
+	}
+	
+	public void setStartHintVisible(boolean visible) {
+		TextView tvStartHint = getStartHintView();
+
+		tvStartHint.setVisibility(
+			visible ? VISIBLE : INVISIBLE
+		);
+
+		invalidate();
 	}
 	
 	public void setTimerTextVisible(boolean visible) {
@@ -140,16 +164,26 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     public void onDraw(final Canvas canv) {
         // background bitmap to cover all area
 		canvas = canv;
-        canvas.drawBitmap(mBitmap, null, mMeasuredRect, null);
+        //canvas.drawBitmap(mBitmap, null, mMeasuredRect, null);
+		
+		// this is another thing that needs refactoring
+		if (countdownTimer==null && !pickedWinner) {
+			setStartHintVisible(true);
+		}
+		else {
+			setStartHintVisible(false);
+		}
 		
 		// show/hide debug message area
-		TextView tvDebug = (TextView) ((Activity)getContext()).findViewById(R.id.txtDebugMsg);
+		TextView tvDebug = getTextView(R.id.txtDebugMsg);
+		//(TextView) ((Activity)getContext()).findViewById(R.id.txtDebugMsg);
 		tvDebug.setVisibility(
 			debugEnabled ? VISIBLE : INVISIBLE
 		);
 		
 		// show/hide timer message area
-		TextView tvTimer = (TextView) ((Activity)getContext()).findViewById(R.id.txtTimer);
+		TextView tvTimer = getTextView(R.id.txtTimer);
+		//(TextView) ((Activity)getContext()).findViewById(R.id.txtTimer);
 		if (null == countdownTimer) {
 			tvTimer.setVisibility(INVISIBLE);
 		}

@@ -3,7 +3,8 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
-	android:id="@+id/fingerChooser">
+	android:id="@+id/fingerChooser"
+	android:background="#99739E">
 
 	<net.chizography.droid.whogoesfirst.CirclesDrawingView
 		android:layout_width="match_parent"
@@ -21,11 +22,33 @@
 		android:visibility="visible"
 		android:textStyle="normal"
 		android:typeface="normal"
-		android:textSize="100sp"
+		android:textSize="200sp"
 		android:gravity="center"
 		android:layout_alignParentRight="true"
 		android:layout_centerInParent="true"
 		android:textColor="#EFF800"/>
+
+	<TextView
+		android:id="@+id/txtToStart"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:text="@string/toStartHint"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:visibility="visible"
+		android:textStyle="bold"
+		android:typeface="normal"
+		android:gravity="center"
+		android:layout_alignParentRight="true"
+		android:layout_centerInParent="true"
+		android:textColor="#eeeeee"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:shadowDx="1.2"
+		android:shadowDy="1.2"
+		android:shadowRadius="2.5"
+		android:shadowColor="#CCCCCC"
+		android:textSize="60sp"/>
 
 	<TextView
 		android:layout_height="wrap_content"
