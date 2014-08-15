@@ -1,3 +1,6 @@
-*\.apk
-*\.class
-*\.dex
+*.apk
+*.class
+*.dex
+*.ap_
+R.java
+BuildConfig.java
