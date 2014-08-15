@@ -37,7 +37,6 @@ public class CircleCountdown {
 		TextView tv = (TextView) inflatedView.findViewById(R.id.txtTimer);
 		
 		if (tv==null) {
-			cdv.simpleToast("dammit");
 			return;
 		}
 		else {
