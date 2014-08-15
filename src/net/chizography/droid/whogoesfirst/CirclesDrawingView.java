@@ -167,7 +167,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         //canvas.drawBitmap(mBitmap, null, mMeasuredRect, null);
 		
 		// this is another thing that needs refactoring
-		if (countdownTimer==null && !pickedWinner) {
+		if (countdownTimer==null && !pickedWinner && mCircles.size()==0) {
 			setStartHintVisible(true);
 		}
 		else {
