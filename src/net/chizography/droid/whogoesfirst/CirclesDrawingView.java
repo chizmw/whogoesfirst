@@ -146,6 +146,11 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         // Generate bitmap used for background
         //mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.felt_01);
 
+		// make sure these are empty when we initialise
+		// (hacking round my inability to remove them as we go)
+		mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
+		mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
+		
 		// visible paint
         mCirclePaint = new CircleBrush(CircleBrush.brushType.DEFAULT);
         
@@ -255,7 +260,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		pickedWinner = true;
 		
 		// after a short delay reset to go agaim
-		new CountDownTimer(3000, 5000) {
+		new CountDownTimer(5000, 5000) {
 			public void onTick(long millisUntilFinished) {
 				// nothing on ticks
 			}
