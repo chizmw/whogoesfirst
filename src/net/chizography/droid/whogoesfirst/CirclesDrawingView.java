@@ -144,7 +144,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		pickedWinner = false;
 		
         // Generate bitmap used for background
-        mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.felt_01);
+        //mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.felt_01);
 
 		// visible paint
         mCirclePaint = new CircleBrush(CircleBrush.brushType.DEFAULT);
