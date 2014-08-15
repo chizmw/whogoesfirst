@@ -8,6 +8,7 @@ public class CircleBrush extends Paint {
 	public enum brushType {
 		DEFAULT,
 		ERASE,
+		WINNER,
 		DEBUGGING
 	}
 	private void init() {
@@ -43,6 +44,11 @@ public class CircleBrush extends Paint {
 
 			case ERASE:
 				this.setColor(Color.TRANSPARENT);
+				break;
+				
+			case WINNER:
+				this.setColor(Color.MAGENTA);
+				this.setAlpha(255);
 				break;
 
 			case DEBUGGING:

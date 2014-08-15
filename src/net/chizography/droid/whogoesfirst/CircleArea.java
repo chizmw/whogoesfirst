@@ -6,6 +6,7 @@ public class CircleArea {
     int centerY;
 	
 	boolean needs_wiping = false;
+	boolean first_player = false;
 
     CircleArea(int centerX, int centerY, int radius) {
         this.radius = radius;

@@ -8,8 +8,24 @@ public class CircleCountdown {
 	
 	private View inflatedView;
 	private int countdownSeconds = 5;
+	private CountDownTimer cdt;
+	
+	public void abortCountdown(){
+		cdt.cancel();
+	}
 	
 	CircleCountdown(final CirclesDrawingView cdv) {
+		init(cdv);
+	}
+	
+	CircleCountdown(final CirclesDrawingView cdv, int seconds) {
+		if(seconds>0 && seconds<10) {
+			countdownSeconds = seconds;
+		}
+		init(cdv);
+	}
+	
+	private void init(final CirclesDrawingView cdv) {
 		// don't bother doing anything until we have
 		// more than one finger/circle
 		if (cdv.getTouchedCircleCount() < 2) {
@@ -33,7 +49,7 @@ public class CircleCountdown {
 			
 			// granularity needs to be less than a second
 			// otherwise it "jumps"
-			new CountDownTimer(countdownSeconds * 1000, 250) {
+			cdt = new CountDownTimer(countdownSeconds * 1000, 250) {
 				public void onTick(long millisUntilFinished) {
 					int i = (int) Math.ceil( (millisUntilFinished+500) / 1000 );
 					cdv.setTimerText(i);

@@ -1,28 +1,17 @@
 package net.chizography.droid.whogoesfirst;
 
-import java.util.HashSet;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BlurMaskFilter;
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.os.CountDownTimer;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.util.SparseArray;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.view.View.OnTouchListener;
-
-import net.chizography.droid.whogoesfirst.CircleBrush;
-import android.view.*;
+import android.annotation.*;
 import android.app.*;
+import android.content.*;
+import android.graphics.*;
+import android.text.*;
+import android.util.*;
+import android.view.*;
+import android.view.View.*;
 import android.widget.*;
-import android.webkit.*;
+import java.util.*;
+import net.chizography.droid.whogoesfirst.*;
+import android.os.*;
 
 public class CirclesDrawingView extends View implements OnTouchListener {
     private static final String TAG = "CirclesDrawingView";
@@ -34,10 +23,9 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	
 	// chisel's debugging
 	private boolean debugEnabled = false;
-	//private boolean timerEnabled = false;
 
     /** Paint to draw circles */
-    private CircleBrush mCirclePaint, mErasePaint, mDebugPaint;
+    private CircleBrush mCirclePaint, mErasePaint, mDebugPaint, mWinnerPaint;
     private static final int CIRCLES_LIMIT = 8;
 
     /** All available circles */
@@ -45,8 +33,10 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
     
 	private Context ctx;
-	//private View rl;
 	private CircleCountdown countdownTimer;
+	private Canvas canvas;
+	private boolean preventNewCircles;
+	private boolean pickedWinner;
 
     /**
      * Default constructor
@@ -63,11 +53,11 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         super(ct, attrs);
         init(ct);
     }
-
+/*
     public CirclesDrawingView(final Context ct, final AttributeSet attrs, final int defStyle) {
         super(ct, attrs, defStyle);
         init(ct);
-    }
+    }*/
 	
 	public void simpleToast(String s) {
 		Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
@@ -75,7 +65,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	
 	public boolean onTouch(View arg0, MotionEvent evt) {
 		if (countdownTimer == null && getTouchedCircleCount() > 1) {
-			countdownTimer = new CircleCountdown(this);
+			countdownTimer = new CircleCountdown(this, 3);
 		}
 		return false;
 	}
@@ -97,6 +87,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		tvTimer.setVisibility(
 			visible ? VISIBLE : INVISIBLE
 		);
+		
 		visibilityToast(tvTimer.getVisibility());
 		
 		invalidate();
@@ -125,6 +116,9 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		// make life easier by storing the incoming context
 		ctx = ct;
 		
+		preventNewCircles = false;
+		pickedWinner = false;
+		
         // Generate bitmap used for background
         mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.felt_01);
 
@@ -133,6 +127,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         
 		// normal transparent paint
 		mErasePaint = new CircleBrush(CircleBrush.brushType.ERASE);
+		
+		mWinnerPaint = new CircleBrush(CircleBrush.brushType.WINNER);
 		
 		// debugging paint
 		mDebugPaint = new CircleBrush(CircleBrush.brushType.DEBUGGING);
@@ -143,7 +139,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     @Override
     public void onDraw(final Canvas canv) {
         // background bitmap to cover all area
-        canv.drawBitmap(mBitmap, null, mMeasuredRect, null);
+		canvas = canv;
+        canvas.drawBitmap(mBitmap, null, mMeasuredRect, null);
 		
 		// show/hide debug message area
 		TextView tvDebug = (TextView) ((Activity)getContext()).findViewById(R.id.txtDebugMsg);
@@ -154,25 +151,38 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		// show/hide timer message area
 		TextView tvTimer = (TextView) ((Activity)getContext()).findViewById(R.id.txtTimer);
 		if (null == countdownTimer) {
-			//if (tvTimer.getVisibility() != INVISIBLE) {
-				tvTimer.setVisibility(INVISIBLE);
-				//simpleToast("invisible");
-			//}
+			tvTimer.setVisibility(INVISIBLE);
 		}
-		else {
-			//tvTimer.setVisibility(View.VISIBLE);
-			//simpleToast("visible?");
-		}
+		
+		// automatically process timer text changes
+		TextWatcher twl = new TextWatcher(){
+			public void onTextChanged(CharSequence s, int a, int b, int c) {}
+			public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
+			public void afterTextChanged(Editable e) {
+				int value = Integer.parseInt(e.toString());
+				if (value == 0) {
+					// hide the timervalue, abort the countdown
+					setOnTouchListener(null);
+					abortCountdown();
+					pickPlayerOrder();
+					displayPlayerOrder();
+				}
+			}
+		};
+		tvTimer.addTextChangedListener(twl);
 
         for (CircleArea circle : mCircles) {
 			CircleBrush p;
-			if (circle.needs_wiping) {
+			if (circle.first_player) {
+				p = mWinnerPaint;
+			}
+			else if (circle.needs_wiping) {
 				p = debugEnabled ? mDebugPaint : mErasePaint;
 			}
 			else {
 				p = mCirclePaint;
 			}
-     	    canv.drawCircle(circle.centerX, circle.centerY, circle.radius, p);
+     	    canvas.drawCircle(circle.centerX, circle.centerY, circle.radius, p);
 			
 			// this isn't working well; regardless of the order
 			// I don't seem to be able to delete the pointer and the circle
@@ -196,6 +206,38 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 			}*/
         }
     }
+	
+	private void pickPlayerOrder() {
+		if (pickedWinner)
+			return;
+			
+		preventNewCircles = true;
+		
+		// I'm sure there is a more elegant way to do this
+		Random rand = new Random();
+		int ri = rand.nextInt((mCirclePointer.size()));
+		CircleArea ca = mCirclePointer.get(ri);
+		ca.first_player = true;
+		pickedWinner = true;
+		
+		// after a short delay reset to go agaim
+		new CountDownTimer(3000, 5000) {
+			public void onTick(long millisUntilFinished) {
+				// nothing on ticks
+			}
+
+			public void onFinish() {
+				init(ctx);
+			}
+		}.start();
+		
+		
+		invalidate();
+	}
+	
+	private void displayPlayerOrder() {
+		
+	}
 
 	public CircleArea scanForTouchedCircle(final MotionEvent event){
 		int actionIndex;
@@ -224,6 +266,11 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         boolean handled = false;
+		
+		// sometimes we don't want any new circles
+		if (preventNewCircles) {
+			return super.onTouchEvent(event);
+		}
 
         CircleArea touchedCircle;
         int xTouch;
@@ -268,6 +315,9 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 touchedCircle.centerY = yTouch;
 				// if a previously touched and released circle is retouched
 				touchedCircle.needs_wiping = false;
+				// new pointer, argh, new countdown needed
+				abortCountdown();
+				
                 invalidate();
                 handled = true;
                 break;
@@ -287,6 +337,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 				touchedCircle.needs_wiping=true;
 				if(mCirclePointer.size()==1){
 					clearCirclePointers();
+					abortCountdown();
 				}
 				else{
 					Toast.makeText(this.getContext(),"non final Up",Toast.LENGTH_SHORT).show();
@@ -300,6 +351,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 				// one of the "other" fingers
                 pointerId = event.getPointerId(actionIndex);
 				CircleArea c = mCirclePointer.get(pointerId);
+				abortCountdown();
 				if (null != c) {
 					mCirclePointer.get(pointerId).needs_wiping=true;
                 	mCirclePointer.remove(pointerId);
@@ -323,7 +375,16 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         return super.onTouchEvent(event) || handled;
     }
 	
+	private void abortCountdown() {
+		setTimerTextVisible(false);
+		if(countdownTimer!=null){
+			countdownTimer.abortCountdown();
+			countdownTimer = null;
+		}
+	}
+	
 	private void visibilityToast(int visibility) {
+		if (!debugEnabled) { return; }
 		switch (visibility) {
 			case View.INVISIBLE:
 				simpleToast("=INVISIBLE");
