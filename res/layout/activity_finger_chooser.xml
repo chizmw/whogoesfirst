@@ -26,12 +26,14 @@
 		android:gravity="center"
 		android:layout_alignParentRight="true"
 		android:layout_centerInParent="true"
-		android:textColor="#EFF800"/>
+		android:textColor="#EFF800"
+		android:shadowRadius="2"
+		android:shadowColor="#000000"/>
 
 	<TextView
 		android:id="@+id/txtToStart"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_height="match_parent"
 		android:layout_alignParentLeft="true"
 		android:text="@string/toStartHint"
 		android:textAppearance="?android:attr/textAppearanceLarge"
@@ -42,13 +44,16 @@
 		android:layout_alignParentRight="true"
 		android:layout_centerInParent="true"
 		android:textColor="#eeeeee"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
+		android:layout_marginLeft="30dp"
+		android:layout_marginRight="30dp"
 		android:shadowDx="1.2"
 		android:shadowDy="1.2"
 		android:shadowRadius="2.5"
 		android:shadowColor="#CCCCCC"
-		android:textSize="60sp"/>
+		android:layout_marginTop="50dp"
+		android:layout_marginBottom="50dp"
+		android:textIsSelectable="false"
+		android:textAlignment="center"/>
 
 	<TextView
 		android:layout_height="wrap_content"
