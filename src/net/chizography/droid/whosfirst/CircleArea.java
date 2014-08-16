@@ -1,4 +1,4 @@
-package net.chizography.droid.whogoesfirst;
+package net.chizography.droid.whosfirst;
 
 public class CircleArea {
     int radius;

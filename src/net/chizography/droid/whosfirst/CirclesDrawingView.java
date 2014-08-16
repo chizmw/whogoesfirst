@@ -1,4 +1,4 @@
-package net.chizography.droid.whogoesfirst;
+package net.chizography.droid.whosfirst;
 
 import android.annotation.*;
 import android.app.*;
@@ -10,7 +10,7 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import java.util.*;
-import net.chizography.droid.whogoesfirst.*;
+import net.chizography.droid.whosfirst.*;
 import android.os.*;
 
 public class CirclesDrawingView extends View implements OnTouchListener {

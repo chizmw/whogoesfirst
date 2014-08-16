@@ -1,4 +1,4 @@
-package net.chizography.droid.whogoesfirst;
+package net.chizography.droid.whosfirst;
 import android.view.*;
 import android.widget.*;
 import android.content.*;
