@@ -80,6 +80,14 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		return tvTimer;
 	}
 	
+	private void drawCircleBorder(CircleArea ca, CircleBrush cb) {
+		float borderRadius =
+			ca.radius
+			+ cb.getStrokeWidth()
+			+ 15;
+		canvas.drawCircle(ca.centerX, ca.centerY, borderRadius, cb);
+	}
+	
 	public void setStartHintVisible(boolean visible) {
 		TextView tvStartHint = getStartHintView();
 
@@ -192,12 +200,17 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 			CircleBrush p;
 			if (circle.first_player) {
 				p = mWinnerPaint;
+				CircleBrush cb = new CircleBrush(CircleBrush.brushType.BORDER_WINNER);
+				drawCircleBorder(circle, cb);
 			}
 			else if (circle.needs_wiping) {
 				p = debugEnabled ? mDebugPaint : mErasePaint;
 			}
 			else {
 				p = mCirclePaint;
+				if (pickedWinner) {
+					p.setAlpha(50);
+				}
 			}
      	    canvas.drawCircle(circle.centerX, circle.centerY, circle.radius, p);
         }

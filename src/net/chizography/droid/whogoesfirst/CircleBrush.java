@@ -10,6 +10,7 @@ public class CircleBrush extends Paint {
 		DEFAULT,
 		ERASE,
 		WINNER,
+		BORDER_WINNER,
 		DEBUGGING
 	}
 	private void init() {
@@ -50,6 +51,13 @@ public class CircleBrush extends Paint {
 			case WINNER:
 				this.setColor(Color.parseColor("#ff392b2f"));
 				this.setAlpha(255);
+				break;
+				
+			case BORDER_WINNER:
+				this.setBrushType(brushType.DEFAULT);
+				this.setStyle(Paint.Style.STROKE);
+				this.setAlpha(255);
+				this.setStrokeWidth(25);
 				break;
 
 			case DEBUGGING:
