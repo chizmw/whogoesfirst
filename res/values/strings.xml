@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Who Goes First?</string>
+    <string name="app_name">Who\'s First?</string>
+	<string name="homescreen_name">Who\'s First?</string>
     <string name="action_settings">Settings</string>
     <string name="timerValue">#</string>
 	<string name="toStartHint">Touch screen with TWO or more fingers to initiate countdown...</string>

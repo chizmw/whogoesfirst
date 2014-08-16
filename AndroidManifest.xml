@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="net.chizography.droid.whogoesfirst.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/homescreen_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
