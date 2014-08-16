@@ -51,6 +51,7 @@ public class CircleBrush extends Paint {
 			case WINNER:
 				this.setColor(Color.parseColor("#ff392b2f"));
 				this.setAlpha(255);
+				this.setMaskFilter(new BlurMaskFilter(3, BlurMaskFilter.Blur.NORMAL));
 				break;
 				
 			case BORDER_WINNER:
@@ -58,6 +59,7 @@ public class CircleBrush extends Paint {
 				this.setStyle(Paint.Style.STROKE);
 				this.setAlpha(255);
 				this.setStrokeWidth(25);
+				this.setMaskFilter(new BlurMaskFilter(3, BlurMaskFilter.Blur.NORMAL));
 				break;
 
 			case DEBUGGING:
