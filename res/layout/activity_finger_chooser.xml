@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:id="@+id/fingerChooser">
 
-	<net.chizography.droid.whogoesfirst.CirclesDrawingView
+	<net.chizography.droid.whosfirst.CirclesDrawingView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="#ff6a4f67"
