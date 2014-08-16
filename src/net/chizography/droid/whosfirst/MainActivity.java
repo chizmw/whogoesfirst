@@ -4,6 +4,7 @@ import android.app.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
+import android.content.pm.*;
 
 public class MainActivity extends Activity {
 	/** Called when the activity is first created. */
@@ -17,5 +18,14 @@ public class MainActivity extends Activity {
 							 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		setContentView(R.layout.activity_finger_chooser);
+		
+		try {
+			PackageInfo pinfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+			TextView tv = (TextView) findViewById(R.id.appVersion);
+			tv.setText(pinfo.versionName);
+		}
+		catch (Exception e) {
+			//
+		}
 	}
 }
