@@ -14,7 +14,7 @@ public class CircleBrush extends Paint {
 	}
 	private void init() {
 		// a default brush
-		this.setColor(Color.YELLOW);
+		this.setColor(Color.parseColor("#ffebe4bf"));
 		this.setAlpha(100);
         this.setStrokeWidth(35);
         this.setStyle(Paint.Style.FILL);
@@ -48,7 +48,7 @@ public class CircleBrush extends Paint {
 				break;
 				
 			case WINNER:
-				this.setColor(Color.MAGENTA);
+				this.setColor(Color.parseColor("#ff392b2f"));
 				this.setAlpha(255);
 				break;
 
