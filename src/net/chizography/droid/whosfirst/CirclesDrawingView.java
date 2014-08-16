@@ -168,12 +168,6 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 			setStartHintVisible(false);
 		}
 		
-		// show/hide debug message area
-		TextView tvDebug = getTextView(R.id.txtDebugMsg);
-		tvDebug.setVisibility(
-			debugEnabled ? VISIBLE : INVISIBLE
-		);
-		
 		// show/hide timer message area
 		TextView tvTimer = getTextView(R.id.txtTimer);
 		if (null == countdownTimer) {

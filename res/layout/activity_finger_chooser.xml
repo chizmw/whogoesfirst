@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
-	android:id="@+id/fingerChooser" >
+	android:id="@+id/fingerChooser">
 
 	<net.chizography.droid.whogoesfirst.CirclesDrawingView
 		android:layout_width="match_parent"
@@ -53,26 +53,6 @@
 		android:layout_marginBottom="50dp"
 		android:textIsSelectable="false"
 		android:textAlignment="center"/>
-
-	<TextView
-		android:layout_height="wrap_content"
-		android:text="Large Text"
-		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:layout_width="wrap_content"
-		android:layout_alignBaseline="@id/activityfingerchooserCirclesDrawingView"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentRight="true"
-		android:gravity="center"
-		android:background="#D9CE8E"
-		android:layout_marginBottom="10dp"
-		android:typeface="monospace"
-		android:alpha="0.7"
-		android:id="@+id/txtDebugMsg"
-		android:paddingTop="2dp"
-		android:paddingBottom="2dp"
-		android:paddingLeft="3dp"
-		android:paddingRight="3dp"/>
 
 </RelativeLayout>
 
