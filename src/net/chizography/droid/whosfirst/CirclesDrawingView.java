@@ -12,6 +12,8 @@ import android.widget.*;
 import java.util.*;
 import net.chizography.droid.whosfirst.*;
 import android.os.*;
+import net.chizography.droid.whosfirst.ScreenShot;
+import java.io.*;
 
 public class CirclesDrawingView extends View implements OnTouchListener {
     private static final String TAG = "CirclesDrawingView";
@@ -90,6 +92,13 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	
 	public void setStartHintVisible(boolean visible) {
 		TextView tvStartHint = getStartHintView();
+		
+		// leave everything untouched if we request a visibility we already have
+		int currentVis = tvStartHint.getVisibility();
+		if (currentVis == VISIBLE && visible)
+			return;
+		if (currentVis == INVISIBLE && !visible)
+			return;
 
 		tvStartHint.setVisibility(
 			visible ? VISIBLE : INVISIBLE
@@ -111,6 +120,16 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		invalidate();
 	}
 	
+	public void grabScreen(String name, boolean addTimestamp) {
+		if (addTimestamp) {
+			name = Long.toString( System.currentTimeMillis() )
+				+ "_"
+				+ name;
+		}
+		
+		ScreenShot.shoot( (MainActivity) ctx, name );
+	}
+	
 	public void setTimerText(int value) {
 		TextView tv = getTimerView();
 		
@@ -124,6 +143,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		}
 		
 		tv.setText(Integer.toString(value));
+		grabScreen("timerVal", true);
 	}
 	
 	public int getTouchedCircleCount() {
@@ -231,6 +251,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
 			public void onFinish() {
 				init(ctx);
+				grabScreen("resetScreen", true);
 			}
 		}.start();
 		
