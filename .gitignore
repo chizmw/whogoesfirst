@@ -4,3 +4,4 @@
 *.ap_
 R.java
 BuildConfig.java
+.releasebuild
