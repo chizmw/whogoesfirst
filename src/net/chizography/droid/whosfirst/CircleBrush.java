@@ -4,8 +4,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.*;
 import android.util.*;
+import android.content.res.*;
 
 public class CircleBrush extends Paint {
+	
+	int circleBrushSize = 35;
+	int borderBrushSize = 25;
+	
 	public enum brushType {
 		DEFAULT,
 		ERASE,
@@ -17,7 +22,7 @@ public class CircleBrush extends Paint {
 		// a default brush
 		this.setColor(Color.parseColor("#ffebe4bf"));
 		this.setAlpha(100);
-        this.setStrokeWidth(35);
+        this.setStrokeWidth(circleBrushSize);
         this.setStyle(Paint.Style.FILL);
         this.setMaskFilter(new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL));  
 	}
@@ -58,7 +63,7 @@ public class CircleBrush extends Paint {
 				this.setBrushType(brushType.DEFAULT);
 				this.setStyle(Paint.Style.STROKE);
 				this.setAlpha(255);
-				this.setStrokeWidth(25);
+				this.setStrokeWidth(borderBrushSize);
 				this.setMaskFilter(new BlurMaskFilter(3, BlurMaskFilter.Blur.NORMAL));
 				break;
 
