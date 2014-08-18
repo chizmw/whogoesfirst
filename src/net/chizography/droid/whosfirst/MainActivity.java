@@ -5,6 +5,8 @@ import android.os.*;
 import android.view.*;
 import android.widget.*;
 import android.content.pm.*;
+import android.util.*;
+import android.content.res.*;
 
 public class MainActivity extends Activity {
 	/** Called when the activity is first created. */
@@ -27,5 +29,34 @@ public class MainActivity extends Activity {
 		catch (Exception e) {
 			//
 		}
+		
+		DisplayMetrics dm = Resources.getSystem().getDisplayMetrics();
+		TextView tv = (TextView) findViewById(R.id.appVersion);
+		String dpi;
+		switch (dm.densityDpi) {
+			case dm.DENSITY_LOW:
+				dpi = "LOW";
+				break;
+			case dm.DENSITY_MEDIUM:
+				dpi = "MEDIUM";
+				break;
+			case dm.DENSITY_HIGH:
+				dpi = "HIGH";
+				break;
+			case dm.DENSITY_XHIGH:
+				dpi = "XHIGH";
+				break;
+			case dm.DENSITY_XXHIGH:
+				dpi = "XXHIGH";
+				break;
+			case dm.DENSITY_XXXHIGH:
+				dpi = "XXXHIGH";
+				break;
+			default:
+				dpi="????";
+		}
+		tv.setText(
+			tv.getText() + " (" + dpi + ")"
+		);
 	}
 }
