@@ -84,7 +84,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		float borderRadius =
 			ca.radius
 			+ cb.getStrokeWidth()
-			+ 15;
+			- 10;
 		canvas.drawCircle(ca.centerX, ca.centerY, borderRadius, cb);
 	}
 	
@@ -203,7 +203,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 			else {
 				p = mCirclePaint;
 				if (pickedWinner) {
-					p.setAlpha(50);
+					p.setAlpha(30);
 				}
 			}
      	    canvas.drawCircle(circle.centerX, circle.centerY, circle.radius, p);
