@@ -25,24 +25,24 @@ public class CircleArea {
 		DisplayMetrics dm = Resources.getSystem().getDisplayMetrics();
 
 		switch (dm.densityDpi) {
-			case dm.DENSITY_LOW:
+			case DisplayMetrics.DENSITY_LOW:
 				// probably wrong size but needs a device to test on
 				break;
-			case dm.DENSITY_MEDIUM:
+			case DisplayMetrics.DENSITY_MEDIUM:
 				// probably wrong size but needs a device to test on
 				break;
-			case dm.DENSITY_HIGH:
+			case DisplayMetrics.DENSITY_HIGH:
 				// probably wrong size but needs a device to test on
 				break;
-			case dm.DENSITY_XHIGH:
+			case DisplayMetrics.DENSITY_XHIGH:
 				// this is the dpi density of the n7 the app was developed om
 				// so we don't need to alter thid
 				break;
-			case dm.DENSITY_XXHIGH:
+			case DisplayMetrics.DENSITY_XXHIGH:
 				// e.g. Nexus 5
 				size *= 1.2;
 				break;
-			case dm.DENSITY_XXXHIGH:
+			case DisplayMetrics.DENSITY_XXXHIGH:
 				// probably wrong size but needs a device to test on
 				size *= 1.4;
 				break;

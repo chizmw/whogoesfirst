@@ -36,22 +36,22 @@ public class FingerCircleActivity extends Activity {
 		String dpi;
 		
 		switch (dm.densityDpi) {
-			case dm.DENSITY_LOW:
+			case DisplayMetrics.DENSITY_LOW:
 				dpi = "LOW";
 				break;
-			case dm.DENSITY_MEDIUM:
+			case DisplayMetrics.DENSITY_MEDIUM:
 				dpi = "MEDIUM";
 				break;
-			case dm.DENSITY_HIGH:
+			case DisplayMetrics.DENSITY_HIGH:
 				dpi = "HIGH";
 				break;
-			case dm.DENSITY_XHIGH:
+			case DisplayMetrics.DENSITY_XHIGH:
 				dpi = "XHIGH";
 				break;
-			case dm.DENSITY_XXHIGH:
+			case DisplayMetrics.DENSITY_XXHIGH:
 				dpi = "XXHIGH";
 				break;
-			case dm.DENSITY_XXXHIGH:
+			case DisplayMetrics.DENSITY_XXXHIGH:
 				dpi = "XXXHIGH";
 				break;
 			default:
