@@ -23,7 +23,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
     /** Paint to draw circles */
     private CircleBrush mCirclePaint, mErasePaint, mDebugPaint, mWinnerPaint;
-    private static final int CIRCLES_LIMIT = 8;
+    private static final int CIRCLES_LIMIT = 28;
 
     /** All available circles */
     private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
