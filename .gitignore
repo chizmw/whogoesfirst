@@ -6,3 +6,4 @@ R.java
 BuildConfig.java
 .releasebuild
 /gen
+'/.idea/workspace.xml' 
