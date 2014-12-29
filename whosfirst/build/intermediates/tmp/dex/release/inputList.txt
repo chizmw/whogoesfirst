@@ -1,0 +1,4 @@
+/Users/c.wright/development/whosfirst/app/build/intermediates/classes/release
+/Users/c.wright/development/whosfirst/app/build/intermediates/pre-dexed/release/support-annotations-21.0.3-1155ebbf3d47854120e7c369fafb4ff5291eeb25.jar
+/Users/c.wright/development/whosfirst/app/build/intermediates/pre-dexed/release/internal_impl-21.0.3-3cba023d003d3c802c75cd671fc607571d078849.jar
+/Users/c.wright/development/whosfirst/app/build/intermediates/pre-dexed/release/classes-3c2e7493d11e7a883e7496b31d44b902265be99e.jar
