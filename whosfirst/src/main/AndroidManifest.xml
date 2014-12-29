@@ -8,6 +8,8 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
     android:hardwareAccelerated="false"
         android:allowBackup="true"
@@ -27,6 +29,7 @@
             android:name="net.chizography.droid.whosfirst.FingerCircleActivity"
             android:label="@string/homescreen_name" >
         </activity>
+        <meta-data android:name="com.crashlytics.ApiKey" android:value="5748875cdce00cc2486179c07d92808dd0aa5718"/>
     </application>
 
 </manifest>
