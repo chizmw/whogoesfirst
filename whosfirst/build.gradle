@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "net.chizography.droid.whosfirst"
-        minSdkVersion 8
-        targetSdkVersion 19
+        minSdkVersion 11
+        targetSdkVersion 21
     }
 
     buildTypes {
@@ -19,5 +19,6 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:21.+'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:21.0.3'
 }
