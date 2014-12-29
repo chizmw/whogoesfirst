@@ -31,7 +31,7 @@ public class FingerCircleActivity extends Activity {
 		}
 	}
 	
-	private final void appendDpiDensity(TextView tv) {
+	private final void appendDpiDensity(TextView tv) {/*
 		DisplayMetrics dm = Resources.getSystem().getDisplayMetrics();
 		String dpi;
 		
@@ -55,10 +55,10 @@ public class FingerCircleActivity extends Activity {
 				dpi = "XXXHIGH";
 				break;
 			default:
-				dpi="????";
+				dpi = "????";
 		}
 		tv.setText(
-			tv.getText() + " (" + dpi + ")"
+            String.format("%s (%s)[%s]", tv.getText(), dpi, Float.toString(dm.densityDpi))
 		);
-	}
+	*/}
 }

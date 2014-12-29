@@ -24,31 +24,24 @@ public class CircleArea {
 	private final int scaleForDpiDensity(int size) {
 		DisplayMetrics dm = Resources.getSystem().getDisplayMetrics();
 
-		switch (dm.densityDpi) {
-			case DisplayMetrics.DENSITY_LOW:
-				// probably wrong size but needs a device to test on
-				break;
-			case DisplayMetrics.DENSITY_MEDIUM:
-				// probably wrong size but needs a device to test on
-				break;
-			case DisplayMetrics.DENSITY_HIGH:
-				// probably wrong size but needs a device to test on
-				break;
-			case DisplayMetrics.DENSITY_XHIGH:
-				// this is the dpi density of the n7 the app was developed om
-				// so we don't need to alter thid
-				break;
-			case DisplayMetrics.DENSITY_XXHIGH:
-				// e.g. Nexus 5
-				size *= 1.2;
-				break;
-			case DisplayMetrics.DENSITY_XXXHIGH:
-				// probably wrong size but needs a device to test on
-				size *= 1.4;
-				break;
-			default:
-				// nothing to do here
-		}
-		return size;
+        // if we aren't DENSITY_XHIGH scale up/down based on DPI
+        // e.g. http://developer.android.com/guide/practices/screens_support.html#DesigningResources -> Alternative Drawables
+        // we (wrongly) used XHIGH instead of MEDIUM as our baseline when developing, simply because that's the device we had
+        if (dm.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
+            return size;
+        }
+        else {
+            Log.d("1P", String.format("dm.densityDpi:    %d", dm.densityDpi));
+            Log.d("1P", String.format("DM.DENSITY_XHIGH: %d", DisplayMetrics.DENSITY_XHIGH));
+
+            Double multiplier = (1.0 * dm.densityDpi) / (1.0 * DisplayMetrics.DENSITY_XHIGH);
+            Log.d("1P", String.format("multiplier:       %f", multiplier));
+
+            Log.d("1P", String.format("size before:      %d", size));
+            size *= multiplier;
+            Log.d("1P", String.format("size after:       %d", size));
+
+            return (Integer)size;
+        }
 	}
 }
