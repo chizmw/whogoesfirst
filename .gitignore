@@ -13,5 +13,5 @@ BuildConfig.java
 /.idea/libraries
 .DS_Store
 /build
-app/build/intermediates/manifests/debug/AndroidManifest.xml
-.idea/misc.xml
+/.idea/misc.xml
+/app/build/
