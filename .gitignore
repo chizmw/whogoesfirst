@@ -15,3 +15,4 @@ BuildConfig.java
 /build
 /.idea/misc.xml
 /app/build/
+/build/intermediates/
