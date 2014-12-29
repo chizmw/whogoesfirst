@@ -5,3 +5,13 @@
 R.java
 BuildConfig.java
 .releasebuild
+
+# ignore gradle 'stuff' in Android Studio
+.gradle/
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+app/build/intermediates/manifests/debug/AndroidManifest.xml
+.idea/misc.xml
