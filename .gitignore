@@ -9,11 +9,9 @@ BuildConfig.java
 # ignore gradle 'stuff' in Android Studio
 .gradle/
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
 .DS_Store
 /build
-/.idea/misc.xml
 /app/build/
 /whosfirst/build
 /build/intermediates/
+/.idea
