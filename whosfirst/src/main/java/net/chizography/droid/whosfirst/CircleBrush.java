@@ -16,6 +16,8 @@ public class CircleBrush extends Paint {
 		ERASE,
 		WINNER,
 		BORDER_WINNER,
+        START_POSITION_CIRCLE,
+        START_POSITION_TEXT,
 		DEBUGGING
 	}
 	private void init() {
@@ -66,6 +68,25 @@ public class CircleBrush extends Paint {
 				this.setStrokeWidth(borderBrushSize);
 				this.setMaskFilter(new BlurMaskFilter(3, BlurMaskFilter.Blur.NORMAL));
 				break;
+                
+            case START_POSITION_CIRCLE:
+                this.setColor(Color.RED);
+//                this.setColor(Color.parseColor("#ff392b2f"));
+                this.setAntiAlias(true);
+                this.setAlpha(255);
+                
+                this.setMaskFilter(new BlurMaskFilter(3, BlurMaskFilter.Blur.NORMAL));
+                break;
+                
+            case START_POSITION_TEXT:
+                this.setColor(Color.WHITE);
+                this.setTextSize(60f);
+                this.setAntiAlias(true);
+                this.setTextAlign(Paint.Align.CENTER);
+                this.setMaskFilter(null);
+                this.setAlpha(255);
+                this.setFakeBoldText(true);
+                break;
 
 			case DEBUGGING:
 				this.setColor(Color.GRAY);

@@ -82,10 +82,10 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	
 	private void drawCircleBorder(CircleArea ca, CircleBrush cb) {
 		float borderRadius =
-			ca.radius
+			ca.getRadius()
 			+ cb.getStrokeWidth()
 			- 10;
-		canvas.drawCircle(ca.centerX, ca.centerY, borderRadius, cb);
+		canvas.drawCircle(ca.getCenterX(), ca.getCenterY(), borderRadius, cb);
 	}
 	
 	public void setStartHintVisible(boolean visible) {
@@ -192,12 +192,12 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
         for (CircleArea circle : mCircles) {
 			CircleBrush p;
-			if (circle.first_player) {
+			if (circle.isFirstPlayer()) {
 				p = mWinnerPaint;
 				CircleBrush cb = new CircleBrush(CircleBrush.brushType.BORDER_WINNER);
 				drawCircleBorder(circle, cb);
 			}
-			else if (circle.needs_wiping) {
+			else if (circle.isNeedsWiping()) {
 				p = debugEnabled ? mDebugPaint : mErasePaint;
 			}
 			else {
@@ -206,8 +206,39 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 					p.setAlpha(30);
 				}
 			}
-     	    canvas.drawCircle(circle.centerX, circle.centerY, circle.radius, p);
+     	    canvas.drawCircle(circle.getCenterX(), circle.getCenterY(), circle.getRadius(), p);
+            
+            if (pickedWinner) {
+                if (circle.hasStartPosition()) {
+                    drawPlayerOrderNumber(circle, circle.getStartPosition());
+                }
+            }
         }
+    }
+    
+    private void drawPlayerOrderNumber(CircleArea circle, int startPosition) {
+        Paint paint;
+        Paint circlePaint;
+        String text = Integer.toString(startPosition);
+
+        paint = new CircleBrush(CircleBrush.brushType.START_POSITION_TEXT);
+        circlePaint = new CircleBrush(CircleBrush.brushType.START_POSITION_CIRCLE);
+
+        Rect bounds = new Rect();
+        paint.getTextBounds(text, 0, text.length(), bounds);
+
+        canvas.drawCircle(
+            circle.getCenterX(),
+            circle.getCenterY() - circle.getRadius(),
+            bounds.height(),
+            circlePaint
+        );
+        canvas.drawText(
+            text,
+            circle.getCenterX(),
+            circle.getCenterY() - circle.getRadius() + (paint.getTextSize()/3),
+            paint
+        );
     }
 	
 	private void pickPlayerOrder() {
@@ -220,8 +251,27 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		Random rand = new Random();
 		int ri = rand.nextInt((mCirclePointer.size()));
 		CircleArea ca = mCirclePointer.get(ri);
-		ca.first_player = true;
+		ca.setFirstPlayer(true);
+        ca.setStartPosition(1);
 		pickedWinner = true;
+        
+        // assign remaining startPosition values
+        int remainingPositions = mCirclePointer.size();
+        // we have already assigned #1
+        while (remainingPositions > 1) {
+            CircleArea position_circle;
+            // find a circle with no assigned start position
+            do {
+                int randomIndex = rand.nextInt(mCirclePointer.size());
+                position_circle = mCirclePointer.get(randomIndex);
+            }
+                while (position_circle.hasStartPosition());
+                
+            // assign a position
+            position_circle.setStartPosition(remainingPositions);
+            // reduce the number of available positions
+            remainingPositions--;
+        }
 		
 		// after a short delay reset to go agaim
 		new CountDownTimer(5000, 5000) {
@@ -254,8 +304,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 			touchedCircle = mCirclePointer.get(pointerId);
 
 			if (null != touchedCircle) {
-				touchedCircle.centerX = xTouch;
-				touchedCircle.centerY = yTouch;
+				touchedCircle.setCenterX(xTouch);
+				touchedCircle.setCenterY(yTouch);
 			}
 		}
 		return touchedCircle;
@@ -288,12 +338,12 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
                 // check if we've touched inside some circle
                 touchedCircle = obtainTouchedCircle(xTouch, yTouch);
-                touchedCircle.centerX = xTouch;
-                touchedCircle.centerY = yTouch;
+                touchedCircle.setCenterX(xTouch);
+                touchedCircle.setCenterY(yTouch);
                 mCirclePointer.put(event.getPointerId(0), touchedCircle);
 				
 				// if a previously touched and released circle is retouched
-				touchedCircle.needs_wiping = false;
+				touchedCircle.setNeedsWiping(false);
 
                 invalidate();
                 handled = true;
@@ -310,10 +360,10 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 touchedCircle = obtainTouchedCircle(xTouch, yTouch);
 
                 mCirclePointer.put(pointerId, touchedCircle);
-                touchedCircle.centerX = xTouch;
-                touchedCircle.centerY = yTouch;
+                touchedCircle.setCenterX(xTouch);
+                touchedCircle.setCenterY(xTouch);
 				// if a previously touched and released circle is retouched
-				touchedCircle.needs_wiping = false;
+				touchedCircle.setNeedsWiping(false);
 				// new pointer, argh, new countdown needed
 				abortCountdown();
 				
@@ -324,7 +374,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
             case MotionEvent.ACTION_MOVE:
 				touchedCircle = scanForTouchedCircle(event);
 				if (touchedCircle != null) {
-					touchedCircle.needs_wiping = false;
+					touchedCircle.setNeedsWiping(false);
 				}
                 invalidate();
                 handled = true;
@@ -333,7 +383,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
             case MotionEvent.ACTION_UP:
 				// the finger that started the "gesture"
 				touchedCircle = scanForTouchedCircle(event);
-				touchedCircle.needs_wiping=true;
+				touchedCircle.setNeedsWiping(true);
 				if(mCirclePointer.size()==1){
 					clearCirclePointers();
 					abortCountdown();
@@ -352,7 +402,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 				CircleArea c = mCirclePointer.get(pointerId);
 				abortCountdown();
 				if (null != c) {
-					mCirclePointer.get(pointerId).needs_wiping=true;
+					mCirclePointer.get(pointerId).setNeedsWiping(true);
                 	mCirclePointer.remove(pointerId);
 				}
 				else {
@@ -434,7 +484,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         CircleArea touched = null;
 
         for (CircleArea circle : mCircles) {
-            if ((circle.centerX - xTouch) * (circle.centerX - xTouch) + (circle.centerY - yTouch) * (circle.centerY - yTouch) <= circle.radius * circle.radius) {
+            if ((circle.getCenterX() - xTouch) * (circle.getCenterX() - xTouch) + (circle.getCenterY() - yTouch) * (circle.getCenterY() - yTouch) <= circle.getRadius() * circle.getRadius()) {
                 touched = circle;
                 break;
             }

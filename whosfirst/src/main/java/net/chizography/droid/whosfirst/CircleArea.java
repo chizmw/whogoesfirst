@@ -3,18 +3,74 @@ import android.util.*;
 import android.content.res.*;
 
 public class CircleArea {
-    int radius;
-    int centerX;
-    int centerY;
+    private int radius;
+    private int centerX;
+    private int centerY;
 	
-	boolean needs_wiping = false;
-	boolean first_player = false;
+	private boolean needsWiping = false;
+	private boolean firstPlayer = false;
+    
+    private int startPosition = 0;
 
     CircleArea(int centerX, int centerY, int radius) {
         this.radius = scaleForDpiDensity(radius);
         this.centerX = centerX;
         this.centerY = centerY;
     }
+
+    public void setCenterX(int centerX) {
+        this.centerX = centerX;
+    }
+
+    public int getCenterX() {
+        return centerX;
+    }
+
+    public void setCenterY(int centerY) {
+        this.centerY = centerY;
+    }
+
+    public int getCenterY() {
+        return centerY;
+    }
+
+    /*public void setRadius(int radius) {
+        this.radius = radius;
+    }*/
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setFirstPlayer(boolean firstPlayer) {
+        this.firstPlayer = firstPlayer;
+    }
+
+    public boolean isFirstPlayer() {
+        return firstPlayer;
+    }
+
+    public void setNeedsWiping(boolean needsWiping) {
+        this.needsWiping = needsWiping;
+    }
+
+    public boolean isNeedsWiping() {
+        return needsWiping;
+    }
+
+    public void setStartPosition(int startPosition) {
+        this.startPosition = startPosition;
+    }
+
+    public int getStartPosition() {
+        return startPosition;
+    }
+    
+    public boolean hasStartPosition() {
+        return (startPosition > 0);
+    }
+
+    
 
     @Override
     public String toString() {
