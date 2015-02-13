@@ -20,76 +20,36 @@ public class CircleBrush extends Paint {
         START_POSITION_TEXT,
 		DEBUGGING
 	}
-	private void init() {
-		// a default brush
-		this.setColor(Color.parseColor("#ffebe4bf"));
-		this.setAlpha(100);
-        this.setStrokeWidth(circleBrushSize);
-        this.setStyle(Paint.Style.FILL);
-        this.setMaskFilter(new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL));  
-	}
 	
 	CircleBrush() {
 		super();
-		init();
+		this.set(new AppPaint(AppPaint.paintType.DEFAULT));
 	}
 	
 	CircleBrush(brushType bt) {
-		super();
-		init();
-		this.setBrushType(bt);
-	}
-	
-	CircleBrush(int c) {
-		super();
-		init();
-		this.setColor(c);
-	}
-	
-	public void setBrushType (brushType bt) {
-		switch(bt) {
-			case DEFAULT:
-				break;
-
-			case ERASE:
-				this.setColor(Color.TRANSPARENT);
-				break;
-				
-			case WINNER:
-				this.setColor(Color.parseColor("#ff392b2f"));
-				this.setAlpha(255);
-				this.setMaskFilter(new BlurMaskFilter(3, BlurMaskFilter.Blur.NORMAL));
-				break;
-				
-			case BORDER_WINNER:
-				this.setBrushType(brushType.DEFAULT);
-				this.setStyle(Paint.Style.STROKE);
-				this.setAlpha(255);
-				this.setStrokeWidth(borderBrushSize);
-				this.setMaskFilter(new BlurMaskFilter(3, BlurMaskFilter.Blur.NORMAL));
-				break;
-                
+        AppPaint.paintType replacementPaint;
+        switch(bt) {
+            case DEBUGGING:
+                replacementPaint = AppPaint.paintType.DEBUGGING;
+                break;
+            case ERASE:
+                replacementPaint = AppPaint.paintType.ERASE;
+                break;
+            case WINNER:
+                replacementPaint = AppPaint.paintType.WINNER_CIRCLE_FILL;
+                break;
+            case BORDER_WINNER:
+                replacementPaint = AppPaint.paintType.WINNER_CIRCLE_BORDER;
+                break;
             case START_POSITION_CIRCLE:
-                this.setColor(Color.RED);
-                this.setAntiAlias(true);
-                this.setAlpha(255);
-                
-                this.setMaskFilter(new BlurMaskFilter(3, BlurMaskFilter.Blur.NORMAL));
+                replacementPaint = AppPaint.paintType.START_POSITION_CIRCLE;
                 break;
-                
             case START_POSITION_TEXT:
-                this.setColor(Color.WHITE);
-                this.setTextSize(60f);
-                this.setAntiAlias(true);
-                this.setTextAlign(Paint.Align.CENTER);
-                this.setMaskFilter(null);
-                this.setAlpha(255);
-                this.setFakeBoldText(true);
+                replacementPaint = AppPaint.paintType.START_POSITION_TEXT;
                 break;
-
-			case DEBUGGING:
-				this.setColor(Color.GRAY);
-				break;
-		}
+            default:
+                replacementPaint = AppPaint.paintType.DEFAULT;
+        }
+        this.set(new AppPaint(replacementPaint));
 	}
 }
