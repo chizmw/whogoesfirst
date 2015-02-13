@@ -71,7 +71,6 @@ public class CircleBrush extends Paint {
                 
             case START_POSITION_CIRCLE:
                 this.setColor(Color.RED);
-//                this.setColor(Color.parseColor("#ff392b2f"));
                 this.setAntiAlias(true);
                 this.setAlpha(255);
                 
