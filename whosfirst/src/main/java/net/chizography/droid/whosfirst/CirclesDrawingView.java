@@ -22,7 +22,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	private boolean debugEnabled = false;
 
     /** Paint to draw circles */
-    private CircleBrush mCirclePaint, mErasePaint, mDebugPaint, mWinnerPaint;
+    private AppPaint mCirclePaint, mErasePaint, mDebugPaint, mWinnerPaint;
     private static final int CIRCLES_LIMIT = 28;
 
     /** All available circles */
@@ -80,7 +80,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		return tvTimer;
 	}
 	
-	private void drawCircleBorder(CircleArea ca, CircleBrush cb) {
+	private void drawCircleBorder(CircleArea ca, AppPaint cb) {
 		float borderRadius =
 			ca.getRadius()
 			+ cb.getStrokeWidth()
@@ -143,15 +143,15 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
 		
 		// visible paint
-        mCirclePaint = new CircleBrush(CircleBrush.brushType.DEFAULT);
+        mCirclePaint = new AppPaint(AppPaint.paintType.DEFAULT);
         
 		// normal transparent paint
-		mErasePaint = new CircleBrush(CircleBrush.brushType.ERASE);
+		mErasePaint = new AppPaint(AppPaint.paintType.ERASE);
 		
-		mWinnerPaint = new CircleBrush(CircleBrush.brushType.WINNER);
+		mWinnerPaint = new AppPaint(AppPaint.paintType.WINNER_CIRCLE_FILL);
 		
 		// debugging paint
-		mDebugPaint = new CircleBrush(CircleBrush.brushType.DEBUGGING);
+		mDebugPaint = new AppPaint(AppPaint.paintType.DEBUGGING);
 		
 		setOnTouchListener(this);
     }
@@ -191,10 +191,10 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		tvTimer.addTextChangedListener(twl);
 
         for (CircleArea circle : mCircles) {
-			CircleBrush p;
+			AppPaint p;
 			if (circle.isFirstPlayer()) {
 				p = mWinnerPaint;
-				CircleBrush cb = new CircleBrush(CircleBrush.brushType.BORDER_WINNER);
+				AppPaint cb = new AppPaint(AppPaint.paintType.WINNER_CIRCLE_BORDER);
 				drawCircleBorder(circle, cb);
 			}
 			else if (circle.isNeedsWiping()) {
@@ -221,8 +221,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         Paint circlePaint;
         String text = Integer.toString(startPosition);
 
-        paint = new CircleBrush(CircleBrush.brushType.START_POSITION_TEXT);
-        circlePaint = new CircleBrush(CircleBrush.brushType.START_POSITION_CIRCLE);
+        paint = new AppPaint(AppPaint.paintType.START_POSITION_TEXT);
+        circlePaint = new AppPaint(AppPaint.paintType.START_POSITION_CIRCLE);
 
         Rect bounds = new Rect();
         paint.getTextBounds(text, 0, text.length(), bounds);
