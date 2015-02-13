@@ -34,10 +34,6 @@ public class CircleArea {
         return centerY;
     }
 
-    /*public void setRadius(int radius) {
-        this.radius = radius;
-    }*/
-
     public int getRadius() {
         return radius;
     }
