@@ -16,3 +16,4 @@ BuildConfig.java
 /build/intermediates/
 /.idea
 *.iml
+/bin/res/
