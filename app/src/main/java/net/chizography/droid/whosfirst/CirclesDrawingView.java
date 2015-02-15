@@ -430,7 +430,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 	mCirclePointer.remove(pointerId);
 				}
 				else {
-					Toast.makeText(this.getContext(),"APU c null",Toast.LENGTH_SHORT).show();
+					Toast.makeText(this.getContext(),"APU c null", Toast.LENGTH_SHORT).show();
 				}
 				invalidate();
                 handled = true;
