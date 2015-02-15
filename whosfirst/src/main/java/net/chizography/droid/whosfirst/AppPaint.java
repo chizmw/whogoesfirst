@@ -18,6 +18,7 @@ public class AppPaint extends Paint {
         WINNER_CIRCLE_BORDER,
         START_POSITION_CIRCLE,
         START_POSITION_TEXT,
+        PLAYER_ORDER_CIRCLE_TEXT,
         DEBUGGING
     };
 
@@ -79,6 +80,14 @@ public class AppPaint extends Paint {
                 this.setAlpha(255);
                 this.setFakeBoldText(true);
                 this.removeBlurMask();
+                break;
+                
+            case PLAYER_ORDER_CIRCLE_TEXT:
+                this.setBrushType(paintType.DEFAULT);
+                this.setAlpha(255);
+                this.setTextAlign(Paint.Align.CENTER);
+                this.setFakeBoldText(true);
+                this.setMaskFilter(new BlurMaskFilter(2, BlurMaskFilter.Blur.NORMAL));
                 break;
                 
             case ERASE:
