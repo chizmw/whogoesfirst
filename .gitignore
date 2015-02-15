@@ -1,18 +1,50 @@
-*.apk
-*.class
-*.dex
-*.ap_
-R.java
-BuildConfig.java
-.releasebuild
+android_apps.iml
+app/.gitignore
+app/proguard-rules.pro
+app-test/app-test.iml
 
-# ignore gradle 'stuff' in Android Studio
-.gradle/
-/local.properties
+# built application files
+*.apk
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+.settings/
+out/
+build/
+
+#Generated dagger injection classes
+.+\$\$.+\.java
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+# Windows thumbnail db
 .DS_Store
-/build
-/app/build/
-/whosfirst/build
-/build/intermediates/
-/.idea
+
+# IDEA/Android Studio project files, because
+# the project can be imported from settings.gradle
+.idea
 *.iml
+
+# Old-style IDEA project files
+*.ipr
+*.iws
+
+# Local IDEA workspace
+
+# Gradle cache
+.gradle
+
+# Sandbox stuff
+_sandbox
