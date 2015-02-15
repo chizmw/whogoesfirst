@@ -8,8 +8,8 @@ android {
         applicationId "whosfirst.droid.chizography.net.whosfirst"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode 9
+        versionName "1.0.9"
     }
     buildTypes {
         release {
