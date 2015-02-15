@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "whosfirst.droid.chizography.net.whosfirst"
+        applicationId "net.chizography.droid.whosfirst"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 9
@@ -13,8 +13,21 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled true
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def apk = output.outputFile;
+                def newName = "whosfirst-" + variant.baseName.replace("-" + variant.buildType.name, "") + "-" + defaultConfig.versionName + ".apk";
+                output.outputFile = new File(apk.parentFile, newName);
+            }
         }
     }
 }
