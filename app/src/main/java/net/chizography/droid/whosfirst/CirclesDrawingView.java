@@ -227,6 +227,20 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     }
     
     private void drawPlayerOrderNumber(CircleArea circle, int startPosition) {
+        Paint textPaint = new AppPaint(AppPaint.paintType.PLAYER_ORDER_CIRCLE_TEXT);
+              textPaint.setTextSize(circle.getRadius());
+        String text = Integer.toString(startPosition);
+        Rect bounds = new Rect();
+        textPaint.getTextBounds(text, 0, text.length(), bounds);
+        canvas.drawText(
+            text,
+            circle.getCenterX(),
+            circle.getCenterY() + (bounds.height()/2),
+            textPaint
+        );
+    }
+
+    private void drawPlayerOrderBadge(CircleArea circle, int startPosition) {
         Paint paint;
         Paint circlePaint;
         String text = Integer.toString(startPosition);
