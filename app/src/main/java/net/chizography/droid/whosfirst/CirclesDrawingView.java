@@ -114,7 +114,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         ToggleButton tb =
             (ToggleButton) ((Activity)getContext()).findViewById(R.id.activityfingerchooserToggleButton);
       
-        if (countdownTimer==null && !pickedWinner && mCircles.size()<=1) {
+        if (isStartHintState()) {
             if (showPlayerOrder) {
                 tb.setChecked(true);
             }
@@ -169,6 +169,10 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	public int getTouchedCircleCount() {
 		return mCirclePointer.size();
 	}
+    
+    private boolean isStartHintState() {
+        return (countdownTimer==null && !pickedWinner && mCircles.size()<=1);
+    }
 	
     private void init(final Context ct) {
 		// make life easier by storing the incoming context
@@ -232,7 +236,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		canvas = canv;
 		
 		// this is another thing that needs refactoring
-		if (countdownTimer==null && !pickedWinner && mCircles.size()<=1) {
+        if (isStartHintState()) {
 			setStartHintVisible(true);
 		}
 		else {
