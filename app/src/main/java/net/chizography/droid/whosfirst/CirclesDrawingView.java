@@ -113,11 +113,18 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     private void drawModeToggle() {
         ToggleButton tb =
             (ToggleButton) ((Activity)getContext()).findViewById(R.id.activityfingerchooserToggleButton);
-        if (showPlayerOrder) {
-            tb.setChecked(true);
+      
+        if (countdownTimer==null && !pickedWinner && mCircles.size()<=1) {
+            if (showPlayerOrder) {
+                tb.setChecked(true);
+            }
+            else {
+                tb.setChecked(false);
+            }
+            tb.setVisibility(VISIBLE);
         }
         else {
-            tb.setChecked(false);
+            tb.setVisibility(INVISIBLE);
         }
     }
 	
@@ -193,16 +200,16 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         GestureListener gl = new GestureListener(){
             @Override
             public void onSwipeLeft() {
-                // TODO: Implement this method
-                simpleToast("onSwipeLeft (false)");
+                if (debugEnabled)
+                    simpleToast("onSwipeLeft (false)");
                 showPlayerOrder = false;
                 init(ctx);
             }
 
             @Override
             public void onSwipeRight() {
-                // TODO: Implement this method
-                simpleToast("onSwipeRight (true)");
+                if (debugEnabled)
+                    simpleToast("onSwipeRight (true)");
                 showPlayerOrder = true;
                 init(ctx);
             }
