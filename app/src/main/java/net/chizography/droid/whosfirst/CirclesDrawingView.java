@@ -20,12 +20,20 @@ import android.widget.Toast;
 
 import java.util.HashSet;
 import java.util.Random;
+import android.view.GestureDetector;
+import android.widget.ToggleButton;
+
 
 public class CirclesDrawingView extends View implements OnTouchListener {
     private static final String TAG = "CirclesDrawingView";
-
+    
+    private GestureDetector gestureDetector;
+    
     // chisel's debugging
 	private boolean debugEnabled = false;
+    
+    // are we showing player start order?
+    private boolean showPlayerOrder = false;
 
     /** Paint to draw circles */
     private AppPaint mCirclePaint, mErasePaint, mDebugPaint, mWinnerPaint, paintWinnerCircleBorder;
@@ -55,12 +63,6 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         }
     };
 
-    public CirclesDrawingView(final Context ct) {
-        super(ct);
-        init(ct);
-		simpleToast("c1");
-    }
-
     public CirclesDrawingView(final Context ct, final AttributeSet attrs) {
         super(ct, attrs);
         init(ct);
@@ -74,7 +76,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		if (countdownTimer == null && getTouchedCircleCount() > 1) {
 			countdownTimer = new CircleCountdown(this, 3);
 		}
-		return false;
+        return gestureDetector.onTouchEvent(evt);
 	}
 	
 	private TextView getTextView(int id) {
@@ -107,6 +109,17 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 			- 10;
 		canvas.drawCircle(ca.getCenterX(), ca.getCenterY(), borderRadius, cb);
 	}
+    
+    private void drawModeToggle() {
+        ToggleButton tb =
+            (ToggleButton) ((Activity)getContext()).findViewById(R.id.activityfingerchooserToggleButton);
+        if (showPlayerOrder) {
+            tb.setChecked(true);
+        }
+        else {
+            tb.setChecked(false);
+        }
+    }
 	
 	public void setStartHintVisible(boolean visible) {
 		TextView tvStartHint = getStartHintView();
@@ -176,6 +189,35 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         paintWinnerCircleBorder = new AppPaint(AppPaint.paintType.WINNER_CIRCLE_BORDER);
 		
 		setOnTouchListener(this);
+        
+        GestureListener gl = new GestureListener(){
+            @Override
+            public void onSwipeLeft() {
+                // TODO: Implement this method
+                simpleToast("onSwipeLeft (false)");
+                showPlayerOrder = false;
+                init(ctx);
+            }
+
+            @Override
+            public void onSwipeRight() {
+                // TODO: Implement this method
+                simpleToast("onSwipeRight (true)");
+                showPlayerOrder = true;
+                init(ctx);
+            }
+
+            @Override
+            public void onSwipeTop() {
+                // no action
+            }
+
+            @Override
+            public void onSwipeBottom() {
+                // no action
+            }
+        };
+        gestureDetector = new GestureDetector(ctx, gl);
     }
 
     @Override
@@ -195,6 +237,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		if (null == countdownTimer) {
 			tvTimer.setVisibility(INVISIBLE);
 		}
+        
+        drawModeToggle();
 		
 		// automatically process timer text changes
 		TextWatcher twl = textWatcher;
@@ -218,7 +262,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 			}
      	    canvas.drawCircle(circle.getCenterX(), circle.getCenterY(), circle.getRadius(), p);
             
-            if (pickedWinner) {
+            if (pickedWinner && showPlayerOrder) {
                 if (circle.hasStartPosition()) {
                     drawPlayerOrderNumber(circle, circle.getStartPosition());
                 }
@@ -334,7 +378,6 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		}
 		return touchedCircle;
 	}
-
 	
     @Override
     public boolean onTouchEvent(final MotionEvent event) {

@@ -18,7 +18,7 @@ abstract class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
     @Override
     public boolean onDown(MotionEvent e) {
-        return true;
+        return false;
     }
 
     @Override
@@ -34,8 +34,8 @@ abstract class GestureListener extends GestureDetector.SimpleOnGestureListener {
                     } else {
                         onSwipeLeft();
                     }
+                    result = true;
                 }
-                result = true;
             }
             else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                 if (diffY > 0) {
@@ -43,8 +43,8 @@ abstract class GestureListener extends GestureDetector.SimpleOnGestureListener {
                 } else {
                     onSwipeTop();
                 }
+                result = true;
             }
-            result = true;
 
         } catch (Exception exception) {
             exception.printStackTrace();
