@@ -22,10 +22,17 @@ import java.util.HashSet;
 import java.util.Random;
 import android.view.GestureDetector;
 import android.widget.ToggleButton;
-
+import android.content.Intent;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.os.Debug;
 
 public class CirclesDrawingView extends View implements OnTouchListener {
     private static final String TAG = "CirclesDrawingView";
+    
+    private SharedPreferences prefs;
     
     private GestureDetector gestureDetector;
     
@@ -43,7 +50,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
     
-	private Context ctx;
+	private Context _context;
 	private CircleCountdown countdownTimer;
 	private Canvas canvas;
 	private boolean preventNewCircles;
@@ -69,7 +76,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     }
 	
 	public void simpleToast(String s) {
-		Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
+		Toast.makeText(_context, s, Toast.LENGTH_SHORT).show();
 	}
 	
 	public boolean onTouch(View arg0, MotionEvent evt) {
@@ -176,7 +183,12 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	
     private void init(final Context ct) {
 		// make life easier by storing the incoming context
-		ctx = ct;
+		_context = ct;
+        
+        prefs = PreferenceManager.getDefaultSharedPreferences(_context);
+        
+        debugEnabled = prefs.getBoolean(_context.getString(R.string.prefs_ShowDebugOutput_key), false);
+        showPlayerOrder = prefs.getBoolean(_context.getString(R.string.prefs_ShowPlayerOrder_key), false);
 		
 		preventNewCircles = false;
 		pickedWinner = false;
@@ -207,7 +219,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 if (debugEnabled)
                     simpleToast("onSwipeLeft (false)");
                 showPlayerOrder = false;
-                init(ctx);
+                clearCirclePointers();
             }
 
             @Override
@@ -215,12 +227,16 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 if (debugEnabled)
                     simpleToast("onSwipeRight (true)");
                 showPlayerOrder = true;
-                init(ctx);
+                clearCirclePointers();
             }
 
             @Override
             public void onSwipeTop() {
+                simpleToast("jghjkkjgffhj");
                 // no action
+                final Intent intent = new Intent(_context, UserPreferences.class);
+               // ctx.startActivity(intent);
+                _context.getApplicationContext().startActivity(intent);
             }
 
             @Override
@@ -228,7 +244,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 // no action
             }
         };
-        gestureDetector = new GestureDetector(ctx, gl);
+        gestureDetector = new GestureDetector(_context, gl);
     }
 
     @Override
@@ -359,7 +375,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 			}
 
 			public void onFinish() {
-				init(ctx);
+				init(_context);
 			}
 		}.start();
 		
