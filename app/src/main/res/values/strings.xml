@@ -13,6 +13,9 @@
     <string name="prefs_ShowPlayerOrder_summaryOn">Assign Player Order</string>
     <string name="prefs_ShowPlayerOrder_key">prefs_showPlayerOrder</string>
     
+    <string name="prefs_StartCountdownAt_title">Start countdown at</string>
+    <string name="prefs_StartCountdownAt_key">prefs_StartCountdownAt</string>
+    
     <string name="prefsCatTitle_Developers">Developers</string>
     <string name="prefs_ShowDebugOutput_title">Show Debug Output</string>
     <string name="prefs_ShowDebugOutput_summaryOff">No debugging output</string>
