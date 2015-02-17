@@ -21,14 +21,6 @@ public class MainActivity extends Activity {
         
 		final Intent intent = new Intent(this, FingerCircleActivity.class);
 		startActivity(intent);
-        try {
-            final Intent intent1 = new Intent(this, UserPreferences.class);
-            startActivity(intent1);
-        }
-        catch (Exception e) {
-            Log.e("FP0", e.getMessage());
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
 		this.finish();
 	}
 }

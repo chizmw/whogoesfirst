@@ -232,11 +232,10 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
             @Override
             public void onSwipeTop() {
-                simpleToast("jghjkkjgffhj");
-                // no action
-                final Intent intent = new Intent(_context, UserPreferences.class);
-               // ctx.startActivity(intent);
-                _context.getApplicationContext().startActivity(intent);
+                clearCirclePointers();
+                // show preferences
+                final Intent intent = new Intent(_context, UserPreferences.class); 
+                _context.startActivity(intent);
             }
 
             @Override
