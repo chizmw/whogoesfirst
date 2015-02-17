@@ -195,11 +195,6 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     private boolean isStartHintState() {
         return (countdownTimer==null && !pickedWinner && mCircles.size()<=1);
     }
-    
-    /*private void loadFromPrefs(SharedPreferences prefs) {
-        debugEnabled = prefs.getBoolean(_context.getString(R.string.prefs_ShowDebugOutput_key), false);
-        showPlayerOrder = prefs.getBoolean(_context.getString(R.string.prefs_ShowPlayerOrder_key), false);
-    }*/
 	
     private void init(final Context ct) {
 		// make life easier by storing the incoming context
@@ -612,9 +607,5 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         new Rect(0, 0, getMeasuredWidth(), getMeasuredHeight());
-    }
-    
-    private void focusChanged(){
-        simpleToast("focus changed");
     }
 }
