@@ -232,7 +232,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		canvas = canv;
 		
 		// this is another thing that needs refactoring
-		if (countdownTimer==null && !pickedWinner && mCircles.size()==0) {
+		if (countdownTimer==null && !pickedWinner && mCircles.size()<=1) {
 			setStartHintVisible(true);
 		}
 		else {
