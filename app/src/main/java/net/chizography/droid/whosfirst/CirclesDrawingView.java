@@ -6,22 +6,23 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.ToggleButton;
 import java.util.HashSet;
 import java.util.Random;
-import android.view.GestureDetector;
-import android.widget.ToggleButton;
+import android.graphics.drawable.DrawableContainer;
 
 
 public class CirclesDrawingView extends View implements OnTouchListener {
@@ -126,6 +127,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         else {
             tb.setVisibility(INVISIBLE);
         }
+        tb.setVisibility(INVISIBLE);
     }
 	
 	public void setStartHintVisible(boolean visible) {
@@ -205,16 +207,16 @@ public class CirclesDrawingView extends View implements OnTouchListener {
             @Override
             public void onSwipeLeft() {
                 if (debugEnabled)
-                    simpleToast("onSwipeLeft (false)");
-                showPlayerOrder = false;
+                    simpleToast("onSwipeLeft");
+                showPlayerOrder = !showPlayerOrder;
                 init(ctx);
             }
 
             @Override
             public void onSwipeRight() {
                 if (debugEnabled)
-                    simpleToast("onSwipeRight (true)");
-                showPlayerOrder = true;
+                    simpleToast("onSwipeRight");
+                showPlayerOrder = !showPlayerOrder;
                 init(ctx);
             }
 
@@ -230,6 +232,77 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         };
         gestureDetector = new GestureDetector(ctx, gl);
     }
+    
+    private void drawChooserModeImage() {
+        // make sure we don't try to draw to a null canvas
+        if (canvas==null) {
+            return;
+        }
+        int length = 100;
+        int left   = 50;
+        int top    = 25;
+        
+        Drawable dl;
+        if (showPlayerOrder) {
+            dl = getResources().getDrawable(R.drawable.meeple_order);
+        }
+        else {
+            dl = getResources().getDrawable(R.drawable.meeple);
+        }
+        
+        dl.setBounds(
+            left,
+            top,
+            left + length,
+            top + length
+        );
+        dl.setAlpha(60);
+        dl.draw(canvas);
+    }
+    
+    private void drawSwipeHint() {
+        // make sure we don't try to draw to a null canvas
+        if (canvas==null) {
+            return;
+        }
+        
+        // the location of these is aligned by eye;
+        // the fingertip should not appear to move, only the arrows
+        int length = 150;
+        int leftX = 170;
+        int leftY = 0;
+        int rightX = 230;
+        int rightY = 0;
+        int alpha = 60;
+        
+        try {
+            Drawable dl,dr;
+           
+            if (showPlayerOrder && debugEnabled) {
+                dl = getResources().getDrawable(R.drawable.flick_left_512);
+                dl.setBounds(
+                    leftX,
+                    leftY,
+                    leftX + length,
+                    leftY + length
+                );
+                dl.setAlpha(alpha);
+                dl.draw(canvas);
+            }
+            else {
+                dr = getResources().getDrawable(R.drawable.flick_right_512);
+                dr.setBounds(
+                    rightX,
+                    rightY,
+                    rightX + length,
+                    rightY + length
+                );
+                dr.setAlpha(alpha);
+                dr.draw(canvas);
+            }
+        }
+        catch(Exception e) {simpleToast(e.getMessage());}
+    }
 
     @Override
     public void onDraw(final Canvas canv) {
@@ -242,7 +315,11 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		else {
 			setStartHintVisible(false);
 		}
-		
+        
+        drawChooserModeImage();
+        // draw the swipe hint
+		drawSwipeHint();
+        
 		// show/hide timer message area
 		TextView tvTimer = getTextView(R.id.txtTimer);
 		if (null == countdownTimer) {
