@@ -10,10 +10,10 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="net.chizography.droid.whosfirst.MainActivity"
-            android:label="@string/homescreen_name" >
+            android:label="@string/homescreen_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
