@@ -5,4 +5,20 @@
     <string name="action_settings">Settings</string>
     <string name="timerValue">#</string>
 	<string name="toStartHint">Touch screen with TWO or more fingers to initiate countdown...</string>
+  
+    <!-- preferences -->
+    <string name="prefsCatTitle_General">Developers</string>
+    <string name="prefs_ShowPlayerOrder_title">Show Player Order</string>
+    <string name="prefs_ShowPlayerOrder_summaryOff">First Player only</string>
+    <string name="prefs_ShowPlayerOrder_summaryOn">Assign Player Order</string>
+    <string name="prefs_ShowPlayerOrder_key">prefs_showPlayerOrder</string>
+    
+    <string name="prefs_StartCountdownAt_title">Start countdown at</string>
+    <string name="prefs_StartCountdownAt_key">prefs_StartCountdownAt</string>
+    
+    <string name="prefsCatTitle_Developers">Developers</string>
+    <string name="prefs_ShowDebugOutput_title">Show Debug Output</string>
+    <string name="prefs_ShowDebugOutput_summaryOff">No debugging output</string>
+    <string name="prefs_ShowDebugOutput_summaryOn">Debugging enabled</string>
+    <string name="prefs_ShowDebugOutput_key">prefs_showDebugOutput</string>
 </resources>

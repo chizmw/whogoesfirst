@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory android:title="General">
+        <CheckBoxPreference
+            android:title="@string/prefs_ShowPlayerOrder_title"
+            android:defaultValue="false"
+            android:summaryOff="@string/prefs_ShowPlayerOrder_summaryOff"
+            android:summaryOn="@string/prefs_ShowPlayerOrder_summaryOn"
+            android:key="@string/prefs_ShowPlayerOrder_key"
+            android:persistent="true"
+        />
+       <EditTextPreference
+            android:title="@string/prefs_StartCountdownAt_title"
+            android:defaultValue="3"
+            android:key="@string/prefs_StartCountdownAt_key"
+            android:persistent="true"
+        />
+    </PreferenceCategory>
+    
+    
+    <PreferenceCategory android:title="@string/prefsCatTitle_Developers">
+        <CheckBoxPreference
+            android:title="@string/prefs_ShowDebugOutput_title"
+            android:defaultValue="false"
+            android:summaryOff="@string/prefs_ShowDebugOutput_summaryOff"
+            android:summaryOn="@string/prefs_ShowDebugOutput_summaryOn"
+            android:key="@string/prefs_ShowDebugOutput_key"
+            android:persistent="true"
+        />
+    </PreferenceCategory>
+</PreferenceScreen>

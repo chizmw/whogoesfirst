@@ -21,6 +21,9 @@
             android:name="net.chizography.droid.whosfirst.FingerCircleActivity"
             android:label="@string/homescreen_name" >
         </activity>
+
         <activity android:name=".AboutActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity android:name=".SettingsActivity"/>
     </application>
 </manifest>

@@ -22,11 +22,24 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import java.util.HashSet;
 import java.util.Random;
+
 import android.graphics.drawable.DrawableContainer;
 
+import android.view.GestureDetector;
+import android.widget.ToggleButton;
+import android.content.Intent;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.os.Debug;
+import android.preference.PreferenceActivity;
+import android.provider.Settings;
 
 public class CirclesDrawingView extends View implements OnTouchListener {
     private static final String TAG = "CirclesDrawingView";
+    
+    private SharedPreferences prefs;
     
     private GestureDetector gestureDetector;
     
@@ -44,7 +57,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
     
-	private Context ctx;
+	private Context _context;
 	private CircleCountdown countdownTimer;
 	private Canvas canvas;
 	private boolean preventNewCircles;
@@ -70,12 +83,25 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     }
 	
 	public void simpleToast(String s) {
-		Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
+		Toast.makeText(_context, s, Toast.LENGTH_SHORT).show();
 	}
 	
 	public boolean onTouch(View arg0, MotionEvent evt) {
 		if (countdownTimer == null && getTouchedCircleCount() > 1) {
-			countdownTimer = new CircleCountdown(this, 3);
+            int timerStartAt;
+            try {
+                timerStartAt = Integer.parseInt(
+                    prefs.getString(
+                       _context.getString(R.string.prefs_StartCountdownAt_key),
+                       "3"
+                    )
+                );
+                countdownTimer = new CircleCountdown(this, timerStartAt);
+            }
+            catch (Exception e) {
+                simpleToast(e.getMessage());
+            }
+            
 		}
         return gestureDetector.onTouchEvent(evt);
 	}
@@ -178,7 +204,12 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	
     private void init(final Context ct) {
 		// make life easier by storing the incoming context
-		ctx = ct;
+		_context = ct;
+        
+        prefs = PreferenceManager.getDefaultSharedPreferences(_context);
+        
+        debugEnabled = prefs.getBoolean(_context.getString(R.string.prefs_ShowDebugOutput_key), false);
+        showPlayerOrder = prefs.getBoolean(_context.getString(R.string.prefs_ShowPlayerOrder_key), false);
 		
 		preventNewCircles = false;
 		pickedWinner = false;
@@ -200,16 +231,17 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		mDebugPaint = new AppPaint(AppPaint.paintType.DEBUGGING);
 
         paintWinnerCircleBorder = new AppPaint(AppPaint.paintType.WINNER_CIRCLE_BORDER);
-		
+		        
+        // keep an ear out for touchimg
 		setOnTouchListener(this);
-        
+        // also check for (flick) gestures
         GestureListener gl = new GestureListener(){
             @Override
             public void onSwipeLeft() {
                 if (debugEnabled)
                     simpleToast("onSwipeLeft");
                 showPlayerOrder = !showPlayerOrder;
-                init(ctx);
+                clearCirclePointers();
             }
 
             @Override
@@ -217,12 +249,15 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 if (debugEnabled)
                     simpleToast("onSwipeRight");
                 showPlayerOrder = !showPlayerOrder;
-                init(ctx);
+                clearCirclePointers();
             }
 
             @Override
             public void onSwipeTop() {
-                // no action
+                clearCirclePointers();
+                // show preferences
+                final Intent intent = new Intent(_context, SettingsActivity.class); 
+                _context.startActivity(intent);
             }
 
             @Override
@@ -230,7 +265,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 // no action
             }
         };
-        gestureDetector = new GestureDetector(ctx, gl);
+        gestureDetector = new GestureDetector(_context, gl);
     }
     
     private void drawChooserModeImage() {
@@ -436,7 +471,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 			}
 
 			public void onFinish() {
-				init(ctx);
+				init(_context);
 			}
 		}.start();
 		

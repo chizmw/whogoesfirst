@@ -1,11 +1,13 @@
 package net.chizography.droid.whosfirst;
-import android.app.*;
-import android.os.*;
-import android.view.*;
-import android.content.pm.*;
-import android.widget.*;
-import android.util.*;
-import android.content.res.*;
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class FingerCircleActivity extends Activity {
 	/** Called when the activity is first created. */
@@ -30,35 +32,12 @@ public class FingerCircleActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
-	
-	private final void appendDpiDensity(TextView tv) {/*
-		DisplayMetrics dm = Resources.getSystem().getDisplayMetrics();
-		String dpi;
-		
-		switch (dm.densityDpi) {
-			case DisplayMetrics.DENSITY_LOW:
-				dpi = "LOW";
-				break;
-			case DisplayMetrics.DENSITY_MEDIUM:
-				dpi = "MEDIUM";
-				break;
-			case DisplayMetrics.DENSITY_HIGH:
-				dpi = "HIGH";
-				break;
-			case DisplayMetrics.DENSITY_XHIGH:
-				dpi = "XHIGH";
-				break;
-			case DisplayMetrics.DENSITY_XXHIGH:
-				dpi = "XXHIGH";
-				break;
-			case DisplayMetrics.DENSITY_XXXHIGH:
-				dpi = "XXXHIGH";
-				break;
-			default:
-				dpi = "????";
-		}
-		tv.setText(
-            String.format("%s (%s)[%s]", tv.getText(), dpi, Float.toString(dm.densityDpi))
-		);
-	*/}
+	@Override
+    public void onResume() {
+        super.onResume();
+        // refresh/reload content view (force reload of prefs)
+        setContentView(R.layout.activity_finger_chooser);
+    }
+    
+	private final void appendDpiDensity(TextView tv) {}
 }
