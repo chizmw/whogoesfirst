@@ -18,12 +18,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="net.chizography.droid.whosfirst.FingerCircleActivity"
+            android:name=".FingerCircleActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/homescreen_name" >
         </activity>
 
         <activity android:name=".AboutActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".SettingsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"/>
     </application>
 </manifest>
