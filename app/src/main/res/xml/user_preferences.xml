@@ -10,13 +10,14 @@
             android:key="@string/prefs_ShowPlayerOrder_key"
             android:persistent="true"
         />
-       <EditTextPreference
+        <net.chizography.droid.whosfirst.EditTextPreference
             android:title="@string/prefs_StartCountdownAt_title"
             android:defaultValue="3"
             android:key="@string/prefs_StartCountdownAt_key"
             android:persistent="true"
             android:inputType="number"
             android:numeric="integer"
+            android:summary="%s second(s)"
         />
 
         <CheckBoxPreference
