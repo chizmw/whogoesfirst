@@ -3,11 +3,14 @@ package net.chizography.droid.whosfirst;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -22,19 +25,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import java.util.HashSet;
 import java.util.Random;
-
-import android.graphics.drawable.DrawableContainer;
-
-import android.view.GestureDetector;
-import android.widget.ToggleButton;
-import android.content.Intent;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.os.Debug;
-import android.preference.PreferenceActivity;
-import android.provider.Settings;
+import net.chizography.droid.whosfirst.CircleArea;
 
 public class CirclesDrawingView extends View implements OnTouchListener {
     private static final String TAG = "CirclesDrawingView";
