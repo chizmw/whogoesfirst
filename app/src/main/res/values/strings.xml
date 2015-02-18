@@ -8,6 +8,7 @@
   
     <!-- preferences -->
     <string name="prefsCatTitle_General">Developers</string>
+    
     <string name="prefs_ShowPlayerOrder_title">Show Player Order</string>
     <string name="prefs_ShowPlayerOrder_summaryOff">First Player only</string>
     <string name="prefs_ShowPlayerOrder_summaryOn">Assign Player Order</string>
@@ -15,6 +16,11 @@
     
     <string name="prefs_StartCountdownAt_title">Start countdown at</string>
     <string name="prefs_StartCountdownAt_key">prefs_StartCountdownAt</string>
+    
+    <string name="prefs_ShowSwipeHint_title">Show Gesture Hint</string>
+    <string name="prefs_ShowSwipeHint_summaryOff">Hidden</string>
+    <string name="prefs_ShowSwipeHint_summaryOn">Visible</string>
+    <string name="prefs_ShowSwipeHint_key">prefs_showSwipeHint</string>
     
     <string name="prefsCatTitle_Developers">Developers</string>
     <string name="prefs_ShowDebugOutput_title">Show Debug Output</string>

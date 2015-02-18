@@ -39,6 +39,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     
     // are we showing player start order?
     private boolean showPlayerOrder = false;
+    
+    private boolean showSwipeHint = true;
 
     /** Paint to draw circles */
     private AppPaint mCirclePaint, mErasePaint, mDebugPaint, mWinnerPaint, paintWinnerCircleBorder;
@@ -201,6 +203,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         
         debugEnabled = prefs.getBoolean(_context.getString(R.string.prefs_ShowDebugOutput_key), false);
         showPlayerOrder = prefs.getBoolean(_context.getString(R.string.prefs_ShowPlayerOrder_key), false);
+        showSwipeHint = prefs.getBoolean(_context.getString(R.string.prefs_ShowSwipeHint_key), true);
 		
 		preventNewCircles = false;
 		pickedWinner = false;
@@ -233,6 +236,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                     simpleToast("onSwipeLeft");
                 showPlayerOrder = !showPlayerOrder;
                 clearCirclePointers();
+                setSwipeHintEnabled(false);
             }
 
             @Override
@@ -241,6 +245,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                     simpleToast("onSwipeRight");
                 showPlayerOrder = !showPlayerOrder;
                 clearCirclePointers();
+                setSwipeHintEnabled(false);
             }
 
             @Override
@@ -288,7 +293,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     
     private void drawSwipeHint() {
         // make sure we don't try to draw to a null canvas
-        if (canvas==null) {
+        if (canvas==null || !showSwipeHint) {
             return;
         }
         
@@ -328,6 +333,12 @@ public class CirclesDrawingView extends View implements OnTouchListener {
             }
         }
         catch(Exception e) {simpleToast(e.getMessage());}
+    }
+    
+    private void setSwipeHintEnabled(boolean visible) {
+       SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(_context).edit();
+       editor.putBoolean(_context.getString(R.string.prefs_ShowSwipeHint_key), visible);
+       editor.commit();
     }
 
     @Override
