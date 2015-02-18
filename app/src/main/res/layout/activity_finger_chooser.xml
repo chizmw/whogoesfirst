@@ -69,15 +69,8 @@
 		android:alpha="0.4"
 		android:layout_marginRight="5dp"
 		android:layout_marginEnd="5dp"
-		android:layout_marginBottom="2dp"/>
-
-	<ToggleButton
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:id="@+id/activityfingerchooserToggleButton"
-		android:textOff="Who's First?"
-		android:textOn="Choose Player Order"
-		android:width="150dp"/>
+		android:layout_marginBottom="2dp"
+		android:visibility="visible"/>
 
 </RelativeLayout>
 

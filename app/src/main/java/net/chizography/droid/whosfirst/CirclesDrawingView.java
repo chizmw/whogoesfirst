@@ -129,25 +129,6 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 			- 10;
 		canvas.drawCircle(ca.getCenterX(), ca.getCenterY(), borderRadius, cb);
 	}
-    
-    private void drawModeToggle() {
-        ToggleButton tb =
-            (ToggleButton) ((Activity)getContext()).findViewById(R.id.activityfingerchooserToggleButton);
-      
-        if (isStartHintState()) {
-            if (showPlayerOrder) {
-                tb.setChecked(true);
-            }
-            else {
-                tb.setChecked(false);
-            }
-            tb.setVisibility(VISIBLE);
-        }
-        else {
-            tb.setVisibility(INVISIBLE);
-        }
-        tb.setVisibility(INVISIBLE);
-    }
 	
 	public void setStartHintVisible(boolean visible) {
 		TextView tvStartHint = getStartHintView();
@@ -362,8 +343,6 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		if (null == countdownTimer) {
 			tvTimer.setVisibility(INVISIBLE);
 		}
-        
-        drawModeToggle();
 		
 		// automatically process timer text changes
 		TextWatcher twl = textWatcher;
