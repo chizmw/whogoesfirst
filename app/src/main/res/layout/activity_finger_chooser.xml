@@ -8,15 +8,11 @@
 	<net.chizography.droid.whosfirst.CirclesDrawingView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="#ff6a4f67"
+		android:background="@color/chooserBackgroundColour"
 		android:id="@+id/activityfingerchooserCirclesDrawingView"/>
 
 	<TextView
 		android:id="@+id/txtTimer"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
 		android:text="@string/timerValue"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:visibility="visible"
@@ -27,16 +23,13 @@
 		android:layout_alignParentRight="true"
 		android:layout_alignParentEnd="true"
 		android:layout_centerInParent="true"
-		android:textColor="#ffebe4bf"
+		android:textColor="@color/chooserPrimaryFontColour"
 		android:shadowRadius="2"
 		android:shadowColor="#000000"/>
 
 	<TextView
 		android:id="@+id/txtToStart"
-		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
 		android:text="@string/toStartHint"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:visibility="visible"
@@ -46,7 +39,7 @@
 		android:layout_alignParentRight="true"
 		android:layout_alignParentEnd="true"
 		android:layout_centerInParent="true"
-		android:textColor="#ffebe4bf"
+		android:textColor="@color/chooserPrimaryFontColour"
 		android:layout_marginLeft="30dp"
 		android:layout_marginRight="30dp"
 		android:shadowDx="1.2"
@@ -60,10 +53,7 @@
 
 	<TextView
 		android:id="@+id/appVersion"
-		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
 		android:text="x.y.zz"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:visibility="visible"
@@ -78,9 +68,7 @@
 		android:layout_marginRight="5dp"
 		android:layout_marginTop="50dp"
 		android:layout_marginBottom="5dp"
-		android:textIsSelectable="false"
 		android:textAlignment="center"
 		android:alpha="0.2"/>
-
 </RelativeLayout>
 

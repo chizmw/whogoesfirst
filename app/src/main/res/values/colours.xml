@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="color" name="chooserBackgroundColour">#ff6a4f67</item>
+    <item type="color" name="chooserPrimaryFontColour">#ffebe4bf</item>
+    
+    <item type="color" name="prefsWindowBackground">#ffffffff</item>
+</resources>

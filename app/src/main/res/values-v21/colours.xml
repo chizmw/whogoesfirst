@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- override any default colours here, for example:
+            <item type="color" name="chooserBackgroundColour">#ffffffff</item>
+            <item type="color" name="chooserPrimaryFontColour">#ff000000</item>
+      -->
+</resources>
