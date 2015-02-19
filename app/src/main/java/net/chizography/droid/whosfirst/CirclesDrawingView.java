@@ -239,7 +239,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
             @Override
             public void onSwipeBottom() {
-                // no action
+                // just tidy up
+                clearCirclePointers();
             }
         };
         gestureDetector = new GestureDetector(_context, gl);
