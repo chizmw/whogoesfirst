@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class FingerCircleActivity extends Activity {
+    private String versionString;
+    private TextView tvVersion;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -24,9 +26,8 @@ public class FingerCircleActivity extends Activity {
 
 		try {
 			PackageInfo pinfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
-			TextView tv = (TextView) findViewById(R.id.appVersion);
-			tv.setText(pinfo.versionName);
-			appendDpiDensity(tv);
+            versionString = pinfo.versionName;
+			tvVersion = (TextView) findViewById(R.id.appVersion);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -37,7 +38,7 @@ public class FingerCircleActivity extends Activity {
         super.onResume();
         // refresh/reload content view (force reload of prefs)
         setContentView(R.layout.activity_finger_chooser);
+        TextView tv = (TextView) findViewById(R.id.appVersion);
+        tv.setText(versionString);
     }
-    
-	private final void appendDpiDensity(TextView tv) {}
 }
