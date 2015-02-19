@@ -142,13 +142,10 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	
 	public void setTimerTextVisible(boolean visible) {
 		TextView tvTimer = getTimerView();
-				
-		visibilityToast(tvTimer.getVisibility());
+
 		tvTimer.setVisibility(
 			visible ? VISIBLE : INVISIBLE
 		);
-		
-		visibilityToast(tvTimer.getVisibility());
 		
 		invalidate();
 	}
@@ -601,26 +598,6 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		if(countdownTimer!=null){
 			countdownTimer.abortCountdown();
 			countdownTimer = null;
-		}
-	}
-	
-	private void visibilityToast(int visibility) {
-		if (!debugEnabled) { return; }
-		switch (visibility) {
-			case View.INVISIBLE:
-				simpleToast("=INVISIBLE");
-				break;
-
-			case View.GONE:
-				simpleToast("=GONE");
-				break;
-
-			case View.VISIBLE:
-				simpleToast("=VISIBLE");
-				break;
-
-			default:
-				simpleToast("=WTAF!");
 		}
 	}
 
