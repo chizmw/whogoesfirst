@@ -10,8 +10,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="net.chizography.droid.whosfirst.MainActivity"
-            android:label="@string/homescreen_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:label="@string/homescreen_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -19,12 +18,11 @@
         </activity>
         <activity
             android:name=".FingerCircleActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/homescreen_name" >
         </activity>
 
-        <activity android:name=".AboutActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".AboutActivity"  />
 
-        <activity android:name=".SettingsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"/>
+        <activity android:name=".SettingsActivity" />
     </application>
 </manifest>
