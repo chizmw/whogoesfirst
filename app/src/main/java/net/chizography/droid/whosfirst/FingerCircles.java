@@ -29,8 +29,8 @@ public class FingerCircles {
     private void init(final Canvas c) {
         this.canvas = c;
         
-        mCircles = new HashSet<>(CIRCLES_LIMIT);
-		mCirclePointer = new SparseArray<>(CIRCLES_LIMIT);
+        mCircles = new HashSet<CircleArea>();
+		mCirclePointer = new SparseArray<CircleArea>();
         
         mCirclePaint = new AppPaint(AppPaint.paintType.DEFAULT);
         mErasePaint = new AppPaint(AppPaint.paintType.ERASE);
@@ -209,6 +209,10 @@ public class FingerCircles {
     }
     
     public void removePointer (final int id) {
+        // remove the referenced circle
+        CircleArea ca = mCirclePointer.get(id);
+        mCircles.remove(ca);
+        // remove the reference
         mCirclePointer.remove(id);
     }
 }
