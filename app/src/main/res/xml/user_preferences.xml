@@ -2,14 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
     <PreferenceCategory android:title="General">
-        <CheckBoxPreference
-            android:title="@string/prefs_ShowPlayerOrder_title"
-            android:defaultValue="false"
-            android:summaryOff="@string/prefs_ShowPlayerOrder_summaryOff"
-            android:summaryOn="@string/prefs_ShowPlayerOrder_summaryOn"
-            android:key="@string/prefs_ShowPlayerOrder_key"
-            android:persistent="true"
-        />
         <net.chizography.droid.whosfirst.EditTextPreference
             android:title="@string/prefs_StartCountdownAt_title"
             android:defaultValue="3"
@@ -18,6 +10,24 @@
             android:inputType="number"
             android:numeric="integer"
             android:summary="%s second(s)"
+        />
+    
+        <CheckBoxPreference
+            android:title="@string/prefs_ShowPlayerOrder_title"
+            android:defaultValue="false"
+            android:summaryOff="@string/prefs_ShowPlayerOrder_summaryOff"
+            android:summaryOn="@string/prefs_ShowPlayerOrder_summaryOn"
+            android:key="@string/prefs_ShowPlayerOrder_key"
+            android:persistent="true"
+        />
+        <CheckBoxPreference
+            android:title="@string/prefs_ShowPlayerOrderAs_title"
+            android:dependency="@string/prefs_ShowPlayerOrder_key"
+            android:defaultValue="false"
+            android:summaryOff="@string/prefs_ShowPlayerOrderAs_summaryOff"
+            android:summaryOn="@string/prefs_ShowPlayerOrderAs_summaryOn"
+            android:key="@string/prefs_ShowPlayerOrderAs_key"
+            android:persistent="true"
         />
 
         <CheckBoxPreference
@@ -39,6 +49,7 @@
             android:summaryOn="@string/prefs_ShowDebugOutput_summaryOn"
             android:key="@string/prefs_ShowDebugOutput_key"
             android:persistent="true"
+            android:enabled="false"
         />
     </PreferenceCategory>
 </PreferenceScreen>
