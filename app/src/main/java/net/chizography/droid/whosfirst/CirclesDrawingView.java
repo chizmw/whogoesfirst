@@ -30,7 +30,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     private GestureDetector gestureDetector;
 	private boolean debugEnabled = false;
     private boolean showPlayerOrder = false;
-    private boolean showButtonOrderStyle = false;
+    private String playerOrderStyle;
+    private FingerCircles.OrderStyle showButtonOrderStyle = FingerCircles.OrderStyle.VALUE_IN_CIRCLE;
     // keep track of when we initially load the pref
     // so we can skip overwriting it on later runs
     private boolean loadedOrderPref = false;
@@ -161,7 +162,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         
         debugEnabled = prefs.getBoolean(_context.getString(R.string.prefs_ShowDebugOutput_key), false);
         showSwipeHint = prefs.getBoolean(_context.getString(R.string.prefs_ShowSwipeHint_key), true);
-        showButtonOrderStyle = prefs.getBoolean(_context.getString(R.string.prefs_ShowPlayerOrderAs_key), true);
+        playerOrderStyle = prefs.getString(_context.getString(R.string.prefs_ShowPlayerOrderAs_key), "1");
 
 		// only reload this value from prefs if it's unset; preserves current choice
         if (!loadedOrderPref){
@@ -318,11 +319,14 @@ public class CirclesDrawingView extends View implements OnTouchListener {
             fingerCircles = new FingerCircles(canvas);
         }
         
-        if (showButtonOrderStyle) {
-            fingerCircles.setOrderDisplayStyle(FingerCircles.OrderStyle.BUTTON_BADGE);
-        }
-        else {
-            fingerCircles.setOrderDisplayStyle(FingerCircles.OrderStyle.VALUE_IN_CIRCLE);
+        // somewhat hacky...
+        switch (Integer.parseInt(playerOrderStyle)) {
+            case 2:
+                fingerCircles.setOrderDisplayStyle(FingerCircles.OrderStyle.BUTTON_BUBBLE);
+                break;
+            case 1:
+            default:
+                fingerCircles.setOrderDisplayStyle(FingerCircles.OrderStyle.VALUE_IN_CIRCLE);
         }
 		
 		// this is another thing that needs refactoring

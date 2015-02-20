@@ -31,9 +31,12 @@ public class FingerCircles {
         return orderDisplayStyle;
     }
     
+    // inspired by http://im-dexter.blogspot.com/2014/12/enum-datatype-one-best-way-to-handle.html
     public static enum OrderStyle {
-        VALUE_IN_CIRCLE,
-        BUTTON_BADGE
+        VALUE_IN_CIRCLE  ( 1 ),
+        BUTTON_BUBBLE    ( 2 );
+        public final int value;
+        OrderStyle(int i) { value = i; }
     };
     
     private OrderStyle orderDisplayStyle = OrderStyle.VALUE_IN_CIRCLE;
@@ -94,7 +97,7 @@ public class FingerCircles {
             if (pickedWinner && showPlayerOrder) {
                 if (circle.hasStartPosition()) {
                     switch(this.orderDisplayStyle) {
-                        case BUTTON_BADGE:
+                        case BUTTON_BUBBLE:
                             drawPlayerOrderBadge(circle, circle.getStartPosition());
                             break;
                         case VALUE_IN_CIRCLE:

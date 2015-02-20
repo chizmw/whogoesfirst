@@ -20,15 +20,16 @@
             android:key="@string/prefs_ShowPlayerOrder_key"
             android:persistent="true"
         />
-        <CheckBoxPreference
-            android:title="@string/prefs_ShowPlayerOrderAs_title"
-            android:dependency="@string/prefs_ShowPlayerOrder_key"
-            android:defaultValue="false"
-            android:summaryOff="@string/prefs_ShowPlayerOrderAs_summaryOff"
-            android:summaryOn="@string/prefs_ShowPlayerOrderAs_summaryOn"
+    
+        <ListPreference
             android:key="@string/prefs_ShowPlayerOrderAs_key"
-            android:persistent="true"
-        />
+            android:title="@string/prefs_ShowPlayerOrderAs_title"
+            android:summary="Visual style for displaying start order"
+            android:defaultValue="1"
+            android:entries="@array/startPositionDisplayStyles"
+            android:entryValues="@array/startPositionDisplayStyleValues"
+        />   
+        
 
         <CheckBoxPreference
             android:title="@string/prefs_ShowSwipeHint_title"
