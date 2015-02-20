@@ -8,7 +8,7 @@ public class CircleArea {
     private int centerX;
     private int centerY;
 	
-	private boolean needsWiping = false;
+	//private boolean needsWiping = false;
 	private boolean firstPlayer = false;
     
     private int startPosition = 0;
@@ -45,14 +45,6 @@ public class CircleArea {
 
     public boolean isFirstPlayer() {
         return firstPlayer;
-    }
-
-    public void setNeedsWiping(boolean needsWiping) {
-        this.needsWiping = needsWiping;
-    }
-
-    public boolean isNeedsWiping() {
-        return needsWiping;
     }
 
     public void setStartPosition(int startPosition) {

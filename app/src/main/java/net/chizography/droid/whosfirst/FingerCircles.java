@@ -35,7 +35,6 @@ public class FingerCircles {
         mCirclePaint = new AppPaint(AppPaint.paintType.DEFAULT);
         mErasePaint = new AppPaint(AppPaint.paintType.ERASE);
         mWinnerPaint = new AppPaint(AppPaint.paintType.WINNER_CIRCLE_FILL);
-//        mDebugPaint = new AppPaint(AppPaint.paintType.DEBUGGING);
         paintWinnerCircleBorder = new AppPaint(AppPaint.paintType.WINNER_CIRCLE_BORDER);
     }
     
@@ -58,9 +57,6 @@ public class FingerCircles {
                 p = mWinnerPaint;
                 AppPaint cb = paintWinnerCircleBorder;
                 drawCircleBorder(circle, cb);
-            }
-            else if (circle.isNeedsWiping()) {
-                p = mErasePaint;
             }
             else {
                 p = mCirclePaint;
@@ -182,16 +178,9 @@ public class FingerCircles {
             touchedCircle = new CircleArea(xTouch, yTouch, 120);
 
             if (mCircles.size() == CIRCLES_LIMIT) {
-                //if (this.debugEnabled)
-                    //Log.d(TAG, "Clear all circles, size is " + mCircles.size());
-
-                // remove first circle
-                // I'm sure this removes all circles...
                 mCircles.clear();
             }
 
-            //if (this.debugEnabled)
-                //Log.w(TAG, "Added circle " + touchedCircle);
             mCircles.add(touchedCircle);
         }
 

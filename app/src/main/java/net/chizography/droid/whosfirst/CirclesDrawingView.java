@@ -367,11 +367,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 touchedCircle = fingerCircles.obtainTouchedCircle(xTouch, yTouch);
                 touchedCircle.setCenterX(xTouch);
                 touchedCircle.setCenterY(yTouch);
-                //mCirclePointer.put(event.getPointerId(0), touchedCircle);
                 fingerCircles.putPointer(event.getPointerId(0), touchedCircle);
-				
-				// if a previously touched and released circle is retouched
-				touchedCircle.setNeedsWiping(false);
 
                 invalidate();
                 handled = true;
@@ -391,8 +387,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 fingerCircles.putPointer(pointerId, touchedCircle);
                 touchedCircle.setCenterX(xTouch);
                 touchedCircle.setCenterY(yTouch);
-				// if a previously touched and released circle is retouched
-				touchedCircle.setNeedsWiping(false);
+                
 				// new pointer, argh, new countdown needed
 				abortCountdown();
 				
@@ -402,9 +397,6 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
             case MotionEvent.ACTION_MOVE:
 				touchedCircle = fingerCircles.scanForTouchedCircle(event);
-				if (touchedCircle != null) {
-					touchedCircle.setNeedsWiping(false);
-				}
                 invalidate();
                 handled = true;
                 break;
@@ -412,7 +404,6 @@ public class CirclesDrawingView extends View implements OnTouchListener {
             case MotionEvent.ACTION_UP:
 				// the finger that started the "gesture"
 				touchedCircle = fingerCircles.scanForTouchedCircle(event);
-				touchedCircle.setNeedsWiping(true);
 				if(fingerCircles.getTouchedCircleCount()==1){
 					fingerCircles.clearCirclePointers();
 					abortCountdown();
@@ -429,14 +420,10 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 				// one of the "other" fingers
                 pointerId = event.getPointerId(actionIndex);
 				CircleArea c = fingerCircles.getPointer(actionIndex);
-                //mCirclePointer.get(pointerId);
                 
 				abortCountdown();
 				if (null != c) {
-                    fingerCircles.getPointer(pointerId).setNeedsWiping(true);
                     fingerCircles.removePointer(pointerId);
-					//mCirclePointer.get(pointerId).setNeedsWiping(true);
-                	//mCirclePointer.remove(pointerId);
 				}
 				else {
 					Toast.makeText(this.getContext(),"APU c null", Toast.LENGTH_SHORT).show();
