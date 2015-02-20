@@ -39,7 +39,9 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     
     // are we showing player start order?
     private boolean showPlayerOrder = false;
-    
+    // keep track of when we initially load the pref
+    // so we can skip overwriting it on later runs
+    private boolean loadedOrderPref = false;
     private boolean showSwipeHint = true;
 
     /** Paint to draw circles */
@@ -180,9 +182,12 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         prefs = PreferenceManager.getDefaultSharedPreferences(_context);
         
         debugEnabled = prefs.getBoolean(_context.getString(R.string.prefs_ShowDebugOutput_key), false);
-        showPlayerOrder = prefs.getBoolean(_context.getString(R.string.prefs_ShowPlayerOrder_key), false);
         showSwipeHint = prefs.getBoolean(_context.getString(R.string.prefs_ShowSwipeHint_key), true);
-		
+		// only reload this value from prefs if it's unset; preserves current choice
+        if (!loadedOrderPref){
+            showPlayerOrder = prefs.getBoolean(_context.getString(R.string.prefs_ShowPlayerOrder_key), false);
+            loadedOrderPref = true;
+        }
 		preventNewCircles = false;
 		pickedWinner = false;
 
