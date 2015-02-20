@@ -167,6 +167,11 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		preventNewCircles = false;
 		pickedWinner = false;
         
+        // make sure we cleanup any lingering circles
+        if (fingerCircles != null) {
+            fingerCircles.clearCirclePointers();
+        }
+        
         // keep an ear out for touchimg
 		setOnTouchListener(this);
         // also check for (flick) gestures
