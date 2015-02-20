@@ -28,8 +28,8 @@
             android:defaultValue="1"
             android:entries="@array/startPositionDisplayStyles"
             android:entryValues="@array/startPositionDisplayStyleValues"
+            android:persistent="true"
         />   
-        
 
         <CheckBoxPreference
             android:title="@string/prefs_ShowSwipeHint_title"
