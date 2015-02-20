@@ -14,17 +14,17 @@ public class CircleCountdown {
 		cdt.cancel();
 	}
 
-    CircleCountdown(final CirclesDrawingView cdv, int seconds) {
+    CircleCountdown(final CirclesDrawingView cdv, final int seconds, final int circleCount) {
 		if(seconds>0 && seconds<10) {
 			countdownSeconds = seconds;
 		}
-		init(cdv);
+		init(cdv, circleCount);
 	}
 	
-	private void init(final CirclesDrawingView cdv) {
+	private void init(final CirclesDrawingView cdv, final int circleCount) {
 		// don't bother doing anything until we have
 		// more than one finger/circle
-		if (cdv.getTouchedCircleCount() < 2) {
+		if (circleCount < 2) {
 			return;
 		}
 		
