@@ -8,7 +8,6 @@ import android.util.SparseArray;
 import android.view.MotionEvent;
 import java.util.HashSet;
 import java.util.Random;
-import android.util.Log;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -70,7 +69,7 @@ public class FingerCircles {
     }
     
     public void renderCircles(final boolean pickedWinner, final boolean showPlayerOrder) {
-        Log.d("WHOSFIRST",
+        AppLog.d(
             "c#" + 
             String.valueOf(mCircles.size()) +
             " p#" +
@@ -159,7 +158,7 @@ public class FingerCircles {
         int ri = rand.nextInt((mCirclePointer.size()));
         CircleArea ca = mCirclePointer.get(ri);
         if(null==ca) {
-            Log.w("WHOSFIRST", "Picked a pointer with no circle");
+            AppLog.w("Picked a pointer with no circle");
         }
         ca.setFirstPlayer(true);
         ca.setStartPosition(1);
@@ -217,7 +216,7 @@ public class FingerCircles {
         if (null == touchedCircle) {
             touchedCircle = new CircleArea(xTouch, yTouch, 120);
             mCircles.add(touchedCircle);
-            Log.d("WHOSFIRST", "Added: " + touchedCircle.toString());
+            AppLog.d("Added: " + touchedCircle.toString());
         }
 
         return touchedCircle;
@@ -250,14 +249,14 @@ public class FingerCircles {
         CircleArea ca = mCirclePointer.get(id);
         // if it's null we probably merged circles and removed one earlier
         if(null==ca){
-            Log.w("WHOSFIRST", "removePointer() called for a null deatination");
+            AppLog.w("removePointer() called for a null deatination");
         }
         else if (ca.getPointerCount()==1){
-            Log.d("WHOSFIRST", "Removing last by pointer: " + ca.toString());
+            AppLog.d("Removing last by pointer: " + ca.toString());
             mCircles.remove(ca);
         }
         else {
-            Log.d("WHOSFIRST", "The circle has " + ca.getPointerCount());
+            AppLog.d("The circle has " + ca.getPointerCount());
         }
         // always remove the reference
         mCirclePointer.remove(id);

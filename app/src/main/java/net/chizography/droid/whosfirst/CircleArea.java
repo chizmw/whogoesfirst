@@ -1,7 +1,6 @@
 package net.chizography.droid.whosfirst;
 import android.content.res.*;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 public class CircleArea {
     private int radius;
@@ -95,15 +94,15 @@ public class CircleArea {
             return size;
         }
         else {
-            Log.d("1P", String.format("dm.densityDpi:    %d", dm.densityDpi));
-            Log.d("1P", String.format("DM.DENSITY_XHIGH: %d", DisplayMetrics.DENSITY_XHIGH));
+            AppLog.d(String.format("dm.densityDpi:    %d", dm.densityDpi));
+            AppLog.d(String.format("DM.DENSITY_XHIGH: %d", DisplayMetrics.DENSITY_XHIGH));
 
             Double multiplier = (1.0 * dm.densityDpi) / (1.0 * DisplayMetrics.DENSITY_XHIGH);
-            Log.d("1P", String.format("multiplier:       %f", multiplier));
+            AppLog.d(String.format("multiplier:       %f", multiplier));
 
-            Log.d("1P", String.format("size before:      %d", size));
+            AppLog.d(String.format("size before:      %d", size));
             size *= multiplier;
-            Log.d("1P", String.format("size after:       %d", size));
+            AppLog.d(String.format("size after:       %d", size));
 
             return size;
         }
