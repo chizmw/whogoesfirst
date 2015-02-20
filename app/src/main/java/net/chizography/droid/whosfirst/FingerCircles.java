@@ -9,6 +9,8 @@ import android.view.MotionEvent;
 import java.util.HashSet;
 import java.util.Random;
 import android.util.Log;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class FingerCircles {
     
@@ -20,6 +22,21 @@ public class FingerCircles {
     /** All available circles */
     private HashSet<CircleArea> mCircles = new HashSet<CircleArea>();
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>();
+
+    public void setOrderDisplayStyle(OrderStyle orderDisplayStyle) {
+        this.orderDisplayStyle = orderDisplayStyle;
+    }
+
+    public OrderStyle getOrderDisplayStyle() {
+        return orderDisplayStyle;
+    }
+    
+    public static enum OrderStyle {
+        VALUE_IN_CIRCLE,
+        BUTTON_BADGE
+    };
+    
+    private OrderStyle orderDisplayStyle = OrderStyle.VALUE_IN_CIRCLE;
     
     public FingerCircles(final Canvas c) {
         init(c);
@@ -76,7 +93,14 @@ public class FingerCircles {
 
             if (pickedWinner && showPlayerOrder) {
                 if (circle.hasStartPosition()) {
-                    drawPlayerOrderNumber(circle, circle.getStartPosition());
+                    switch(this.orderDisplayStyle) {
+                        case BUTTON_BADGE:
+                            drawPlayerOrderBadge(circle, circle.getStartPosition());
+                            break;
+                        case VALUE_IN_CIRCLE:
+                        default:
+                            drawPlayerOrderNumber(circle, circle.getStartPosition());
+                    }
                 }
             }
         }
@@ -106,17 +130,19 @@ public class FingerCircles {
 
         Rect bounds = new Rect();
         paint.getTextBounds(text, 0, text.length(), bounds);
+        
+        final int baseY = circle.getCenterY() - circle.getRadius() - (bounds.height()/2);
 
         canvas.drawCircle(
             circle.getCenterX(),
-            circle.getCenterY() - circle.getRadius(),
+            baseY,
             bounds.height(),
             circlePaint
         );
         canvas.drawText(
             text,
             circle.getCenterX(),
-            circle.getCenterY() - circle.getRadius() + (paint.getTextSize()/3),
+            baseY + (paint.getTextSize()/3),
             paint
         );
     }

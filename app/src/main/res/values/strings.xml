@@ -13,6 +13,11 @@
     <string name="prefs_ShowPlayerOrder_summaryOff">First Player only</string>
     <string name="prefs_ShowPlayerOrder_summaryOn">Assign Player Order</string>
     <string name="prefs_ShowPlayerOrder_key">prefs_showPlayerOrder</string>
+
+    <string name="prefs_ShowPlayerOrderAs_title">Display Order As</string>
+    <string name="prefs_ShowPlayerOrderAs_summaryOff">Value In Circle</string>
+    <string name="prefs_ShowPlayerOrderAs_summaryOn">Border Badge</string>
+    <string name="prefs_ShowPlayerOrderAs_key">prefs_showPlayerOrde</string>
     
     <string name="prefs_StartCountdownAt_title">Countdown From</string>
     <string name="prefs_StartCountdownAt_key">prefs_StartCountdownAt</string>

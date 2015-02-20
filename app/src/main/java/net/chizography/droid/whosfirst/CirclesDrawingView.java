@@ -30,6 +30,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     private GestureDetector gestureDetector;
 	private boolean debugEnabled = false;
     private boolean showPlayerOrder = false;
+    private boolean showButtonOrderStyle = false;
     // keep track of when we initially load the pref
     // so we can skip overwriting it on later runs
     private boolean loadedOrderPref = false;
@@ -160,6 +161,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         
         debugEnabled = prefs.getBoolean(_context.getString(R.string.prefs_ShowDebugOutput_key), false);
         showSwipeHint = prefs.getBoolean(_context.getString(R.string.prefs_ShowSwipeHint_key), true);
+        showButtonOrderStyle = prefs.getBoolean(_context.getString(R.string.prefs_ShowPlayerOrderAs_key), true);
 		// only reload this value from prefs if it's unset; preserves current choice
         if (!loadedOrderPref){
             showPlayerOrder = prefs.getBoolean(_context.getString(R.string.prefs_ShowPlayerOrder_key), false);
@@ -313,6 +315,13 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		canvas = canv;
         if (null == fingerCircles) {
             fingerCircles = new FingerCircles(canvas);
+        }
+        
+        if (showButtonOrderStyle) {
+            fingerCircles.setOrderDisplayStyle(FingerCircles.OrderStyle.BUTTON_BADGE);
+        }
+        else {
+            fingerCircles.setOrderDisplayStyle(FingerCircles.OrderStyle.VALUE_IN_CIRCLE);
         }
 		
 		// this is another thing that needs refactoring
