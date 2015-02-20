@@ -16,11 +16,10 @@ public class FingerCircles {
     
     /** Paint to draw circles */
     private AppPaint mCirclePaint, mErasePaint, mWinnerPaint, paintWinnerCircleBorder;
-    private static final int CIRCLES_LIMIT = 28;
 
     /** All available circles */
-    private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
-    private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
+    private HashSet<CircleArea> mCircles = new HashSet<CircleArea>();
+    private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>();
     
     public FingerCircles(final Canvas c) {
         init(c);
@@ -51,6 +50,15 @@ public class FingerCircles {
     }
     
     public void renderCircles(final boolean pickedWinner, final boolean showPlayerOrder) {
+        Log.d("WHOSFIRST",
+            "c#" + 
+            String.valueOf(mCircles.size()) +
+            " p#" +
+            String.valueOf(mCirclePointer.size())
+        );
+        
+        // sometimes circles merge; weird things happen when we have more pointers
+        // than circles
         for (CircleArea circle : mCircles) {
             AppPaint p;
             if (circle.isFirstPlayer()) {
@@ -121,6 +129,9 @@ public class FingerCircles {
         Random rand = new Random();
         int ri = rand.nextInt((mCirclePointer.size()));
         CircleArea ca = mCirclePointer.get(ri);
+        if(null==ca) {
+            Log.w("WHOSFIRST", "Picked a pointer with no circle");
+        }
         ca.setFirstPlayer(true);
         ca.setStartPosition(1);
 
@@ -176,12 +187,8 @@ public class FingerCircles {
 
         if (null == touchedCircle) {
             touchedCircle = new CircleArea(xTouch, yTouch, 120);
-
-            if (mCircles.size() == CIRCLES_LIMIT) {
-                mCircles.clear();
-            }
-
             mCircles.add(touchedCircle);
+            Log.d("WHOSFIRST", "Added: " + touchedCircle.toString());
         }
 
         return touchedCircle;
@@ -202,6 +209,7 @@ public class FingerCircles {
     
     public void putPointer (final int id, final CircleArea circle) {
         mCirclePointer.put(id, circle);
+        circle.increasePointerCount();
     }
     
     public CircleArea getPointer (final int id) {
@@ -211,8 +219,18 @@ public class FingerCircles {
     public void removePointer (final int id) {
         // remove the referenced circle
         CircleArea ca = mCirclePointer.get(id);
-        mCircles.remove(ca);
-        // remove the reference
+        // if it's null we probably merged circles and removed one earlier
+        if(null==ca){
+            Log.w("WHOSFIRST", "removePointer() called for a null deatination");
+        }
+        else if (ca.getPointerCount()==1){
+            Log.d("WHOSFIRST", "Removing last by pointer: " + ca.toString());
+            mCircles.remove(ca);
+        }
+        else {
+            Log.d("WHOSFIRST", "The circle has " + ca.getPointerCount());
+        }
+        // always remove the reference
         mCirclePointer.remove(id);
     }
 }

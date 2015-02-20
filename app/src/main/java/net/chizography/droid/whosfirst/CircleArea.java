@@ -12,6 +12,25 @@ public class CircleArea {
 	private boolean firstPlayer = false;
     
     private int startPosition = 0;
+    
+    // a bit hacky
+    private int pointerCount = 0;
+    
+    public void increasePointerCount(){
+        pointerCount++;
+    }
+    
+    public void decreasePointerCount(){
+        pointerCount--;
+    }
+    
+    public boolean hasPointers(){
+        return pointerCount > 0;
+    }
+    
+    public int getPointerCount() {
+        return pointerCount;
+    }
 
     CircleArea(int centerX, int centerY, int radius) {
         this.radius = scaleForDpiDensity(radius);
@@ -63,7 +82,7 @@ public class CircleArea {
 
     @Override
     public String toString() {
-        return "Circle[" + centerX + ", " + centerY + ", " + radius + "]";
+        return "Circle[x:" + centerX + ", y:" + centerY + ", r:" + radius + ", p:" + pointerCount + "]";
     }
 	
 	private int scaleForDpiDensity(int size) {
