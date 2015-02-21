@@ -69,12 +69,12 @@ public class FingerCircles {
     }
     
     public void renderCircles(final boolean pickedWinner, final boolean showPlayerOrder) {
-        AppLog.d(
+        /*AppLog.d(
             "c#" + 
             String.valueOf(mCircles.size()) +
             " p#" +
             String.valueOf(mCirclePointer.size())
-        );
+        );*/
         
         // sometimes circles merge; weird things happen when we have more pointers
         // than circles
