@@ -33,6 +33,11 @@ android {
     }
 }
 
+repositories {
+    localMaven();
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.github.hotchemi:android-rate:0.4.3'
 }
