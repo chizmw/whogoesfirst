@@ -8,6 +8,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+import hotchemi.android.rate.AppRate;
+import hotchemi.android.rate.OnClickButtonListener;
+import android.util.Log;
 
 public class FingerCircleActivity extends Activity {
     private String versionString;
@@ -32,6 +35,24 @@ public class FingerCircleActivity extends Activity {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+
+        // prompt users to rate
+        AppRate.with(this)
+            .setInstallDays(10) // default 10, 0 means install day.
+            .setLaunchTimes(10) // default 10
+            .setRemindInterval(5) // default 1
+            .setShowNeutralButton(true) // default true
+            .setDebug(false) // default false
+            .setOnClickButtonListener(new OnClickButtonListener() { // callback listener.
+                @Override
+                public void onClickButton(int which) {
+                    Log.d(MainActivity.class.getName(), Integer.toString(which));
+                }
+            })
+            .monitor();
+
+        // Show a dialog if meets conditions
+        AppRate.showRateDialogIfMeetsConditions(this);
 	}
 	@Override
     public void onResume() {

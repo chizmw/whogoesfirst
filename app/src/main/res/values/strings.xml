@@ -32,4 +32,11 @@
     <string name="prefs_ShowDebugOutput_summaryOff">No debugging output</string>
     <string name="prefs_ShowDebugOutput_summaryOn">Debugging enabled</string>
     <string name="prefs_ShowDebugOutput_key">prefs_showDebugOutput</string>
+    
+    <!-- android-rate -->
+    <string name="rate_dialog_title">Rate Who\'s First?</string>
+    <string name="rate_dialog_message">If you find this app useful please take a moment to rate it.\nThanks for your support!</string>
+    <string name="rate_dialog_ok">Rate Now</string>
+    <string name="rate_dialog_cancel">Maybe Later</string>
+    <string name="rate_dialog_no">Never Ask</string>
 </resources>
