@@ -36,6 +36,20 @@ public class FingerCircleActivity extends Activity {
 			e.printStackTrace();
 		}
 
+        upgradeCheck();
+        rateAppReminder();
+	}
+    
+	@Override
+    public void onResume() {
+        super.onResume();
+        // refresh/reload content view (force reload of prefs)
+        setContentView(R.layout.activity_finger_chooser);
+        TextView tv = (TextView) findViewById(R.id.appVersion);
+        tv.setText(versionString);
+    }
+    
+    private void rateAppReminder(){
         // prompt users to rate
         AppRate.with(this)
             .setInstallDays(10) // default 10, 0 means install day.
@@ -53,13 +67,44 @@ public class FingerCircleActivity extends Activity {
 
         // Show a dialog if meets conditions
         AppRate.showRateDialogIfMeetsConditions(this);
-	}
-	@Override
-    public void onResume() {
-        super.onResume();
-        // refresh/reload content view (force reload of prefs)
-        setContentView(R.layout.activity_finger_chooser);
-        TextView tv = (TextView) findViewById(R.id.appVersion);
-        tv.setText(versionString);
+    }
+    
+    private void upgradeCheck(){
+        try {
+            // the last version we ran with
+            final SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(this);
+            final int lastVersion = prefs.getInt("last_known_version",0);
+                
+            // our current version
+            PackageInfo packageInfo =
+                this.getPackageManager()
+                    .getPackageInfo(this.getPackageName(), 0);
+            final int versionCode = packageInfo.versionCode;
+            
+            // if they are different, update the shared pref
+            if (lastVersion != versionCode) {
+                final SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("last_known_version", versionCode);
+                editor.commit();
+                
+                // so we can see that we triggered it
+                AppLog.d(
+                    "Version changed from " +
+                        String.valueOf(lastVersion) +
+                    " to " +
+                        String.valueOf(versionCode)       
+                );
+                
+                // try to encourage updates to ratings
+                // (don't do this for the initial installation)
+                if (lastVersion > 0) {
+                    AppRate.with(this).clearAgreeShowDialog();
+                }
+            }
+        }
+        catch (Exception e) {
+            AppLog.e(e.getMessage());
+        }
     }
 }
