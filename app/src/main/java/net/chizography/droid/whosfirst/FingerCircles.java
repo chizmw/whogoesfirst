@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Random;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.os.*;
+import android.content.*;
 
 public class FingerCircles {
     
@@ -22,6 +24,16 @@ public class FingerCircles {
     private HashSet<CircleArea> mCircles = new HashSet<CircleArea>();
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>();
 
+    private Vibrator _vibrator;
+
+    public void setVibrator(Vibrator vibrator) {
+        _vibrator = vibrator;
+    }
+
+    public Vibrator getVibrator() {
+        return _vibrator;
+    }
+    
     public void setOrderDisplayStyle(OrderStyle orderDisplayStyle) {
         this.orderDisplayStyle = orderDisplayStyle;
     }
@@ -180,6 +192,12 @@ public class FingerCircles {
             // reduce the number of available positions
             remainingPositions--;
         }
+        if (_vibrator != null) {
+            long[] pattern = {0, 200, 50, 200, 50};
+            // The '-1' here means to vibrate once,
+            // as '-1' is out of bounds in the pattern array
+            _vibrator.vibrate(pattern, -1);
+        }
 	}
     
     public CircleArea scanForTouchedCircle(final MotionEvent event){
@@ -217,6 +235,13 @@ public class FingerCircles {
             touchedCircle = new CircleArea(xTouch, yTouch, 120);
             mCircles.add(touchedCircle);
             AppLog.d("Added: " + touchedCircle.toString());
+         
+            if (_vibrator != null) {
+                long[] pattern = {0, 70, 50};
+                // The '-1' here means to vibrate once,
+                // as '-1' is out of bounds in the pattern array
+                _vibrator.vibrate(pattern, -1);
+            }
         }
 
         return touchedCircle;

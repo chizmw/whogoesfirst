@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.*;
 
 public class CirclesDrawingView extends View implements OnTouchListener {
     private static final String TAG = "CirclesDrawingView";
@@ -30,7 +31,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	private boolean debugEnabled = false;
     private boolean showPlayerOrder = false;
     private String playerOrderStyle;
-    private FingerCircles.OrderStyle showButtonOrderStyle = FingerCircles.OrderStyle.VALUE_IN_CIRCLE;
+    //private FingerCircles.OrderStyle showButtonOrderStyle = FingerCircles.OrderStyle.VALUE_IN_CIRCLE;
     // keep track of when we initially load the pref
     // so we can skip overwriting it on later runs
     private boolean loadedOrderPref = false;
@@ -316,6 +317,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		canvas = canv;
         if (null == fingerCircles) {
             fingerCircles = new FingerCircles(canvas);
+            Vibrator v = (Vibrator) _context.getSystemService(Context.VIBRATOR_SERVICE);
+            fingerCircles.setVibrator(v);
         }
         
         // somewhat hacky...
