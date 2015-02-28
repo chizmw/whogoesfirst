@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CirclesDrawingView extends View implements OnTouchListener {
-    private static final String TAG = "CirclesDrawingView";
+    //private static final String TAG = "CirclesDrawingView";
     
     private FingerCircles fingerCircles;
     
@@ -30,7 +30,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	private boolean debugEnabled = false;
     private boolean showPlayerOrder = false;
     private String playerOrderStyle;
-    private FingerCircles.OrderStyle showButtonOrderStyle = FingerCircles.OrderStyle.VALUE_IN_CIRCLE;
+    //private FingerCircles.OrderStyle showButtonOrderStyle = FingerCircles.OrderStyle.VALUE_IN_CIRCLE;
     // keep track of when we initially load the pref
     // so we can skip overwriting it on later runs
     private boolean loadedOrderPref = false;
@@ -422,15 +422,23 @@ public class CirclesDrawingView extends View implements OnTouchListener {
             case MotionEvent.ACTION_UP:
 				// the finger that started the "gesture"
 				touchedCircle = fingerCircles.scanForTouchedCircle(event);
-                AppLog.d("ACTION_UP: " + touchedCircle.toString());
+                if (touchedCircle==null){
+                    AppLog.e("ACTION_UP: null touchedCircle");
+                }
+                else {
+                    AppLog.d("ACTION_UP: " + touchedCircle.toString());
+                }
+                
 				if(fingerCircles.getTouchedCircleCount()==1){
 					fingerCircles.clearCirclePointers();
 					abortCountdown();
 				}
 				else{
-					Toast.makeText(this.getContext(),"non final Up",Toast.LENGTH_SHORT).show();
+                    AppLog.e("ACTION_UP: non-final up");
+                    fingerCircles.clearCirclePointers();
+                    abortCountdown();
 				}
-                //clearCirclePointers();
+                
                 invalidate();
                 handled = true;
                 break;
@@ -447,7 +455,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 				}
 				else {
                     AppLog.e("ACTION_POINTER_UP: nothing matched");
-					Toast.makeText(this.getContext(),"APU c null", Toast.LENGTH_SHORT).show();
+                    fingerCircles.clearCirclePointers();
 				}
 				invalidate();
                 handled = true;
