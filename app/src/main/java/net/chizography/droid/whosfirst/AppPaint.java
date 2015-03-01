@@ -14,6 +14,7 @@ public class AppPaint extends Paint {
         START_POSITION_CIRCLE,
         START_POSITION_TEXT,
         PLAYER_ORDER_CIRCLE_TEXT,
+        FIDGET_PLAYER_CIRCLE_FILL,
         DEBUGGING
     }
 
@@ -80,6 +81,10 @@ public class AppPaint extends Paint {
                 this.setTextAlign(Paint.Align.CENTER);
                 this.setFakeBoldText(true);
                 this.setMaskFilter(new BlurMaskFilter(2, BlurMaskFilter.Blur.NORMAL));
+                break;
+                
+            case FIDGET_PLAYER_CIRCLE_FILL:
+                this.setColor(Color.RED);
                 break;
                 
             case ERASE:

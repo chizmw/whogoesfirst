@@ -415,6 +415,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
             case MotionEvent.ACTION_MOVE:
 				touchedCircle = fingerCircles.scanForTouchedCircle(event);
                 AppLog.d("ACTION_MOVE: " + touchedCircle.toString());
+                touchedCircle.getDistance(event);
                 invalidate();
                 handled = true;
                 break;

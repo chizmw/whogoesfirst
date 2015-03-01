@@ -1,11 +1,13 @@
 package net.chizography.droid.whosfirst;
 import android.content.res.*;
 import android.util.DisplayMetrics;
+import android.view.*;
 
 public class CircleArea {
     private int radius;
     private int centerX;
     private int centerY;
+    private float startX, startY, distanceSum;
 	
 	//private boolean needsWiping = false;
 	private boolean firstPlayer = false;
@@ -14,6 +16,30 @@ public class CircleArea {
     
     // a bit hacky
     private int pointerCount = 0;
+
+    private void setStartX(float startX) {
+        this.startX = startX;
+    }
+
+    public float getStartX() {
+        return startX;
+    }
+
+    private void setStartY(float startY) {
+        this.startY = startY;
+    }
+
+    public float getStartY() {
+        return startY;
+    }
+
+    private void setDistanceSum(float distanceSum) {
+        this.distanceSum = distanceSum;
+    }
+
+    public float getDistanceSum() {
+        return distanceSum;
+    }
     
     public void increasePointerCount(){
         pointerCount++;
@@ -35,6 +61,11 @@ public class CircleArea {
         this.radius = scaleForDpiDensity(radius);
         this.centerX = centerX;
         this.centerY = centerY;
+        
+        // our starting point for distance tracking
+        setStartX(centerX);
+        setStartY(centerY);
+        setDistanceSum(0);
     }
 
     public void setCenterX(int centerX) {
@@ -81,9 +112,36 @@ public class CircleArea {
 
     @Override
     public String toString() {
-        return "Circle[x:" + centerX + ", y:" + centerY + ", r:" + radius + ", p:" + pointerCount + "]";
+        return "Circle[x:" + centerX + ", y:" + centerY + ", r:" + radius + ", p:" + pointerCount + ", d:" + String.valueOf(getDistanceSum()) + "]";
     }
 	
+    //float getDistance(float startX, float startY, MotionEvent ev) {
+    float getDistance(MotionEvent ev) {
+        float distanceSum = 0;
+              
+        final int historySize = ev.getHistorySize();
+        for (int h = 0; h < historySize; h++) {
+            // historical point
+            float hx = ev.getHistoricalX(0, h);
+            float hy = ev.getHistoricalY(0, h);
+            // distance between startX,startY and historical point
+            float dx = (hx-getStartX());
+            float dy = (hy-getStartY());
+            distanceSum += Math.sqrt(dx*dx+dy*dy);
+            // make historical point the start point for next loop iteration
+            setStartX(hx);
+            setStartY(hy);
+        }
+        // add distance from last historical point to event's point
+        float dx = (ev.getX(0)-getStartX());
+        float dy = (ev.getY(0)-getStartY());
+        distanceSum += Math.sqrt(dx*dx+dy*dy);
+        
+        setDistanceSum(distanceSum);
+        AppLog.d("distance: " + toString());
+        return distanceSum;        
+    }
+    
 	private int scaleForDpiDensity(int size) {
 		DisplayMetrics dm = Resources.getSystem().getDisplayMetrics();
 

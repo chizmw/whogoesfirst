@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Random;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.graphics.*;
 
 public class FingerCircles {
     
@@ -84,6 +85,10 @@ public class FingerCircles {
                 p = mWinnerPaint;
                 AppPaint cb = paintWinnerCircleBorder;
                 drawCircleBorder(circle, cb);
+            }
+            else if (circle.getDistanceSum() > 10) {
+                AppLog.d("dsum: " + String.valueOf(circle.getDistanceSum()) + circle.toString());
+                p = new AppPaint(AppPaint.paintType.FIDGET_PLAYER_CIRCLE_FILL);
             }
             else {
                 p = mCirclePaint;
