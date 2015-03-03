@@ -383,7 +383,12 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 touchedCircle.setCenterY(yTouch);
                 fingerCircles.putPointer(event.getPointerId(0), touchedCircle);
                 
-                AppLog.d("ACTION_DOWN: " + touchedCircle.toString());
+                if (touchedCircle==null) {
+                    AppLog.e("ACTION_DOWN: null touchedCircle");
+                }
+                else {
+                    AppLog.d("ACTION_DOWN: " + touchedCircle.toString());
+                }
 
                 invalidate();
                 handled = true;
@@ -398,7 +403,12 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
                 // check if we've touched inside some circle
                 touchedCircle = fingerCircles.obtainTouchedCircle(xTouch, yTouch);
-                AppLog.d("ACTION_POINTER_DOWN: " + touchedCircle.toString());
+                if (touchedCircle==null) {
+                    AppLog.e("ACTION_POINTER_DOWN: null touchedCircle");
+                }
+                else {
+                    AppLog.d("ACTION_POINTER_DOWN: " + touchedCircle.toString());
+                }
 
                 //mCirclePointer.put(pointerId, touchedCircle);
                 fingerCircles.putPointer(pointerId, touchedCircle);
@@ -414,7 +424,12 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
             case MotionEvent.ACTION_MOVE:
 				touchedCircle = fingerCircles.scanForTouchedCircle(event);
-                AppLog.d("ACTION_MOVE: " + touchedCircle.toString());
+                if (touchedCircle==null) {
+                    AppLog.e("ACTION_MOVE: null touchedCircle");
+                }
+                else {
+                    AppLog.d("ACTION_MOVE: " + touchedCircle.toString());
+                }
                 invalidate();
                 handled = true;
                 break;
