@@ -22,8 +22,6 @@ import android.widget.Toast;
 import android.content.res.*;
 
 public class CirclesDrawingView extends View implements OnTouchListener {
-    //private static final String TAG = "CirclesDrawingView";
-    
     private FingerCircles fingerCircles;
     
     private SharedPreferences prefs;
@@ -31,7 +29,6 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	private boolean debugEnabled = false;
     private boolean showPlayerOrder = false;
     private String playerOrderStyle;
-    //private FingerCircles.OrderStyle showButtonOrderStyle = FingerCircles.OrderStyle.VALUE_IN_CIRCLE;
     // keep track of when we initially load the pref
     // so we can skip overwriting it on later runs
     private boolean loadedOrderPref = false;
