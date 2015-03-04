@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.res.*;
 
 public class CirclesDrawingView extends View implements OnTouchListener {
     //private static final String TAG = "CirclesDrawingView";
@@ -59,6 +60,25 @@ public class CirclesDrawingView extends View implements OnTouchListener {
     public CirclesDrawingView(final Context ct, final AttributeSet attrs) {
         super(ct, attrs);
         init(ct);
+    }
+    
+    /* 
+     *  Previous changes (in AndroidManifest.xml) preserved
+     *  the chooser mode on orientation change.
+     *
+     *  This extra piece of code resets circles and timer.
+     *
+     *  This stops things lookkng rather strange :)
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (fingerCircles != null) {
+            fingerCircles.clearCirclePointers();
+        }
+        
+        this.abortCountdown();
     }
 	
 	public void simpleToast(String s) {
