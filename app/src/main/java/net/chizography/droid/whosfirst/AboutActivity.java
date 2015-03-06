@@ -19,8 +19,19 @@ public class AboutActivity extends DialogFragment {
                              Bundle savedInstanceState) {
         
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
         getDialog().setContentView(R.layout.about);
 
         return getView();
+    }
+    
+    @Override public void onStart() {
+        super.onStart();
+
+        Window window = getDialog().getWindow();
+        WindowManager.LayoutParams windowParams = window.getAttributes();
+        windowParams.dimAmount = 0.20f;
+        windowParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        window.setAttributes(windowParams);
     }
 }
