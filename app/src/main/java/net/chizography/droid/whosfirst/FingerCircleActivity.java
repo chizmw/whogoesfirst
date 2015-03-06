@@ -11,8 +11,9 @@ import android.widget.Toast;
 import hotchemi.android.rate.AppRate;
 import hotchemi.android.rate.OnClickButtonListener;
 import android.util.Log;
+import android.support.v4.app.*;
 
-public class FingerCircleActivity extends Activity {
+public class FingerCircleActivity extends FragmentActivity {
     private String versionString;
     private TextView tvVersion;
 	/** Called when the activity is first created. */
@@ -38,7 +39,14 @@ public class FingerCircleActivity extends Activity {
 
         upgradeCheck();
         rateAppReminder();
+     
 	}
+    
+    private void showAboutAppDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        AboutActivity aboutDialog = new AboutActivity();
+        aboutDialog.show(fm, "about");
+    }
     
 	@Override
     public void onResume() {
