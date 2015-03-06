@@ -9,37 +9,85 @@
 	android:elevation="10dp"
 	style="@style/AppTheme">
 
+	<ImageView
+		android:id="@+id/aboutappImageView"
+		android:src="@drawable/ic_launcher"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="20dp"
+		android:minWidth="150dp"
+		android:minHeight="150dp"/>
+
 	<TextView
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:layout_width="match_parent"
 		android:text="@string/app_name"
-		android:id="@+id/aboutTextViewAppName"
-		android:textStyle="bold"
+		android:layout_below="@id/aboutappImageView"
 		android:gravity="center_horizontal"
-		android:textIsSelectable="false"/>
+		android:id="@+id/aboutTextView1"/>
 
 	<TextView
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:layout_width="match_parent"
-		android:text="Medium Text"
-		android:layout_below="@id/aboutTextViewAppName"
-		android:id="@+id/aboutTextView1"
-		android:textStyle="bold"
-		android:gravity="center_horizontal"
-		android:paddingBottom="6dp"
-		android:paddingTop="12dp"
-		android:textIsSelectable="false"/>
+		android:text="@string/author"
+		android:layout_below="@id/aboutTextView1"
+		android:layout_marginTop="8dp"
+		android:id="@+id/aboutTextView2"
+		android:gravity="center_horizontal"/>
 
 	<TextView
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:layout_width="match_parent"
-		android:text="Small Text"
-		android:layout_below="@id/aboutTextView1"
+		android:text="@string/author_twitter"
+		android:layout_below="@id/aboutTextView2"
 		android:gravity="center_horizontal"
-		android:textIsSelectable="false"/>
+		android:layout_marginTop="4dp"
+		android:id="@+id/aboutTextView3"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"
+		android:layout_below="@id/aboutTextView3"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:id="@+id/aboutView1"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:text="@string/credits_title"
+		android:layout_below="@id/aboutView1"
+		android:gravity="center_horizontal"
+		android:layout_marginTop="10dp"
+		android:id="@+id/aboutTextView4"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal"
+		android:layout_below="@id/aboutTextView4"
+		android:id="@+id/aboutLinearLayout1">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="wrap_content"
+			android:text="Small Text"
+			android:gravity="left"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="wrap_content"
+			android:text="Small Text"
+			android:gravity="right|fill_horizontal"/>
+
+	</LinearLayout>
 
 </RelativeLayout>
 

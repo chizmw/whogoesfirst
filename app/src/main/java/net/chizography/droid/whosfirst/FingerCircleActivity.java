@@ -40,6 +40,7 @@ public class FingerCircleActivity extends FragmentActivity {
         upgradeCheck();
         rateAppReminder();
      
+        showAboutAppDialog();
 	}
     
     private void showAboutAppDialog() {
