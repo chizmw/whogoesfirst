@@ -5,28 +5,22 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.support.v4.app.*;
+import android.view.*;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends DialogFragment {
+
+    public AboutActivity () {
+        // Empty constructor required for DialogFragment
+    }
     
-    private WebView webView;
-    
-    /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // remove title
-        /*
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                             */
-
-        setContentView(R.layout.about);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         
-        webView = (WebView) findViewById(R.id.webView_about);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("file:///android_asset/about/about.html");
-        
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getDialog().setContentView(R.layout.about);
+
+        return getView();
     }
 }
