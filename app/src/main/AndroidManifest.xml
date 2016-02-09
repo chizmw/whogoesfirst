@@ -27,5 +27,9 @@
 
         <activity android:name=".SettingsActivity"
             android:theme="@style/AppPrefsTheme" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="5748875cdce00cc2486179c07d92808dd0aa5718" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
