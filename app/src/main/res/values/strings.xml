@@ -2,21 +2,17 @@
 <resources>
     <string name="app_name">Who\'s First?</string>
 	<string name="homescreen_name">Who\'s First?</string>
-    <string name="action_settings">Settings</string>
     <string name="timerValue">#</string>
-	<string name="toStartHint">Touch screen with TWO or more fingers to initiate countdown...</string>
+	<string name="toStartHint">Touch screen with TWO or more fingers to initiate countdown…</string>
   
     <!-- preferences -->
-    <string name="prefsCatTitle_General">Developers</string>
-    
+
     <string name="prefs_ShowPlayerOrder_title">Show Player Order</string>
     <string name="prefs_ShowPlayerOrder_summaryOff">First Player only</string>
     <string name="prefs_ShowPlayerOrder_summaryOn">Assign Player Order</string>
     <string name="prefs_ShowPlayerOrder_key">prefs_showPlayerOrder</string>
 
     <string name="prefs_ShowPlayerOrderAs_title">Display Order As</string>
-    <string name="prefs_ShowPlayerOrderAs_summaryOff">Value In Circle</string>
-    <string name="prefs_ShowPlayerOrderAs_summaryOn">Border Badge</string>
     <string name="prefs_ShowPlayerOrderAs_key">prefs_showPlayerOrde</string>
     
     <string name="prefs_StartCountdownAt_title">Countdown From</string>
@@ -39,4 +35,5 @@
     <string name="rate_dialog_ok">Rate Now</string>
     <string name="rate_dialog_cancel">Maybe Later</string>
     <string name="rate_dialog_no">Never Ask</string>
+    <string name="x_y_zz">x.y.zz</string>
 </resources>

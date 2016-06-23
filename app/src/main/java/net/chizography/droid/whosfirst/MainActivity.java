@@ -5,10 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.util.Log;
-import android.widget.Toast;
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends Activity {
 	/** Called when the activity is first created. */

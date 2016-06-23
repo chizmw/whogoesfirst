@@ -4,7 +4,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 /**
- * Created by Chisel on 15/02/2015.
+ * File sprang into existence thanks to Chisel on 15/02/2015.
  */
 
 abstract class GestureListener extends GestureDetector.SimpleOnGestureListener {

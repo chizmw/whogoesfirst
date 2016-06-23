@@ -5,7 +5,6 @@ package net.chizography.droid.whosfirst;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.Toast;
 
 public class EditTextPreference extends android.preference.EditTextPreference {
 

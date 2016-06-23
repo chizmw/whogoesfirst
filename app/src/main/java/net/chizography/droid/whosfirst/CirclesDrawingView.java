@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.res.*;
 
+import java.util.Locale;
+
 public class CirclesDrawingView extends View implements OnTouchListener {
     private FingerCircles fingerCircles;
     
@@ -40,7 +42,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	private boolean preventNewCircles;
 	private boolean pickedWinner;
 
-    private TextWatcher textWatcher = new TextWatcher(){
+    private final TextWatcher textWatcher = new TextWatcher(){
         public void onTextChanged(CharSequence s, int a, int b, int c) {}
         public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
         public void afterTextChanged(Editable e) {
@@ -78,7 +80,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         this.abortCountdown();
     }
 	
-	public void simpleToast(String s) {
+	private void simpleToast(String s) {
 		Toast.makeText(_context, s, Toast.LENGTH_SHORT).show();
 	}
 	
@@ -130,7 +132,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	}
 	
 	
-	public void setStartHintVisible(boolean visible) {
+	private void setStartHintVisible(boolean visible) {
 		TextView tvStartHint = getStartHintView();
 
 		tvStartHint.setVisibility(
@@ -143,11 +145,13 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	public void setTimerTextVisible(boolean visible) {
 		TextView tvTimer = getTimerView();
 
-		tvTimer.setVisibility(
-			visible ? VISIBLE : INVISIBLE
-		);
-		
-		invalidate();
+        if (tvTimer != null) {
+            tvTimer.setVisibility(
+                visible ? VISIBLE : INVISIBLE
+            );
+        }
+
+        invalidate();
 	}
 	
 	public void setTimerText(int value) {
@@ -161,9 +165,11 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		else if (value > 9) {
 			value = 9;
 		}
-		
-		tv.setText(Integer.toString(value));
-	}
+
+        if (tv != null) {
+            tv.setText(String.format(Locale.ENGLISH, "%d", value));
+        }
+    }
 	
 	
     private boolean isStartHintState() {
@@ -243,20 +249,28 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         
         Drawable dl;
         if (showPlayerOrder) {
+            //noinspection deprecation
             dl = getResources().getDrawable(R.drawable.meeple_order);
         }
         else {
+            //noinspection deprecation
             dl = getResources().getDrawable(R.drawable.meeple);
         }
-        
-        dl.setBounds(
-            left,
-            top,
-            left + length,
-            top + length
-        );
-        dl.setAlpha(60);
-        dl.draw(canvas);
+
+        if (dl != null) {
+            dl.setBounds(
+                left,
+                top,
+                left + length,
+                top + length
+            );
+        }
+        if (dl != null) {
+            dl.setAlpha(60);
+        }
+        if (dl != null) {
+            dl.draw(canvas);
+        }
     }
     
     private void drawSwipeHint() {
@@ -278,35 +292,49 @@ public class CirclesDrawingView extends View implements OnTouchListener {
             Drawable dl,dr;
            
             if (showPlayerOrder && debugEnabled) {
+                //noinspection deprecation
                 dl = getResources().getDrawable(R.drawable.flick_left_512);
-                dl.setBounds(
-                    leftX,
-                    leftY,
-                    leftX + length,
-                    leftY + length
-                );
-                dl.setAlpha(alpha);
-                dl.draw(canvas);
+                if (dl != null) {
+                    dl.setBounds(
+                        leftX,
+                        leftY,
+                        leftX + length,
+                        leftY + length
+                    );
+                }
+                if (dl != null) {
+                    dl.setAlpha(alpha);
+                }
+                if (dl != null) {
+                    dl.draw(canvas);
+                }
             }
             else {
+                //noinspection deprecation
                 dr = getResources().getDrawable(R.drawable.flick_right_512);
-                dr.setBounds(
-                    rightX,
-                    rightY,
-                    rightX + length,
-                    rightY + length
-                );
-                dr.setAlpha(alpha);
-                dr.draw(canvas);
+                if (dr != null) {
+                    dr.setBounds(
+                        rightX,
+                        rightY,
+                        rightX + length,
+                        rightY + length
+                    );
+                }
+                if (dr != null) {
+                    dr.setAlpha(alpha);
+                }
+                if (dr != null) {
+                    dr.draw(canvas);
+                }
             }
         }
         catch(Exception e) {simpleToast(e.getMessage());}
     }
     
-    private void setSwipeHintEnabled(boolean visible) {
+    private void setSwipeHintEnabled(@SuppressWarnings("SameParameterValue") boolean visible) {
        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(_context).edit();
        editor.putBoolean(_context.getString(R.string.prefs_ShowSwipeHint_key), visible);
-       editor.commit();
+       editor.apply();
     }
 
     private void pickPlayerOrder() {
@@ -360,13 +388,17 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		// show/hide timer message area
 		TextView tvTimer = getTextView(R.id.txtTimer);
 		if (null == countdownTimer) {
-			tvTimer.setVisibility(INVISIBLE);
-		}
+            if (tvTimer != null) {
+                tvTimer.setVisibility(INVISIBLE);
+            }
+        }
 		
 		// automatically process timer text changes
 		TextWatcher twl = textWatcher;
-		tvTimer.addTextChangedListener(twl);
-        
+        if (tvTimer != null) {
+            tvTimer.addTextChangedListener(twl);
+        }
+
         fingerCircles.renderCircles(pickedWinner,showPlayerOrder);
     }
     
@@ -399,7 +431,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 touchedCircle.setCenterX(xTouch);
                 touchedCircle.setCenterY(yTouch);
                 fingerCircles.putPointer(event.getPointerId(0), touchedCircle);
-                
+
+                //noinspection ConstantConditions
                 if (touchedCircle==null) {
                     AppLog.e("ACTION_DOWN: null touchedCircle");
                 }
@@ -429,10 +462,14 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
                 //mCirclePointer.put(pointerId, touchedCircle);
                 fingerCircles.putPointer(pointerId, touchedCircle);
-                touchedCircle.setCenterX(xTouch);
-                touchedCircle.setCenterY(yTouch);
-                
-				// new pointer, argh, new countdown needed
+                if (touchedCircle != null) {
+                    touchedCircle.setCenterX(xTouch);
+                }
+                if (touchedCircle != null) {
+                    touchedCircle.setCenterY(yTouch);
+                }
+
+                // new pointer, argh, new countdown needed
 				abortCountdown();
 				
                 invalidate();

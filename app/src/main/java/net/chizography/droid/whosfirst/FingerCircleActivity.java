@@ -7,15 +7,15 @@ import android.preference.PreferenceManager;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import hotchemi.android.rate.AppRate;
-import hotchemi.android.rate.OnClickButtonListener;
+
 import android.util.Log;
 
 public class FingerCircleActivity extends Activity {
     private String versionString;
-    private TextView tvVersion;
-	/** Called when the activity is first created. */
+
+    /** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,7 +30,6 @@ public class FingerCircleActivity extends Activity {
 		try {
 			PackageInfo pinfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
             versionString = pinfo.versionName;
-			tvVersion = (TextView) findViewById(R.id.appVersion);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -57,12 +56,7 @@ public class FingerCircleActivity extends Activity {
             .setRemindInterval(5) // default 1
             .setShowNeutralButton(true) // default true
             .setDebug(false) // default false
-            .setOnClickButtonListener(new OnClickButtonListener() { // callback listener.
-                @Override
-                public void onClickButton(int which) {
-                    Log.d(MainActivity.class.getName(), Integer.toString(which));
-                }
-            })
+            .setOnClickButtonListener(which -> Log.d(MainActivity.class.getName(), Integer.toString(which)))
             .monitor();
 
         // Show a dialog if meets conditions
@@ -86,7 +80,7 @@ public class FingerCircleActivity extends Activity {
             if (lastVersion != versionCode) {
                 final SharedPreferences.Editor editor = prefs.edit();
                 editor.putInt("last_known_version", versionCode);
-                editor.commit();
+                editor.apply();
                 
                 // so we can see that we triggered it
                 AppLog.d(

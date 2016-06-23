@@ -3,41 +3,37 @@ package net.chizography.droid.whosfirst;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.os.CountDownTimer;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import java.util.HashSet;
 import java.util.Random;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 public class FingerCircles {
     
     private Canvas canvas;
     
     /** Paint to draw circles */
-    private AppPaint mCirclePaint, mErasePaint, mWinnerPaint, paintWinnerCircleBorder;
+    private AppPaint mCirclePaint;
+    private AppPaint mWinnerPaint;
+    private AppPaint paintWinnerCircleBorder;
 
     /** All available circles */
-    private HashSet<CircleArea> mCircles = new HashSet<CircleArea>();
-    private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>();
+    private HashSet<CircleArea> mCircles = new HashSet<>();
+    private SparseArray<CircleArea> mCirclePointer = new SparseArray<>();
 
     public void setOrderDisplayStyle(OrderStyle orderDisplayStyle) {
         this.orderDisplayStyle = orderDisplayStyle;
     }
 
-    public OrderStyle getOrderDisplayStyle() {
-        return orderDisplayStyle;
-    }
-    
     // inspired by http://im-dexter.blogspot.com/2014/12/enum-datatype-one-best-way-to-handle.html
-    public static enum OrderStyle {
+    public enum OrderStyle {
         VALUE_IN_CIRCLE  ( 1 ),
         BUTTON_BUBBLE    ( 2 );
-        public final int value;
-        OrderStyle(int i) { value = i; }
-    };
-    
+
+        OrderStyle(int i) {
+        }
+    }
+
     private OrderStyle orderDisplayStyle = OrderStyle.VALUE_IN_CIRCLE;
     
     public FingerCircles(final Canvas c) {
@@ -47,11 +43,10 @@ public class FingerCircles {
     private void init(final Canvas c) {
         this.canvas = c;
         
-        mCircles = new HashSet<CircleArea>();
-		mCirclePointer = new SparseArray<CircleArea>();
+        mCircles = new HashSet<>();
+		mCirclePointer = new SparseArray<>();
         
         mCirclePaint = new AppPaint(AppPaint.paintType.DEFAULT);
-        mErasePaint = new AppPaint(AppPaint.paintType.ERASE);
         mWinnerPaint = new AppPaint(AppPaint.paintType.WINNER_CIRCLE_FILL);
         paintWinnerCircleBorder = new AppPaint(AppPaint.paintType.WINNER_CIRCLE_BORDER);
     }
@@ -122,7 +117,7 @@ public class FingerCircles {
         );
     }
     
-    public void drawPlayerOrderBadge(CircleArea circle, int startPosition) {
+    private void drawPlayerOrderBadge(CircleArea circle, int startPosition) {
         Paint paint;
         Paint circlePaint;
         String text = Integer.toString(startPosition);
@@ -160,8 +155,12 @@ public class FingerCircles {
         if(null==ca) {
             AppLog.w("Picked a pointer with no circle");
         }
-        ca.setFirstPlayer(true);
-        ca.setStartPosition(1);
+        if (ca != null) {
+            ca.setFirstPlayer(true);
+        }
+        if (ca != null) {
+            ca.setStartPosition(1);
+        }
 
         // assign remaining startPosition values
         int remainingPositions = mCirclePointer.size();
@@ -222,7 +221,7 @@ public class FingerCircles {
         return touchedCircle;
     }
 
-    public CircleArea getTouchedCircle(final int xTouch, final int yTouch) {
+    private CircleArea getTouchedCircle(final int xTouch, final int yTouch) {
         CircleArea touched = null;
 
         for (CircleArea circle : mCircles) {
@@ -249,7 +248,7 @@ public class FingerCircles {
         CircleArea ca = mCirclePointer.get(id);
         // if it's null we probably merged circles and removed one earlier
         if(null==ca){
-            AppLog.w("removePointer() called for a null deatination");
+            AppLog.w("removePointer() called for a null destination");
         }
         else if (ca.getPointerCount()==1){
             AppLog.d("Removing last by pointer: " + ca.toString());

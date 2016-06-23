@@ -6,7 +6,7 @@ import android.graphics.Paint;
 
 public class AppPaint extends Paint {
 
-    static enum paintType {
+    enum paintType {
         DEFAULT,
         ERASE,
         WINNER_CIRCLE_FILL,
@@ -31,7 +31,7 @@ public class AppPaint extends Paint {
         this.setMaskFilter(null); 
     }
 
-    public void setBrushType (paintType bt) {
+    private void setBrushType(paintType bt) {
         switch(bt) {
             case DEFAULT:
                 this.setColor(Color.parseColor("#ffebe4bf"));

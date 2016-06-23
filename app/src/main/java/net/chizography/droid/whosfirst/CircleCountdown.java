@@ -5,7 +5,7 @@ import android.widget.*;
 import android.content.*;
 import android.os.*;
 
-public class CircleCountdown {
+class CircleCountdown {
 
     private int countdownSeconds = 5;
 	private CountDownTimer cdt;

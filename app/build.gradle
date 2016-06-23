@@ -36,7 +36,7 @@ android {
         applicationVariants.all { variant ->
             for (output in variant.outputs) {
                 def apk = output.outputFile;
-                def newName = "whosfirst-" + variant.baseName.replace("-" + variant.buildType.name, "") + "-" + defaultConfig.versionName + ".apk";
+                def newName = "whosfirst-" + (String)variant.baseName.replace("-" + (String)variant.buildType.name, "") + "-" + (String)defaultConfig.versionName + ".apk";
                 //noinspection GroovyAssignabilityCheck
                 output.outputFile = new File(apk.parentFile, newName);
             }
