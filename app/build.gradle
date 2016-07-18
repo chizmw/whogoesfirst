@@ -46,5 +46,5 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.github.hotchemi:android-rate:0.4.3'
+    compile 'com.github.hotchemi:android-rate:1.0.1'
 }
