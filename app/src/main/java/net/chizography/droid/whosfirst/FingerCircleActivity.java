@@ -54,7 +54,8 @@ public class FingerCircleActivity extends Activity {
             .setInstallDays(10) // default 10, 0 means install day.
             .setLaunchTimes(10) // default 10
             .setRemindInterval(5) // default 1
-            .setShowNeutralButton(true) // default true
+            .setShowLaterButton(true)
+            .setShowNeverButton(true)
             .setDebug(false) // default false
             .setOnClickButtonListener(which -> Log.d(MainActivity.class.getName(), Integer.toString(which)))
             .monitor();
