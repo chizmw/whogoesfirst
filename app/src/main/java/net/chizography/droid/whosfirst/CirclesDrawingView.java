@@ -202,42 +202,46 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         // keep an ear out for touchimg
 		setOnTouchListener(this);
         // also check for (flick) gestures
-        GestureListener gl = new GestureListener(){
-            @Override
-            public void onSwipeLeft() {
-                if (debugEnabled)
-                    simpleToast("onSwipeLeft");
-                showPlayerOrder = !showPlayerOrder;
-                fingerCircles.clearCirclePointers();
-                setSwipeHintEnabled(false);
-            }
-
-            @Override
-            public void onSwipeRight() {
-                if (debugEnabled)
-                    simpleToast("onSwipeRight");
-                showPlayerOrder = !showPlayerOrder;
-                fingerCircles.clearCirclePointers();
-                setSwipeHintEnabled(false);
-            }
-
-            @Override
-            public void onSwipeTop() {
-                fingerCircles.clearCirclePointers();
-                // show preferences
-                final Intent intent = new Intent(_context, SettingsActivity.class); 
-                _context.startActivity(intent);
-            }
-
-            @Override
-            public void onSwipeBottom() {
-                // just tidy up
-                fingerCircles.clearCirclePointers();
-            }
-        };
+        GestureListener gl = getGestureListener();
         gestureDetector = new GestureDetector(_context, gl);
     }
-    
+
+    private GestureListener getGestureListener() {
+        return new GestureListener(){
+                @Override
+                public void onSwipeLeft() {
+                    if (debugEnabled)
+                        simpleToast("onSwipeLeft");
+                    showPlayerOrder = !showPlayerOrder;
+                    fingerCircles.clearCirclePointers();
+                    setSwipeHintEnabled(false);
+                }
+
+                @Override
+                public void onSwipeRight() {
+                    if (debugEnabled)
+                        simpleToast("onSwipeRight");
+                    showPlayerOrder = !showPlayerOrder;
+                    fingerCircles.clearCirclePointers();
+                    setSwipeHintEnabled(false);
+                }
+
+                @Override
+                public void onSwipeTop() {
+                    fingerCircles.clearCirclePointers();
+                    // show preferences
+                    final Intent intent = new Intent(_context, SettingsActivity.class);
+                    _context.startActivity(intent);
+                }
+
+                @Override
+                public void onSwipeBottom() {
+                    // just tidy up
+                    fingerCircles.clearCirclePointers();
+                }
+            };
+    }
+
     private void drawChooserModeImage() {
         // make sure we don't try to draw to a null canvas
         if (canvas==null) {
