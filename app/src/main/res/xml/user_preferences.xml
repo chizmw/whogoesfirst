@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
     <PreferenceCategory android:title="General">
-        <net.chizography.droid.whosfirst.EditTextPreference
+        <net.chizography.droid.whosfirst.widget.prefs.EditTextPreference
             android:title="@string/prefs_StartCountdownAt_title"
             android:defaultValue="3"
             android:key="@string/prefs_StartCountdownAt_key"
@@ -52,5 +52,12 @@
             android:persistent="true"
             android:enabled="false"
         />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/prefsCatTitle_AppInfo">
+        <net.chizography.droid.whosfirst.widget.prefs.VersionStringPreference />
+        <net.chizography.droid.whosfirst.widget.prefs.BuildNumberPreference />
+        <net.chizography.droid.whosfirst.widget.prefs.BuildFlavourPreference />
+
     </PreferenceCategory>
 </PreferenceScreen>

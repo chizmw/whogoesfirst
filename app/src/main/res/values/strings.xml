@@ -36,4 +36,6 @@
     <string name="rate_dialog_cancel">Maybe Later</string>
     <string name="rate_dialog_no">Never Ask</string>
     <string name="x_y_zz">x.y.zz</string>
+    <string name="prefs_CurrentBuild_title">Current Build</string>
+    <string name="prefsCatTitle_AppInfo">Information</string>
 </resources>

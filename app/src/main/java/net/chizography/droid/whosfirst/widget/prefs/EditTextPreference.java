@@ -1,4 +1,4 @@
-package net.chizography.droid.whosfirst;
+package net.chizography.droid.whosfirst.widget.prefs;
 
 // based heavily on:
 // http://stackoverflow.com/questions/531427/how-do-i-display-the-current-value-of-an-android-preference-in-the-preference-su
