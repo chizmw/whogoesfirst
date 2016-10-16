@@ -16,7 +16,7 @@ public class CircleCountdown {
 		cdt.cancel();
 	}
 
-    CircleCountdown(final CirclesDrawingView cdv, final int seconds, final int circleCount) {
+    public CircleCountdown(final CirclesDrawingView cdv, final int seconds, final int circleCount) {
 		if(seconds>0 && seconds<10) {
 			countdownSeconds = seconds;
 		}
