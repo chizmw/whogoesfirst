@@ -14,7 +14,7 @@ android {
         applicationId "net.chizography.droid.whosfirst"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 20
+        versionCode 37
         versionName "1.1.0"
 
         jackOptions {
