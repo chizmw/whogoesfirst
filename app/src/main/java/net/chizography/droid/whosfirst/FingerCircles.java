@@ -85,14 +85,19 @@ public class FingerCircles {
             canvas.drawCircle(circle.getCenterX(), circle.getCenterY(), circle.getRadius(), p);
 
             if (pickedWinner && showPlayerOrder) {
-                if (circle.hasStartPosition()) {
-                    switch(this.orderDisplayStyle) {
-                        case BUTTON_BUBBLE:
-                            drawPlayerOrderBadge(circle, circle.getStartPosition());
-                            break;
-                        case VALUE_IN_CIRCLE:
-                        default:
-                            drawPlayerOrderNumber(circle, circle.getStartPosition());
+                if (circle == null) {
+                    AppLog.e("null circle while looping through circles in renderCircles()");
+                }
+                else {
+                    if (circle.hasStartPosition()) {
+                        switch (this.orderDisplayStyle) {
+                            case BUTTON_BUBBLE:
+                                drawPlayerOrderBadge(circle, circle.getStartPosition());
+                                break;
+                            case VALUE_IN_CIRCLE:
+                            default:
+                                drawPlayerOrderNumber(circle, circle.getStartPosition());
+                        }
                     }
                 }
             }
