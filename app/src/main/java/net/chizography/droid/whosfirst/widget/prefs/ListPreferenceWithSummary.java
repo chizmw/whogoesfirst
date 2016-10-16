@@ -1,4 +1,4 @@
-package net.chizography.droid.whosfirst;
+package net.chizography.droid.whosfirst.widget.prefs;
 
 import android.content.Context;
 import android.preference.ListPreference;

@@ -1,6 +1,8 @@
-package net.chizography.droid.whosfirst;
+package net.chizography.droid.whosfirst.fragment;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import net.chizography.droid.whosfirst.R;
 
 public class SettingsFragment extends PreferenceFragment {
     @Override

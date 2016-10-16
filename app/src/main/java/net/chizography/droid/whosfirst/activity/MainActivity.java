@@ -1,4 +1,4 @@
-package net.chizography.droid.whosfirst;
+package net.chizography.droid.whosfirst.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import com.crashlytics.android.answers.Answers;
+
+import net.chizography.droid.whosfirst.activity.FingerCircleActivity;
+
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends Activity {

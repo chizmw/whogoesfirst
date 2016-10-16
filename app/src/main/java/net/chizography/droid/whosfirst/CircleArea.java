@@ -2,6 +2,8 @@ package net.chizography.droid.whosfirst;
 import android.content.res.*;
 import android.util.DisplayMetrics;
 
+import net.chizography.droid.whosfirst.util.AppLog;
+
 import java.util.Locale;
 
 public class CircleArea {

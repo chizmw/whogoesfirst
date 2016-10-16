@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/homescreen_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,15 +23,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FingerCircleActivity"
+            android:name=".activity.FingerCircleActivity"
             android:label="@string/homescreen_name"
             android:configChanges="orientation|screenSize"
             >
         </activity>
 
-        <activity android:name=".AboutActivity"  />
+        <activity android:name=".activity.AboutActivity"  />
 
-        <activity android:name=".SettingsActivity"
+        <activity android:name=".activity.SettingsActivity"
             android:theme="@style/AppPrefsTheme" />
         <meta-data
             android:name="io.fabric.ApiKey"

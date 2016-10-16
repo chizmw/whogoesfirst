@@ -1,7 +1,9 @@
-package net.chizography.droid.whosfirst;
+package net.chizography.droid.whosfirst.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import net.chizography.droid.whosfirst.fragment.SettingsFragment;
 
 public class SettingsActivity extends Activity {
     @Override
