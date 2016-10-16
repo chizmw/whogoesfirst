@@ -3,13 +3,14 @@ package net.chizography.droid.whosfirst;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
+
+import net.chizography.droid.whosfirst.util.AppLog;
+
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Random;
-import java.util.logging.Logger;
 
 public class FingerCircles {
     

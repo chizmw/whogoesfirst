@@ -1,4 +1,4 @@
-package net.chizography.droid.whosfirst;
+package net.chizography.droid.whosfirst.view;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -20,6 +20,14 @@ import android.view.View.OnTouchListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.res.*;
+
+import net.chizography.droid.whosfirst.util.AppLog;
+import net.chizography.droid.whosfirst.CircleArea;
+import net.chizography.droid.whosfirst.CircleCountdown;
+import net.chizography.droid.whosfirst.FingerCircles;
+import net.chizography.droid.whosfirst.GestureListener;
+import net.chizography.droid.whosfirst.R;
+import net.chizography.droid.whosfirst.activity.SettingsActivity;
 
 import java.util.Locale;
 

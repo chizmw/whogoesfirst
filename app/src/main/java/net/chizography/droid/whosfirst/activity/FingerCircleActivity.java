@@ -1,4 +1,4 @@
-package net.chizography.droid.whosfirst;
+package net.chizography.droid.whosfirst.activity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 import hotchemi.android.rate.AppRate;
 
 import android.util.Log;
+
+import net.chizography.droid.whosfirst.util.AppLog;
+import net.chizography.droid.whosfirst.R;
 
 public class FingerCircleActivity extends Activity {
     private String versionString;

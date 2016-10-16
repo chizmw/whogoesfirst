@@ -7,7 +7,7 @@ import android.view.MotionEvent;
  * File sprang into existence thanks to Chisel on 15/02/2015.
  */
 
-abstract class GestureListener extends GestureDetector.SimpleOnGestureListener {
+public abstract class GestureListener extends GestureDetector.SimpleOnGestureListener {
     public abstract void onSwipeLeft();
     public abstract void onSwipeRight();
     public abstract void onSwipeTop();

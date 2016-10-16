@@ -1,8 +1,10 @@
-package net.chizography.droid.whosfirst;
+package net.chizography.droid.whosfirst.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
+
+import net.chizography.droid.whosfirst.R;
 
 public class AboutActivity extends Activity {
 

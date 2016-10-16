@@ -1,7 +1,7 @@
-package net.chizography.droid.whosfirst;
+package net.chizography.droid.whosfirst.util;
 import android.util.Log;
 
-final class AppLog {
+public final class AppLog {
     private AppLog(){}
 
     @SuppressWarnings("unused")

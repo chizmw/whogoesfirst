@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	>
 
-	<net.chizography.droid.whosfirst.CirclesDrawingView
+	<net.chizography.droid.whosfirst.view.CirclesDrawingView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="@color/chooserBackgroundColour"

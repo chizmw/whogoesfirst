@@ -21,7 +21,7 @@
             android:persistent="true"
         />
     
-        <net.chizography.droid.whosfirst.ListPreferenceWithSummary
+        <net.chizography.droid.whosfirst.widget.prefs.ListPreferenceWithSummary
             android:key="@string/prefs_ShowPlayerOrderAs_key"
             android:title="@string/prefs_ShowPlayerOrderAs_title"
             android:summary="Visual style for displaying start order"

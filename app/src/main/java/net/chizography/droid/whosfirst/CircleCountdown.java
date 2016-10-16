@@ -5,7 +5,9 @@ import android.widget.*;
 import android.content.*;
 import android.os.*;
 
-class CircleCountdown {
+import net.chizography.droid.whosfirst.view.CirclesDrawingView;
+
+public class CircleCountdown {
 
     private int countdownSeconds = 5;
 	private CountDownTimer cdt;
