@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "net.chizography.droid.whosfirst"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 40
         versionName "1.1.2"
 
