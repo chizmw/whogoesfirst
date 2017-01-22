@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:launchMode="singleTask"
         android:hardwareAccelerated="false"
         android:allowBackup="true"
         android:fullBackupContent="false"
