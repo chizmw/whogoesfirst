@@ -6,6 +6,10 @@ import android.graphics.Rect;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
+
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
+
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Random;
@@ -254,6 +258,7 @@ public class FingerCircles {
         }
 
         // when we fall out here we've assigned all start positions
+        Answers.getInstance().logCustom(new CustomEvent("Selected First Player"));
 	}
     
     public CircleArea scanForTouchedCircle(final MotionEvent event){
