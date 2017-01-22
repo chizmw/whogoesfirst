@@ -51,9 +51,9 @@ public class FingerCircleActivity extends Activity {
     private void rateAppReminder(){
         // prompt users to rate
         AppRate.with(this)
-            .setInstallDays(10) // default 10, 0 means install day.
-            .setLaunchTimes(10) // default 10
-            .setRemindInterval(5) // default 1
+            .setInstallDays(28) // default 10, 0 means install day.
+            .setLaunchTimes(50) // default 10
+            .setRemindInterval(10) // default 1
             .setShowLaterButton(true)
             .setShowNeverButton(true)
             .setDebug(false) // default false
