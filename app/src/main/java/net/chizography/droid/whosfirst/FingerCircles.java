@@ -258,7 +258,11 @@ public class FingerCircles {
         }
 
         // when we fall out here we've assigned all start positions
-        Answers.getInstance().logCustom(new CustomEvent("Selected First Player"));
+        Answers.getInstance().logCustom(
+            new CustomEvent("Selected First Player")
+                .putCustomAttribute("Finger Count", mCirclePointer.size())
+        );
+        AppLog.i("Finger Count: " + mCirclePointer.size());
 	}
     
     public CircleArea scanForTouchedCircle(final MotionEvent event){
