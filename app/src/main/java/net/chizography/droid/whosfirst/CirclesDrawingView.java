@@ -250,7 +250,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
                 @Override
                 public void onSwipeBottom() {
-                    // just tidy up
+                    // just tidy up the screen
                     fingerCircles.clearCirclePointers();
                 }
             };
