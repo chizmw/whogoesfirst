@@ -21,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.res.*;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
+
 import java.util.Locale;
 
 public class CirclesDrawingView extends View implements OnTouchListener {
@@ -438,6 +441,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 
                 //noinspection ConstantConditions
                 if (touchedCircle==null) {
+                    Answers.getInstance().logCustom(new CustomEvent("Touched NULL Circle"));
                     AppLog.e("ACTION_DOWN: null touchedCircle");
                 }
                 else {
