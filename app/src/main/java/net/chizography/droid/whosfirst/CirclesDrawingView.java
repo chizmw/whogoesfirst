@@ -216,6 +216,12 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                     if (debugEnabled)
                         simpleToast("onSwipeLeft");
                     showPlayerOrder = !showPlayerOrder;
+                    Answers.getInstance().logCustom(
+                        new CustomEvent("Swipe Detected")
+                            .putCustomAttribute("Direction",        "Left")
+                            .putCustomAttribute("showPlayerOrder",  showPlayerOrder ? "true" : "false")
+                    );
+
                     fingerCircles.clearCirclePointers();
                     setSwipeHintEnabled(false);
                 }
@@ -225,6 +231,11 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                     if (debugEnabled)
                         simpleToast("onSwipeRight");
                     showPlayerOrder = !showPlayerOrder;
+                    Answers.getInstance().logCustom(
+                        new CustomEvent("Swipe Detected")
+                            .putCustomAttribute("Direction",        "Right")
+                            .putCustomAttribute("showPlayerOrder",  showPlayerOrder ? "true" : "false")
+                    );
                     fingerCircles.clearCirclePointers();
                     setSwipeHintEnabled(false);
                 }
