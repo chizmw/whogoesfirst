@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.triplet.play'
+
 
 android {
     compileSdkVersion 24
@@ -21,6 +23,14 @@ android {
             enabled true
         }
     }
+    signingConfigs {
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
     buildTypes {
         release {
             minifyEnabled true
@@ -41,6 +51,11 @@ android {
                 output.outputFile = new File(apk.parentFile, newName);
             }
         }
+    }
+
+    play {
+        jsonFile = file('whosfirst-google-service.json')
+        track = 'alpha'
     }
 }
 
