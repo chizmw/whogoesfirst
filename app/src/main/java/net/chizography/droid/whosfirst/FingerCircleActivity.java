@@ -12,7 +12,9 @@ import hotchemi.android.rate.AppRate;
 
 import android.util.Log;
 
-public class FingerCircleActivity extends Activity {
+import net.chizography.droid.whosfirst.base.FabricSingleton;
+
+public class FingerCircleActivity extends FabricSingleton {
     private String versionString;
 
     /** Called when the activity is first created. */

@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
-public class AboutActivity extends Activity {
+import net.chizography.droid.whosfirst.base.FabricSingleton;
+
+public class AboutActivity extends FabricSingleton {
 
     /** Called when the activity is first created. */
     @Override

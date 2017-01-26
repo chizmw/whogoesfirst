@@ -1,6 +1,5 @@
 package net.chizography.droid.whosfirst;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
@@ -10,7 +9,9 @@ import io.fabric.sdk.android.Fabric;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.CustomEvent;
 
-public class MainActivity extends Activity {
+import net.chizography.droid.whosfirst.base.FabricSingleton;
+
+public class MainActivity extends FabricSingleton {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

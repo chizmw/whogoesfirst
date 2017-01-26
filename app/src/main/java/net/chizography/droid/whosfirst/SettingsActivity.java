@@ -6,7 +6,9 @@ import android.os.Bundle;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 
-public class SettingsActivity extends Activity {
+import net.chizography.droid.whosfirst.base.FabricSingleton;
+
+public class SettingsActivity extends FabricSingleton {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
