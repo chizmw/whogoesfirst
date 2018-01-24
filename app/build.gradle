@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '24.0.3'
+    compileSdkVersion 26
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -13,13 +12,9 @@ android {
     defaultConfig {
         applicationId "net.chizography.droid.whosfirst"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 41
         versionName "1.1.3"
-
-        jackOptions {
-            enabled true
-        }
     }
     buildTypes {
         release {
@@ -35,10 +30,10 @@ android {
 
         applicationVariants.all { variant ->
             for (output in variant.outputs) {
-                def apk = output.outputFile;
+                def apk = output.outputFile
                 def newName = "whosfirst-" + (String)variant.baseName.replace("-" + (String)variant.buildType.name, "") + "-" + (String)defaultConfig.versionName + ".apk";
                 //noinspection GroovyAssignabilityCheck
-                output.outputFile = new File(apk.parentFile, newName);
+                output.outputFileName = new File(apk.parentFile, newName)
             }
         }
     }
