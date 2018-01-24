@@ -3,7 +3,7 @@
     <string name="app_name">Who\'s First?</string>
 	<string name="homescreen_name">Who\'s First?</string>
     <string name="timerValue">#</string>
-	<string name="toStartHint">Touch screen with TWO or more fingers to initiate countdown…</string>
+	<string name="toStartHint">Each person should place ONE finger on the screen\n\nSelection countdown will start when TWO or more fingers are detected…</string>
   
     <!-- preferences -->
 
