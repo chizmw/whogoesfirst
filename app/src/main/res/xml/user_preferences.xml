@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="about"
+        android:title="About">
+        <intent android:action="net.chizography.droid.whosfirst.about.AboutAppActivity"/>
+    </Preference>
     
     <PreferenceCategory android:title="General">
         <net.chizography.droid.whosfirst.widget.prefs.EditTextPreference

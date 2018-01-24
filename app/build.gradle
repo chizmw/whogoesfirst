@@ -31,7 +31,7 @@ android {
         applicationVariants.all { variant ->
             for (output in variant.outputs) {
                 def apk = output.outputFile
-                def newName = "whosfirst-" + (String)variant.baseName.replace("-" + (String)variant.buildType.name, "") + "-" + (String)defaultConfig.versionName + ".apk";
+                def newName = "whosfirst-" + (String) variant.baseName.replace("-" + (String) variant.buildType.name, "") + "-" + (String) defaultConfig.versionName + ".apk";
                 //noinspection GroovyAssignabilityCheck
                 output.outputFileName = new File(apk.parentFile, newName)
             }
@@ -72,4 +72,8 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true;
     }
+}
+dependencies {
+    implementation 'com.android.support:appcompat-v7:26.+'
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }
