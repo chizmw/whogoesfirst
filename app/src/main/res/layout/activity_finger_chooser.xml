@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	>
+
+	<ImageView
+		android:id="@+id/imageView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:background="@android:color/holo_blue_bright"
+		android:contentDescription="@string/todo"
+		android:translationZ="10dp"
+		app:srcCompat="@drawable/ic_launcher"/>
 
 	<net.chizography.droid.whosfirst.CirclesDrawingView
 		android:layout_width="match_parent"
@@ -58,24 +71,21 @@
 
 	<TextView
 		android:id="@+id/appVersion"
-		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_centerInParent="false"
+		android:alpha="0.2"
+		android:gravity="bottom|end"
 		android:text="@string/x_y_zz"
+		android:textAlignment="center"
 		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:visibility="visible"
+		android:textColor="#FFFFFF"
 		android:textStyle="normal"
 		android:typeface="normal"
-		android:gravity="bottom|end"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentEnd="true"
-		android:layout_centerInParent="false"
-		android:textColor="#FFFFFF"
-		android:layout_marginLeft="5dp"
-		android:layout_marginRight="5dp"
-		android:layout_marginTop="50dp"
-		android:layout_marginBottom="5dp"
-		android:textAlignment="center"
-		android:alpha="0.2"
-		android:layout_width="match_parent"
+		android:visibility="visible"
 		tools:targetApi="jelly_bean_mr1"/>
+
 </RelativeLayout>
 

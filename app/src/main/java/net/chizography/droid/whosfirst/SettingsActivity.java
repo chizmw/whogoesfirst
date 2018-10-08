@@ -1,6 +1,5 @@
 package net.chizography.droid.whosfirst;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import com.crashlytics.android.answers.Answers;

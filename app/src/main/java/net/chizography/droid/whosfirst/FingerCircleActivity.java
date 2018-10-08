@@ -46,7 +46,7 @@ public class FingerCircleActivity extends FabricSingleton {
         super.onResume();
         // refresh/reload content view (force reload of prefs)
         setContentView(R.layout.activity_finger_chooser);
-        TextView tv = (TextView) findViewById(R.id.appVersion);
+        TextView tv = findViewById(R.id.appVersion);
         tv.setText(versionString);
     }
     

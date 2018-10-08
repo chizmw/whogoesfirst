@@ -38,4 +38,5 @@
     <string name="x_y_zz">x.y.zz</string>
     <string name="prefs_CurrentBuild_title">Current Build</string>
     <string name="prefsCatTitle_AppInfo">Information</string>
+    <string name="todo">TODO</string>
 </resources>

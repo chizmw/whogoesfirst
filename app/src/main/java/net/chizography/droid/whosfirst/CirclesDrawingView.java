@@ -393,7 +393,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 		
 		// this is another thing that needs refactoring
         if (isStartHintState()) {
-			setStartHintVisible(true);
+			setStartHintVisible(false);
 		}
 		else {
 			setStartHintVisible(false);
