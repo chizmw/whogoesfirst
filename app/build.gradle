@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -12,9 +12,12 @@ android {
     defaultConfig {
         applicationId "net.chizography.droid.whosfirst"
         minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 42
-        versionName "1.1.4"
+        targetSdkVersion 28
+        versionCode 43
+        versionName "1.1.5"
+
+        vectorDrawables.useSupportLibrary = true
+
     }
     buildTypes {
         release {
@@ -31,17 +34,21 @@ android {
         applicationVariants.all { variant ->
             for (output in variant.outputs) {
                 def apk = output.outputFile
+                def relativeRootDir = output.packageApplication.outputDirectory.toPath()
+                        .relativize(rootDir.toPath()).toFile()
                 def newName = "whosfirst-" + (String) variant.baseName.replace("-" + (String) variant.buildType.name, "") + "-" + (String) defaultConfig.versionName + ".apk";
+                println newName
+                println relativeRootDir
                 //noinspection GroovyAssignabilityCheck
-                output.outputFileName = new File(apk.parentFile, newName)
+                output.outputFileName = new File(relativeRootDir, newName)
             }
         }
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.github.hotchemi:android-rate:1.0.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.github.hotchemi:android-rate:1.0.1'
 }
 
 
@@ -66,14 +73,14 @@ repositories {
 }
 
 dependencies {
-    compile('com.crashlytics.sdk.android:answers:1.4.1@aar') {
+    implementation('com.crashlytics.sdk.android:answers:1.4.1@aar') {
         transitive = true;
     }
-    compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true;
     }
 }
 dependencies {
-    implementation 'com.android.support:appcompat-v7:26.+'
-    implementation 'com.android.support.constraint:constraint-layout:+'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
