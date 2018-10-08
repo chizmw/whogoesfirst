@@ -32,13 +32,15 @@ android {
         }
 
         applicationVariants.all { variant ->
-            for (output in variant.outputs) {
-                def apk = output.outputFile
+            variant.outputs.each { output ->
+                //def apk = output.outputFile
+                project.logger.lifecycle('my message visible by default')
+
                 def relativeRootDir = output.packageApplication.outputDirectory.toPath()
                         .relativize(rootDir.toPath()).toFile()
+
                 def newName = "whosfirst-" + (String) variant.baseName.replace("-" + (String) variant.buildType.name, "") + "-" + (String) defaultConfig.versionName + ".apk";
-                println newName
-                println relativeRootDir
+
                 //noinspection GroovyAssignabilityCheck
                 output.outputFileName = new File(relativeRootDir, newName)
             }
