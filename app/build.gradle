@@ -33,9 +33,6 @@ android {
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
-                //def apk = output.outputFile
-                project.logger.lifecycle('my message visible by default')
-
                 def relativeRootDir = output.packageApplication.outputDirectory.toPath()
                         .relativize(rootDir.toPath()).toFile()
 
