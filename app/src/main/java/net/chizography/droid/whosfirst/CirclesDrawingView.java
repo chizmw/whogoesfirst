@@ -112,7 +112,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	}
 	
 	private TextView getTextView(int id) {
-		TextView tv = (TextView) ((Activity)getContext()).findViewById(id);
+		TextView tv = ((Activity)getContext()).findViewById(id);
 		if (null == tv) {
 			return null;
 		}
@@ -125,7 +125,7 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	}
 	
 	private TextView getTimerView() {
-		TextView tvTimer = (TextView) ((Activity)getContext()).findViewById(R.id.txtTimer);
+		TextView tvTimer = ((Activity)getContext()).findViewById(R.id.txtTimer);
 		if (null == tvTimer) {
 			simpleToast("set is null");
 			return null;
@@ -412,9 +412,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
         }
 		
 		// automatically process timer text changes
-		TextWatcher twl = textWatcher;
         if (tvTimer != null) {
-            tvTimer.addTextChangedListener(twl);
+            tvTimer.addTextChangedListener(textWatcher);
         }
 
         fingerCircles.renderCircles(pickedWinner,showPlayerOrder);
@@ -500,9 +499,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
                 if (touchedCircle==null) {
                     AppLog.e("ACTION_MOVE: null touchedCircle");
                 }
-                else {
-                    //AppLog.v("ACTION_MOVE: " + touchedCircle.toString());
-                }
+                //AppLog.v("ACTION_MOVE: " + touchedCircle.toString());
+
                 invalidate();
                 handled = true;
                 break;

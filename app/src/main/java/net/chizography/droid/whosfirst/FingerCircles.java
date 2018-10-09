@@ -3,7 +3,6 @@ package net.chizography.droid.whosfirst;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 
@@ -13,7 +12,6 @@ import com.crashlytics.android.answers.CustomEvent;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Random;
-import java.util.logging.Logger;
 
 public class FingerCircles {
     
@@ -34,10 +32,10 @@ public class FingerCircles {
 
     // inspired by http://im-dexter.blogspot.com/2014/12/enum-datatype-one-best-way-to-handle.html
     public enum OrderStyle {
-        VALUE_IN_CIRCLE  ( 1 ),
-        BUTTON_BUBBLE    ( 2 );
+        VALUE_IN_CIRCLE  (),
+        BUTTON_BUBBLE    ();
 
-        OrderStyle(int i) {
+        OrderStyle() {
         }
     }
 
@@ -89,19 +87,14 @@ public class FingerCircles {
             canvas.drawCircle(circle.getCenterX(), circle.getCenterY(), circle.getRadius(), p);
 
             if (pickedWinner && showPlayerOrder) {
-                if (circle == null) {
-                    AppLog.e("null circle while looping through circles in renderCircles()");
-                }
-                else {
-                    if (circle.hasStartPosition()) {
-                        switch (this.orderDisplayStyle) {
-                            case BUTTON_BUBBLE:
-                                drawPlayerOrderBadge(circle, circle.getStartPosition());
-                                break;
-                            case VALUE_IN_CIRCLE:
-                            default:
-                                drawPlayerOrderNumber(circle, circle.getStartPosition());
-                        }
+                if (circle.hasStartPosition()) {
+                    switch (this.orderDisplayStyle) {
+                        case BUTTON_BUBBLE:
+                            drawPlayerOrderBadge(circle, circle.getStartPosition());
+                            break;
+                        case VALUE_IN_CIRCLE:
+                        default:
+                            drawPlayerOrderNumber(circle, circle.getStartPosition());
                     }
                 }
             }

@@ -8,16 +8,16 @@
 	>
 
 	<ImageView
-		android:id="@+id/imageView"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentEnd="true"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentTop="true"
-		android:background="@android:color/holo_blue_bright"
-		android:contentDescription="@string/todo"
-		android:translationZ="10dp"
-		app:srcCompat="@drawable/ic_launcher"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/holo_blue_bright"
+        android:contentDescription="@string/todo"
+        android:translationZ="10dp"
+        app:srcCompat="@drawable/ic_launcher"
+        tools:targetApi="lollipop"/>
 
 	<net.chizography.droid.whosfirst.CirclesDrawingView
 		android:layout_width="match_parent"
@@ -70,22 +70,23 @@
 		tools:targetApi="jelly_bean_mr1"/>
 
 	<TextView
-		android:id="@+id/appVersion"
-		android:layout_width="match_parent"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
-		android:layout_centerInParent="false"
-		android:alpha="0.2"
-		android:gravity="bottom|end"
-		android:text="@string/x_y_zz"
-		android:textAlignment="center"
-		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:textColor="#FFFFFF"
-		android:textStyle="normal"
-		android:typeface="normal"
-		android:visibility="visible"
-		tools:targetApi="jelly_bean_mr1"/>
+        android:id="@+id/appVersion"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerInParent="false"
+        android:alpha="0.2"
+        android:gravity="bottom|end"
+        android:text="@string/x_y_zz"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFFFFF"
+        android:textStyle="normal"
+        android:typeface="normal"
+        android:visibility="visible"
+        tools:targetApi="jelly_bean_mr1"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>
 

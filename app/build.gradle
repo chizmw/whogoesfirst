@@ -36,7 +36,7 @@ android {
                 def relativeRootDir = output.packageApplication.outputDirectory.toPath()
                         .relativize(rootDir.toPath()).toFile()
 
-                def newName = "whosfirst-" + (String) variant.baseName.replace("-" + (String) variant.buildType.name, "") + "-" + (String) defaultConfig.versionName + ".apk";
+                def newName = "whosfirst-" + (String) variant.baseName.replace("-" + (String) variant.buildType.name, "") + "-" + (String) defaultConfig.versionName + ".apk"
 
                 //noinspection GroovyAssignabilityCheck
                 output.outputFileName = new File(relativeRootDir, newName)
@@ -73,10 +73,10 @@ repositories {
 
 dependencies {
     implementation('com.crashlytics.sdk.android:answers:1.4.3@aar') {
-        transitive = true;
+        transitive = true
     }
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
-        transitive = true;
+        transitive = true
     }
 }
 dependencies {

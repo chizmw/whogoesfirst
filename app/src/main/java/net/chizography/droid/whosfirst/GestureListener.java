@@ -8,10 +8,10 @@ import android.view.MotionEvent;
  */
 
 abstract class GestureListener extends GestureDetector.SimpleOnGestureListener {
-    public abstract void onSwipeLeft();
-    public abstract void onSwipeRight();
-    public abstract void onSwipeTop();
-    public abstract void onSwipeBottom();
+    protected abstract void onSwipeLeft();
+    protected abstract void onSwipeRight();
+    protected abstract void onSwipeTop();
+    protected abstract void onSwipeBottom();
 
     private static final int SWIPE_THRESHOLD = 250;
     private static final int SWIPE_VELOCITY_THRESHOLD = 100;

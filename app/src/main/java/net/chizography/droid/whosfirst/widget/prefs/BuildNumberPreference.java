@@ -5,10 +5,8 @@ package net.chizography.droid.whosfirst.widget.prefs;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.StringBuilderPrinter;
 
 import net.chizography.droid.whosfirst.BuildConfig;
-import net.chizography.droid.whosfirst.R;
 
 public class BuildNumberPreference extends ReadonlyPreference {
 

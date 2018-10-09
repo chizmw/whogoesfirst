@@ -8,16 +8,10 @@ import android.util.AttributeSet;
 
 import net.chizography.droid.whosfirst.BuildConfig;
 
-public class ReadonlyPreference extends android.preference.EditTextPreference {
+class ReadonlyPreference extends android.preference.EditTextPreference {
 
-    public ReadonlyPreference(Context context, AttributeSet attrs) {
+    ReadonlyPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    @Override
-    protected void onDialogClosed(boolean positiveResult) {
-        super.onDialogClosed(positiveResult);
-        //setSummary(getSummary());
     }
 
     @Override
