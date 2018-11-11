@@ -147,3 +147,4 @@ gradle-app.setting
 /.idea/caches/
 /.idea/codeStyles/
 /app/release/
+/app/google-services.json
