@@ -13,8 +13,8 @@ android {
         applicationId "net.chizography.droid.whosfirst"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 45
-        versionName "1.1.7"
+        versionCode 46
+        versionName "1.1.8"
 
         vectorDrawables.useSupportLibrary = true
 
