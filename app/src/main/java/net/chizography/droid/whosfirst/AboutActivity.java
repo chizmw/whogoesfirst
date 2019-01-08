@@ -1,6 +1,5 @@
 package net.chizography.droid.whosfirst;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
@@ -22,7 +21,7 @@ public class AboutActivity extends FabricSingleton {
 
         setContentView(R.layout.about);
 
-        WebView webView = (WebView) findViewById(R.id.webView_about);
+        WebView webView = findViewById(R.id.webView_about);
         webView.getSettings().setJavaScriptEnabled(false);
         webView.loadUrl("file:///android_asset/about/about.html");
         

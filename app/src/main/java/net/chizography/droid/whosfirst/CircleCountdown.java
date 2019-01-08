@@ -5,6 +5,8 @@ import android.widget.*;
 import android.content.*;
 import android.os.*;
 
+import java.util.Objects;
+
 class CircleCountdown {
 
     private int countdownSeconds = 5;
@@ -29,8 +31,8 @@ class CircleCountdown {
 		}
 		
 		LayoutInflater inflater = (LayoutInflater) cdv.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        @SuppressLint("InflateParams") View inflatedView = inflater.inflate(R.layout.activity_finger_chooser, null, false);
-		TextView tv = (TextView) inflatedView.findViewById(R.id.txtTimer);
+        @SuppressLint("InflateParams") View inflatedView = Objects.requireNonNull(inflater).inflate(R.layout.activity_finger_chooser, null, false);
+		TextView tv = inflatedView.findViewById(R.id.txtTimer);
 		
 		if (tv!=null) {
 			cdv.setTimerText(countdownSeconds);

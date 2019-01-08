@@ -144,3 +144,14 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 .DS_Store
+
+/.idea/caches/
+/.idea/codeStyles/
+/app/release/
+/app/google-services.json
+
+
+/.idea/assetWizardSettings.xml
+/.idea/caches/
+/.idea/codeStyles/
+
