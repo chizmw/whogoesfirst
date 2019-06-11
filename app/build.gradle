@@ -12,9 +12,9 @@ android {
     defaultConfig {
         applicationId "net.chizography.droid.whosfirst"
         minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 47
-        versionName "1.1.9"
+        targetSdkVersion 29
+        versionCode 48
+        versionName "1.1.10"
 
         vectorDrawables.useSupportLibrary = true
 
