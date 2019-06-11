@@ -33,14 +33,12 @@ android {
         }
 
         applicationVariants.all { variant ->
-            variant.outputs.each { output ->
-                def relativeRootDir = output.packageApplication.outputDirectory.toPath()
-                        .relativize(rootDir.toPath()).toFile()
-
-                def newName = "whosfirst-" + (String) variant.baseName.replace("-" + (String) variant.buildType.name, "") + "-" + (String) defaultConfig.versionName + ".apk"
-
-                //noinspection GroovyAssignabilityCheck
-                output.outputFileName = new File(relativeRootDir, newName)
+            variant.outputs.all { output ->
+                project.ext { appName = 'whosfirst' }
+                def newName = outputFileName
+                newName = newName.replace("app-", "$project.ext.appName-")
+                newName = newName.replace("-release", "-" + defaultConfig.versionName)
+                outputFileName = "${variant.name}-" + newName
             }
         }
     }
