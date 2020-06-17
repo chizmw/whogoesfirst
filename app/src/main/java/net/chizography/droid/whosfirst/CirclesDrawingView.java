@@ -113,11 +113,8 @@ public class CirclesDrawingView extends View implements OnTouchListener {
 	
 	private TextView getTextView(int id) {
 		TextView tv = ((Activity)getContext()).findViewById(id);
-		if (null == tv) {
-			return null;
-		}
 
-		return tv;
+        return tv;
 	}
 	
 	private TextView getStartHintView() {

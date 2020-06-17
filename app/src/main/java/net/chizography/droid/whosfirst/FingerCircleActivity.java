@@ -87,9 +87,9 @@ public class FingerCircleActivity extends FabricSingleton {
                 // so we can see that we triggered it
                 AppLog.d(
                     "Version changed from " +
-                        String.valueOf(lastVersion) +
+                        lastVersion +
                     " to " +
-                        String.valueOf(versionCode)       
+                        versionCode
                 );
                 
                 // try to encourage updates to ratings
